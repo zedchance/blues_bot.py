@@ -1,5 +1,5 @@
 from descriptions import version_number
-from urls import hiscore_url, wiki_url
+from urls import hiscore_url, wiki_url, ge_url, rsbuddy_url
 
 from discord.ext import commands
 
@@ -24,6 +24,24 @@ class Links(commands.Cog):
     async def wiki_command(self, ctx, *search_description):
         url_safe = '+'.join(search_description)
         await ctx.send(f'{wiki_url}{url_safe}')
+        return
+    
+    @commands.command(name='grand exchange',
+        description='Returns a URL to the official GE page for an item',
+        aliases=['ge', '-g'],
+        case_insensitive=True)
+    async def ge_command(self, ctx, *search_description):
+        url_safe = '+'.join(search_description)
+        await ctx.send(f'{ge_url}{url_safe}')
+        return
+    
+    @commands.command(name='rsbuddy',
+        description='Returns a URL to the RSBuddy page for an item',
+        aliases=['-rsb'],
+        case_insensitive=True)
+    async def rsbuddy_command(self, ctx, *search_description):
+        url_safe = '+'.join(search_description)
+        await ctx.send(f'{rsbuddy_url}{url_safe}')
         return
 
 # Cog setup
