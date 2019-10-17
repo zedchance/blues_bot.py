@@ -26,9 +26,9 @@ class Links(commands.Cog):
         await ctx.send(f'{wiki_url}{url_safe}')
         return
     
-    @commands.command(name='grand exchange',
-        description='Returns a URL to the official GE page for an item',
-        aliases=['ge', '-g'],
+    @commands.command(name='ge',
+        description='Returns a URL to the official Grand Exchange page for an item',
+        aliases=['-g'],
         case_insensitive=True)
     async def ge_command(self, ctx, *search_description):
         url_safe = '+'.join(search_description)
