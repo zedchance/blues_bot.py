@@ -1,4 +1,5 @@
 from api_key import discord_key, owner_id
+from descriptions import bot_description
 
 import discord
 from discord.ext import commands
@@ -9,11 +10,11 @@ def get_prefix(client, message):
     return commands.when_mentioned_or(*prefixes)(client, message)
 
 bot = commands.Bot(command_prefix=get_prefix,
-        description='!blue OSRS bot',
+        description=bot_description,
         owner_id=owner_id,
         case_insensitive=True)
 
-cogs = ['cogs.basic']
+cogs = ['cogs.basic', 'cogs.links']
 
 @bot.event
 async def on_ready():
