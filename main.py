@@ -13,8 +13,13 @@ bot = commands.Bot(command_prefix=get_prefix,
         owner_id=owner_id,
         case_insensitive=True)
 
+cogs = ['cogs.basic']
+
 @bot.event
 async def on_ready():
     print(f"Logged on as {bot.user.name}!")
+    for cog in cogs:
+        bot.load_extension(cog)
+    return
 
 bot.run(discord_key, bot=True, reconnect=True)
