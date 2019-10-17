@@ -1,12 +1,20 @@
+from api_key import discord_key, owner_id
+
 import discord
-from api_key import discord_key
+from discord.ext import commands
 
-class BluesCalc(discord.Client):
-    async def on_ready(self):
-        print("Logged on as {0}!".format(self.user))
-    
-    async def on_message(self, message):
-        print("Message from {0.author}: {0.content}".format(message))
+def get_prefix(client, message):
+    prefixes = ['!blue ', '!b ']
+    print("{0.author}: {0.content}".format(message))
+    return commands.when_mentioned_or(*prefixes)(client, message)
 
-client = BluesCalc()
-client.run(discord_key)
+bot = commands.Bot(command_prefix=get_prefix,
+        description='!blue OSRS bot',
+        owner_id=owner_id,
+        case_insensitive=True)
+
+@bot.event
+async def on_ready():
+    print(f"Logged on as {bot.user.name}!")
+
+bot.run(discord_key, bot=True, reconnect=True)
