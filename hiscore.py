@@ -89,6 +89,7 @@ class Hiscore:
         self.construction_rank = self.scores[23][0]
         self.construction_level = self.scores[23][1]
         self.construction_xp = self.scores[23][2]
+
         # Assign mini-game scores
         self.bounty_hunter_hunter_rank = self.scores[24][0]
         self.bounty_hunter_hunter_score = self.scores[24][1]
@@ -96,6 +97,7 @@ class Hiscore:
         self.bounty_hunter_rogue_score = self.scores[25][1]
         self.lms_rank = self.scores[26][0]
         self.lms_score = self.scores[26][1]
+
         # Assign clue scroll scores
         self.all_clues_rank = self.scores[27][0]
         self.all_clues_score = self.scores[27][1]
@@ -114,11 +116,11 @@ class Hiscore:
 
 
 # Test code
-bluetrane = Hiscore("bluetrane")
-print("Overall rank:", bluetrane.overall_rank)
-print("Overall level:", bluetrane.overall_level)
-print("Overall xp:", bluetrane.overall_xp)
-print("Slayer level:", bluetrane.slayer_level)
-print("Runecraft level:", bluetrane.runecraft_level)
-print("Medium clue scrolls", bluetrane.medium_clues_score)
-print("LMS rank:", bluetrane.lms_rank)
+# bluetrane = Hiscore("bluetrane")
+# print("Overall rank:", bluetrane.overall_rank)
+# print("Overall level:", bluetrane.overall_level)
+# print("Overall xp:", bluetrane.overall_xp)
+# print("Slayer level:", bluetrane.slayer_level)
+# print("Runecraft level:", bluetrane.runecraft_level)
+# print("Medium clue scrolls", bluetrane.medium_clues_score)
+# print("LMS rank:", bluetrane.lms_rank)
