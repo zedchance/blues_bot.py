@@ -16,7 +16,7 @@ class Links(commands.Cog):
     async def ping_command(self, ctx, *username):
         """ Links to hiscore page for a user """
         url_safe = '+'.join(username)
-        await ctx.send(f'{hiscore_url}{url_safe}')
+        await ctx.send(f'{ctx.message.author.mention}\n{hiscore_url}{url_safe}')
         return
     
     @commands.command(name='wiki',
@@ -26,7 +26,7 @@ class Links(commands.Cog):
     async def wiki_command(self, ctx, *search_description):
         """ Links to wiki page for a search """
         url_safe = '+'.join(search_description)
-        await ctx.send(f'{wiki_url}{url_safe}')
+        await ctx.send(f'{ctx.message.author.mention}\n{wiki_url}{url_safe}')
         return
     
     @commands.command(name='ge',
@@ -36,7 +36,7 @@ class Links(commands.Cog):
     async def ge_command(self, ctx, *search_description):
         """ Links to the Grand Exchange website for a search """
         url_safe = '+'.join(search_description)
-        await ctx.send(f'{ge_url}{url_safe}')
+        await ctx.send(f'{ctx.message.author.mention}\n{ge_url}{url_safe}')
         return
     
     @commands.command(name='rsbuddy',
@@ -46,7 +46,7 @@ class Links(commands.Cog):
     async def rsbuddy_command(self, ctx, *search_description):
         """ Links to the RSBuddy page of a search """
         url_safe = '+'.join(search_description)
-        await ctx.send(f'{rsbuddy_url}{url_safe}')
+        await ctx.send(f'{ctx.message.author.mention}\n{rsbuddy_url}{url_safe}')
         return
 
 # Cog setup

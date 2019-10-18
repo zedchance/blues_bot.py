@@ -14,7 +14,7 @@ class Basic(commands.Cog):
         case_insensitive=True)
     async def version_command(self, ctx):
         """ Shows bot version number """
-        await ctx.send(f'**!blue** *version {version_number}*')
+        await ctx.send(f'{ctx.message.author.mention}\n**!blue** *version {version_number}*')
         return
     
     @commands.command(name='bug',
@@ -24,7 +24,7 @@ class Basic(commands.Cog):
     async def bug_command(self, ctx, *message):
         """ Links to bug/issue page """
         msg = ' '.join(message)
-        await ctx.send(f'Please report all issues and bugs here:\nhttps://github.com/zedchance/blues_bot.py/issues')
+        await ctx.send(f'{ctx.message.author.mention}\nPlease report all issues and bugs here:\nhttps://github.com/zedchance/blues_bot.py/issues')
         return
 
 # Cog setup

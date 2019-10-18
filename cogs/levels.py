@@ -17,7 +17,7 @@ class Levels(commands.Cog):
         safe_name = ' '.join(username)
         user = Hiscore(url_safe_name)
         msg = f'{safe_name} | Overall\n'
-        await ctx.send(f'{msg}**{int(user.overall_level):,}** ({int(user.overall_xp):,} xp)')
+        await ctx.send(f'{ctx.message.author.mention}\n{msg}**{int(user.overall_level):,}** ({int(user.overall_xp):,} xp)')
         return
     
     @commands.command(name='attack',
@@ -29,7 +29,7 @@ class Levels(commands.Cog):
         safe_name = ' '.join(username)
         user = Hiscore(url_safe_name)
         msg = f'{safe_name} | Attack\n'
-        await ctx.send(f'{msg}**{int(user.attack_level):,}** ({int(user.attack_xp):,} xp)')
+        await ctx.send(f'{ctx.message.author.mention}\n{msg}**{int(user.attack_level):,}** ({int(user.attack_xp):,} xp)')
         return
     
     @commands.command(name='defence',
@@ -41,7 +41,7 @@ class Levels(commands.Cog):
         safe_name = ' '.join(username)
         user = Hiscore(url_safe_name)
         msg = f'{safe_name} | Defence\n'
-        await ctx.send(f'{msg}**{int(user.defence_level):,}** ({int(user.defence_xp):,} xp)')
+        await ctx.send(f'{ctx.message.author.mention}\n{msg}**{int(user.defence_level):,}** ({int(user.defence_xp):,} xp)')
         return
     
     @commands.command(name='strength',
@@ -53,7 +53,7 @@ class Levels(commands.Cog):
         safe_name = ' '.join(username)
         user = Hiscore(url_safe_name)
         msg = f'{safe_name} | Strength\n'
-        await ctx.send(f'{msg}**{int(user.strength_level):,}** ({int(user.strength_xp):,} xp)')
+        await ctx.send(f'{ctx.message.author.mention}\n{msg}**{int(user.strength_level):,}** ({int(user.strength_xp):,} xp)')
         return
     
     @commands.command(name='hitpoints',
@@ -65,7 +65,7 @@ class Levels(commands.Cog):
         safe_name = ' '.join(username)
         user = Hiscore(url_safe_name)
         msg = f'{safe_name} | Hitpoints\n'
-        await ctx.send(f'{msg}**{int(user.hitpoints_level):,}** ({int(user.hitpoints_xp):,} xp)')
+        await ctx.send(f'{ctx.message.author.mention}\n{msg}**{int(user.hitpoints_level):,}** ({int(user.hitpoints_xp):,} xp)')
         return
     
     @commands.command(name='ranged',
@@ -77,7 +77,7 @@ class Levels(commands.Cog):
         safe_name = ' '.join(username)
         user = Hiscore(url_safe_name)
         msg = f'{safe_name} | Ranged\n'
-        await ctx.send(f'{msg}**{int(user.ranged_level):,}** ({int(user.ranged_xp):,} xp)')
+        await ctx.send(f'{ctx.message.author.mention}\n{msg}**{int(user.ranged_level):,}** ({int(user.ranged_xp):,} xp)')
         return
     
     @commands.command(name='prayer',
@@ -89,7 +89,7 @@ class Levels(commands.Cog):
         safe_name = ' '.join(username)
         user = Hiscore(url_safe_name)
         msg = f'{safe_name} | Prayer\n'
-        await ctx.send(f'{msg}**{int(user.prayer_level):,}** ({int(user.prayer_xp):,} xp)')
+        await ctx.send(f'{ctx.message.author.mention}\n{msg}**{int(user.prayer_level):,}** ({int(user.prayer_xp):,} xp)')
         return
     
     @commands.command(name='magic',
@@ -101,7 +101,7 @@ class Levels(commands.Cog):
         safe_name = ' '.join(username)
         user = Hiscore(url_safe_name)
         msg = f'{safe_name} | Magic\n'
-        await ctx.send(f'{msg}**{int(user.magic_level):,}** ({int(user.magic_xp):,} xp)')
+        await ctx.send(f'{ctx.message.author.mention}\n{msg}**{int(user.magic_level):,}** ({int(user.magic_xp):,} xp)')
         return
     
     @commands.command(name='cooking',
@@ -113,7 +113,7 @@ class Levels(commands.Cog):
         safe_name = ' '.join(username)
         user = Hiscore(url_safe_name)
         msg = f'{safe_name} | Cooking\n'
-        await ctx.send(f'{msg}**{int(user.cooking_level):,}** ({int(user.cooking_xp):,} xp)')
+        await ctx.send(f'{ctx.message.author.mention}\n{msg}**{int(user.cooking_level):,}** ({int(user.cooking_xp):,} xp)')
         return
     
     @commands.command(name='woodcutting',
@@ -125,7 +125,7 @@ class Levels(commands.Cog):
         safe_name = ' '.join(username)
         user = Hiscore(url_safe_name)
         msg = f'{safe_name} | Defence\n'
-        await ctx.send(f'{msg}**{int(user.woodcutting_level):,}** ({int(user.woodcutting_xp):,} xp)')
+        await ctx.send(f'{ctx.message.author.mention}\n{msg}**{int(user.woodcutting_level):,}** ({int(user.woodcutting_xp):,} xp)')
         return
     
     @commands.command(name='fletching',
@@ -137,7 +137,7 @@ class Levels(commands.Cog):
         safe_name = ' '.join(username)
         user = Hiscore(url_safe_name)
         msg = f'{safe_name} | Fletching\n'
-        await ctx.send(f'{msg}**{int(user.fletching_level):,}** ({int(user.fletching_xp):,} xp)')
+        await ctx.send(f'{ctx.message.author.mention}\n{msg}**{int(user.fletching_level):,}** ({int(user.fletching_xp):,} xp)')
         return
     
     @commands.command(name='fishing',
@@ -149,7 +149,7 @@ class Levels(commands.Cog):
         safe_name = ' '.join(username)
         user = Hiscore(url_safe_name)
         msg = f'{safe_name} | Fishing\n'
-        await ctx.send(f'{msg}**{int(user.fishing_level):,}** ({int(user.fishing_xp):,} xp)')
+        await ctx.send(f'{ctx.message.author.mention}\n{msg}**{int(user.fishing_level):,}** ({int(user.fishing_xp):,} xp)')
         return
     
     @commands.command(name='firemaking',
@@ -161,7 +161,7 @@ class Levels(commands.Cog):
         safe_name = ' '.join(username)
         user = Hiscore(url_safe_name)
         msg = f'{safe_name} | Firemaking\n'
-        await ctx.send(f'{msg}**{int(user.firemaking_level):,}** ({int(user.firemaking_xp):,} xp)')
+        await ctx.send(f'{ctx.message.author.mention}\n{msg}**{int(user.firemaking_level):,}** ({int(user.firemaking_xp):,} xp)')
         return
     
     @commands.command(name='crafting',
@@ -173,7 +173,7 @@ class Levels(commands.Cog):
         safe_name = ' '.join(username)
         user = Hiscore(url_safe_name)
         msg = f'{safe_name} | Crafting\n'
-        await ctx.send(f'{msg}**{int(user.crafting_level):,}** ({int(user.crafting_xp):,} xp)')
+        await ctx.send(f'{ctx.message.author.mention}\n{msg}**{int(user.crafting_level):,}** ({int(user.crafting_xp):,} xp)')
         return
     
     @commands.command(name='smithing',
@@ -185,7 +185,7 @@ class Levels(commands.Cog):
         safe_name = ' '.join(username)
         user = Hiscore(url_safe_name)
         msg = f'{safe_name} | Smithing\n'
-        await ctx.send(f'{msg}**{int(user.smithing_level):,}** ({int(user.smithing_xp):,} xp)')
+        await ctx.send(f'{ctx.message.author.mention}\n{msg}**{int(user.smithing_level):,}** ({int(user.smithing_xp):,} xp)')
         return
     
     @commands.command(name='mining',
@@ -197,7 +197,7 @@ class Levels(commands.Cog):
         safe_name = ' '.join(username)
         user = Hiscore(url_safe_name)
         msg = f'{safe_name} | Mining\n'
-        await ctx.send(f'{msg}**{int(user.mining_level):,}** ({int(user.mining_xp):,} xp)')
+        await ctx.send(f'{ctx.message.author.mention}\n{msg}**{int(user.mining_level):,}** ({int(user.mining_xp):,} xp)')
         return
     
     @commands.command(name='herblore',
@@ -209,7 +209,7 @@ class Levels(commands.Cog):
         safe_name = ' '.join(username)
         user = Hiscore(url_safe_name)
         msg = f'{safe_name} | Herblore\n'
-        await ctx.send(f'{msg}**{int(user.herblore_level):,}** ({int(user.herblore_xp):,} xp)')
+        await ctx.send(f'{ctx.message.author.mention}\n{msg}**{int(user.herblore_level):,}** ({int(user.herblore_xp):,} xp)')
         return
     
     @commands.command(name='agility',
@@ -221,7 +221,7 @@ class Levels(commands.Cog):
         safe_name = ' '.join(username)
         user = Hiscore(url_safe_name)
         msg = f'{safe_name} | Agility\n'
-        await ctx.send(f'{msg}**{int(user.agility_level):,}** ({int(user.agility_xp):,} xp)')
+        await ctx.send(f'{ctx.message.author.mention}\n{msg}**{int(user.agility_level):,}** ({int(user.agility_xp):,} xp)')
         return
     
     @commands.command(name='thieving',
@@ -233,7 +233,7 @@ class Levels(commands.Cog):
         safe_name = ' '.join(username)
         user = Hiscore(url_safe_name)
         msg = f'{safe_name} | Thieving\n'
-        await ctx.send(f'{msg}**{int(user.thieving_level):,}** ({int(user.thieving_xp):,} xp)')
+        await ctx.send(f'{ctx.message.author.mention}\n{msg}**{int(user.thieving_level):,}** ({int(user.thieving_xp):,} xp)')
         return
     
     @commands.command(name='slayer',
@@ -245,7 +245,7 @@ class Levels(commands.Cog):
         safe_name = ' '.join(username)
         user = Hiscore(url_safe_name)
         msg = f'{safe_name} | Slayer\n'
-        await ctx.send(f'{msg}**{int(user.slayer_level):,}** ({int(user.slayer_xp):,} xp)')
+        await ctx.send(f'{ctx.message.author.mention}\n{msg}**{int(user.slayer_level):,}** ({int(user.slayer_xp):,} xp)')
         return
     
     @commands.command(name='farming',
@@ -257,7 +257,7 @@ class Levels(commands.Cog):
         safe_name = ' '.join(username)
         user = Hiscore(url_safe_name)
         msg = f'{safe_name} | Farming\n'
-        await ctx.send(f'{msg}**{int(user.farming_level):,}** ({int(user.farming_xp):,} xp)')
+        await ctx.send(f'{ctx.message.author.mention}\n{msg}**{int(user.farming_level):,}** ({int(user.farming_xp):,} xp)')
         return
     
     @commands.command(name='runecraft',
@@ -269,7 +269,7 @@ class Levels(commands.Cog):
         safe_name = ' '.join(username)
         user = Hiscore(url_safe_name)
         msg = f'{safe_name} | Runecraft\n'
-        await ctx.send(f'{msg}**{int(user.runecraft_level):,}** ({int(user.runecraft_xp):,} xp)')
+        await ctx.send(f'{ctx.message.author.mention}\n{msg}**{int(user.runecraft_level):,}** ({int(user.runecraft_xp):,} xp)')
         return
     
     @commands.command(name='hunter',
@@ -281,7 +281,7 @@ class Levels(commands.Cog):
         safe_name = ' '.join(username)
         user = Hiscore(url_safe_name)
         msg = f'{safe_name} | Defence\n'
-        await ctx.send(f'{msg}**{int(user.hunter_level):,}** ({int(user.hunter_xp):,} xp)')
+        await ctx.send(f'{ctx.message.author.mention}\n{msg}**{int(user.hunter_level):,}** ({int(user.hunter_xp):,} xp)')
         return
     
     @commands.command(name='construction',
@@ -293,7 +293,7 @@ class Levels(commands.Cog):
         safe_name = ' '.join(username)
         user = Hiscore(url_safe_name)
         msg = f'{safe_name} | Construction\n'
-        await ctx.send(f'{msg}**{int(user.construction_level):,}** ({int(user.construction_xp):,} xp)')
+        await ctx.send(f'{ctx.message.author.mention}\n{msg}**{int(user.construction_level):,}** ({int(user.construction_xp):,} xp)')
         return
 
 # Cog setup
