@@ -3,21 +3,10 @@ from hiscore import Hiscore
 from discord.ext import commands
 
 class Levels(commands.Cog):
-    """ Lookup commands """
+    """ Level commands used to pull stats from hiscore page.\n(Logout or hop to update hiscore page) """
 
     def __init__(self, bot):
         self.bot = bot
-
-    # @commands.command(name='level',
-    #     description='Pulls a stat for a specific level',
-    #     aliases=['lvl', 'levels', '-l'],
-    #     case_insensitive=True)
-    # async def level_lookup(self, ctx, level, username):
-    #     user = Hiscore(username)
-    #     msg = f'{username} | {level}\n'
-    #     if level == 'overall':
-    #         await ctx.send(f'{msg}**{user.overall_level}** ({user.overall_xp} xp)')
-    #     return
     
     @commands.command(name='overall',
         description='Pulls the overall level for a specific username',
