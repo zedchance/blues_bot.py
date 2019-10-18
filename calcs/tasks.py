@@ -13,14 +13,16 @@ class Tasks():
         self.slayer_level = int(user.slayer_level)
         self.slayer_xp = int(user.slayer_xp)
     
+    def xp_needed_to_level_up(self):
+        return level_to_xp(self.slayer_level + 1) - self.slayer_xp
+    
     def avg_xp_per_task(self):
         """ Returns average xp per task """
         return self.slayer_xp // self.tasks
     
     def tasks_to_level_up(self):
         """ Returns tasks needed to level up based on average """
-        xp_needed = level_to_xp(self.slayer_level + 1) - self.slayer_xp
-        return xp_needed // self.avg_xp_per_task()
+        return self.xp_needed_to_level_up() // self.avg_xp_per_task()
     
     def tasks_to_level_99(self):
         """ Returns approx tasks needed to reach level 99 slayer """
