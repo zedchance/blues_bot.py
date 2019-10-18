@@ -1,8 +1,8 @@
-from api_key import discord_key, owner_id
-from descriptions import bot_description
-
 import discord
 from discord.ext import commands
+
+from api_key import discord_key, owner_id
+from descriptions import bot_description
 
 def get_prefix(client, message):
     prefixes = ['!blue ', '!b ']
