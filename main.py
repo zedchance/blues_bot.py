@@ -4,6 +4,7 @@ from discord.ext import commands
 from helpers.api_key import discord_key, owner_id
 from helpers.descriptions import bot_description
 
+# TODO make bot reply on single '!blue' and not log all messages, only attempted commands
 def get_prefix(client, message):
     prefixes = ['!blue ', '!b ']
     print("{0.author}: {0.content}".format(message))

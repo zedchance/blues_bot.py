@@ -1,7 +1,7 @@
 # Slayer task calculator
 
 from helpers.hiscore import Hiscore
-from calcs.experience import xp_to_next_level, level_to_xp, LEVEL_99
+from calcs.experience import level_to_xp, LEVEL_99
 
 class Tasks():
     """ Calculates the estimated slayer tasks left to level up """
@@ -14,6 +14,7 @@ class Tasks():
         self.slayer_xp = int(user.slayer_xp)
     
     def xp_needed_to_level_up(self):
+        """ Returns xp needed to level up """
         return level_to_xp(self.slayer_level + 1) - self.slayer_xp
     
     def avg_xp_per_task(self):
