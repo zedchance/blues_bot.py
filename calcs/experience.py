@@ -1,6 +1,8 @@
 # Calculates experience
 from math import floor
 
+LEVEL_99 = 13034431
+
 def xp_to_next_level(level):
     return floor((level - 1) + 300 * (2 ** ((level - 1) / 7))) / 4
 
@@ -11,6 +13,6 @@ def level_to_xp(level):
     return xp
 
 # Test code
-# test_level = 50
+# test_level = 90
 # print("XP to level", test_level + 1, xp_to_next_level(test_level))
 # print("Total xp at level", test_level, level_to_xp(test_level))

@@ -13,9 +13,10 @@ class Links(commands.Cog):
         description='Returns a URL to a player\'s hiscore page',
         aliases=['hiscores', '-h'],
         case_insensitive=True)
-    async def ping_command(self, ctx, username):
+    async def ping_command(self, ctx, *username):
         """ Links to hiscore page for a user """
-        await ctx.send(f'{hiscore_url}{username}')
+        url_safe = '+'.join(username)
+        await ctx.send(f'{hiscore_url}{url_safe}')
         return
     
     @commands.command(name='wiki',
