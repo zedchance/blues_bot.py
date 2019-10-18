@@ -116,7 +116,7 @@ class Hiscore:
 
 
 # Test code
-bluetrane = Hiscore("bluetrane")
+# bluetrane = Hiscore("bluetrane")
 # print("Overall rank:", bluetrane.overall_rank)
 # print("Overall level:", bluetrane.overall_level)
 # print("Overall xp:", bluetrane.overall_xp)

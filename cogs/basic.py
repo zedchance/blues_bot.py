@@ -1,6 +1,6 @@
 from discord.ext import commands
 
-from descriptions import version_number
+from helpers.descriptions import version_number
 
 class Basic(commands.Cog):
     """ Basic commands """

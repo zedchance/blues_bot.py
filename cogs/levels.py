@@ -1,6 +1,6 @@
 from discord.ext import commands
 
-from hiscore import Hiscore
+from helpers.hiscore import Hiscore
 
 class Levels(commands.Cog):
     """ Level commands used to pull stats from hiscore page.\n(Logout or hop to update hiscore page) """

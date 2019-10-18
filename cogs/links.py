@@ -1,7 +1,7 @@
 from discord.ext import commands
 
-from descriptions import version_number
-from urls import hiscore_url, wiki_url, ge_url, rsbuddy_url
+from helpers.descriptions import version_number
+from helpers.urls import hiscore_url, wiki_url, ge_url, rsbuddy_url
 
 class Links(commands.Cog):
     """ Link commands to return URLs of common stuff """
