@@ -20,7 +20,9 @@ cogs = ['cogs.basic', 'cogs.links', 'cogs.levels', 'cogs.calculators']
 async def on_ready():
     print(f"Logged on as {bot.user.name}!")
     for cog in cogs:
+        print("Loading", cog)
         bot.load_extension(cog)
+    print("Cogs loaded")
     return
 
 bot.run(discord_key, bot=True, reconnect=True)
