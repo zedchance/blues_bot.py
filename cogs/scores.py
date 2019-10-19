@@ -36,7 +36,7 @@ class Scores(commands.Cog):
         aliases=[],
         case_insensitive=True)
     async def lms_lookup(self, ctx, *username):
-        """ Shows bounty hunter scores and rank """
+        """ Shows LMS scores and rank """
         url_safe_name = '+'.join(username)
         safe_name = ' '.join(username)
         user = Hiscore(url_safe_name)

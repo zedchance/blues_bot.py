@@ -85,7 +85,7 @@ This includes LMS, Bounty Hunter, and clue scrolls.
 Commands:
   bounty Shows bounty hunter scores and rank 
   clues  Shows clue scrolls for user 
-  lms    Shows bounty hunter scores and rank 
+  lms    Shows LMS scores and rank 
 ```
 
 For example `!b clues bluetrane` returns
