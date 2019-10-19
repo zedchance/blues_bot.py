@@ -14,7 +14,7 @@ class Basic(commands.Cog):
         case_insensitive=True)
     async def version_command(self, ctx):
         """ Shows bot version number """
-        await ctx.send(f'{ctx.message.author.mention}\n**!blue** *version {version_number}*')
+        await ctx.send(f'{ctx.message.author.mention}\n**!blue** *version {version_number}*\nRecent changes here:\nhttps://github.com/zedchance/blues_bot.py/commits/master')
         return
     
     @commands.command(name='bug',
