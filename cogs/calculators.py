@@ -78,7 +78,7 @@ class Calculators(commands.Cog):
         """ Rooftop agility course calculator """
         safe_username = ' '.join(username)
         user = Agility(safe_username)
-        msg = f'Rooftop agility calculator | {safe_username}\n**{user.agility_level}** Agility ({user.agility_xp:,} xp)'
+        msg = f'Rooftop agility calculator\n**{user.agility_level}** Agility ({user.agility_xp:,} xp) | {safe_username}'
         if (user.course == None):
             calc = f'You need at least level 10 agility to access Draynor rooftop course'
         else:

@@ -105,9 +105,10 @@ bluetrane | Clue scrolls
 Commonly used calculators 
 
 Commands:
-  tasks Calculates estimated slayer tasks remaining 
-  wines Calculates wines needed to level 99 
-  zeah  Blood and soul rune calculator 
+  rooftop Rooftop agility course calculator 
+  tasks   Calculates estimated slayer tasks remaining 
+  wines   Calculates wines needed to level 99 
+  zeah    Blood and soul rune calculator 
 ```
 
 For example `!b wines zezima` returns
@@ -115,6 +116,13 @@ For example `!b wines zezima` returns
 Wine calculator
 80 cooking (1,986,131 xp) | zezima
 55,241 wines needed to reach level 99 (3,945 inventories)
+```
+
+Or `!b rooftop bluetrane` returns
+```
+Rooftop agility calculator
+81 Agility (2,295,164 xp) | bluetrane
+162 laps on Rellekka to level up (125,923 xp needed)
 ```
 
 ### Links
