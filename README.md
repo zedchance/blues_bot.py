@@ -52,9 +52,6 @@ Commands:
   strength     
   thieving     
   woodcutting  
-
-Type !b help command for more info on a command.
-You can also type !b help category for more info on a category.
 ```
 
 For example `!b attack bluetrane` returns:
@@ -69,6 +66,30 @@ zezima | Overall
 1,465 (27,957,906 xp)
 ```
 
+## Scores
+`!b help Scores` shows a list of the command available
+```
+Score commands used to pull stats from hiscore page.
+This includes LMS, Bounty Hunter, and clue scrolls.
+(Logout or hop to update hiscore page) 
+
+Commands:
+  bounty Shows bounty hunter scores and rank 
+  clues  Shows clue scrolls for user 
+  lms    Shows bounty hunter scores and rank 
+```
+
+For example `!b clues bluetrane` returns
+```
+bluetrane | Clue scrolls
+368       Total clues    (Rank 42,997)
+1         Beginner clues (Rank 306,089)
+4         Easy clues     (Rank 425,770)
+350       Medium clues   (Rank 11,933)
+12        Hard clues     (Rank 305,230)
+1         Elite clues    (Rank 248,543)
+```
+
 ## Calculators
 `!b help Calcs` can be used to see all available calculators with short descriptions.
 ```
@@ -78,9 +99,6 @@ Commands:
   tasks Calculates estimated slayer tasks remaining 
   wines Calculates wines needed to level 99 
   zeah  Blood and soul rune calculator 
-
-Type !b help command for more info on a command.
-You can also type !b help category for more info on a category.
 ```
 
 For example `!b wines zezima` returns
