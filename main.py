@@ -15,7 +15,7 @@ bot = commands.Bot(command_prefix=get_prefix,
         owner_id=owner_id,
         case_insensitive=True)
 
-cogs = ['cogs.basic', 'cogs.links', 'cogs.levels', 'cogs.calculators']
+cogs = ['cogs.basic', 'cogs.links', 'cogs.levels', 'cogs.calculators', 'cogs.scores']
 
 @bot.event
 async def on_ready():
