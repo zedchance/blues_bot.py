@@ -3,6 +3,15 @@
 A Discord bot for pulling *Old School Runescape* hiscores, generating useful links, 
 and common calculators.
 
+* [Use](#use)
+* [Commands](#commands)
+  * [Help](#help)
+  * [Levels](#levels)
+  * [Scores](#scores)
+  * [Calculators](#calculators)
+  * [Links](#links)
+  * [Other commands](#other-commands)
+
 ## Use
 Each command starts with `!blue` or `!b`. Summon a list of the bots commands by typing `!blue help`.  
 `!blue help [command]` to see how to use the command  
@@ -66,7 +75,7 @@ zezima | Overall
 1,465 (27,957,906 xp)
 ```
 
-## Scores
+### Scores
 `!b help Scores` shows a list of the command available
 ```
 Score commands used to pull stats from hiscore page.
@@ -90,7 +99,7 @@ bluetrane | Clue scrolls
 1         Elite clues    (Rank 248,543)
 ```
 
-## Calculators
+### Calculators
 `!b help Calcs` can be used to see all available calculators with short descriptions.
 ```
 Commonly used calculators 
@@ -108,7 +117,7 @@ Wine calculator
 55,241 wines needed to reach level 99 (3,945 inventories)
 ```
 
-## Links
+### Links
 The bot can return useful URLs for an easy way to share/lookup a link.
 `!b help Links` shows a list of available commands.
 ```
@@ -129,7 +138,7 @@ For example `!b wiki rune plate` returns
 https://oldschool.runescape.wiki/?search=rune+plate
 ```
 
-## Other commands
+### Other commands
 `!b version` shows the current version of the bot  
 `!b bug` links to the [issue/bug](https://github.com/zedchance/blues_bot.py/issues) page
 
