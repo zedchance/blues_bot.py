@@ -1,6 +1,6 @@
 # !blue
 
-A Discord bot for pulling Old School Runescape hiscores, generating useful links, 
+A Discord bot for pulling *Old School Runescape* hiscores, generating useful links, 
 and common calculators.
 
 ## Use
@@ -13,7 +13,8 @@ Each command starts with `!blue` or `!b`. Summon a list of the bots commands by 
 `!b help`. The help command shows a list of all available commands. 
 
 You can call `!b help` with a command name after to 
-show information on how to use each command. For example: `!b help attack`  
+show information on how to use each command.  
+For example: `!b help attack`  
 ```
 Pulls the attack level for a specific username
 
