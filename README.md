@@ -4,8 +4,9 @@ A Discord bot for pulling Old School Runescape hiscores, generating useful links
 and common calculators.
 
 ## Use
-Summon a list of the bots commands by typing `!blue help`. Each command starts with `!blue` or `!b`.
-Type `!blue help [command]` to see how to use the command or `!blue help [Category]`
+Each command starts with `!blue` or `!b`. Summon a list of the bots commands by typing `!blue help`.  
+`!blue help [command]` to see how to use the command  
+`!blue help [Category]` to see a description of the category
 
 ## Commands
 ### Help
@@ -111,7 +112,7 @@ https://oldschool.runescape.wiki/?search=rune+plate
 
 ## Other commands
 `!b version` shows the current version of the bot  
-`!b bug` links to the issue/bug page
+`!b bug` links to the [issue/bug](https://github.com/zedchance/blues_bot.py/issues) page
 
 ---
 
