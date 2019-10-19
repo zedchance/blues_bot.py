@@ -71,6 +71,10 @@ class Agility():
     def laps_to_level_up(self):
         """ Returns number of laps on highest available course to level up """
         return self.xp_needed_to_level_up() // self.lap_xp + 1
+    
+    def laps_to_next_course(self):
+        """ Returns number of laps until user can access next course """
+        
 
 # Ex
 # 70 Agility (blah xp)

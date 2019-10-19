@@ -3,6 +3,7 @@ from discord.ext import commands
 from calcs.tasks import Tasks
 from calcs.wines import Wines
 from calcs.zeah import Zeah
+from calcs.agility import Agility
 
 class Calculators(commands.Cog):
     """ Commonly used calculators """
@@ -49,7 +50,7 @@ class Calculators(commands.Cog):
         """ Blood and soul rune calculator """
         safe_username = ' '.join(username)
         user = Zeah(safe_username)
-        msg = f'Zeah runecraft calculator | {safe_username}\n**{user.runecraft_level}** runecraft ({user.runecraft_xp:,} xp)'
+        msg = f'Zeah runecraft calculator | {safe_username}\n**{user.runecraft_level}** Runecraft ({user.runecraft_xp:,} xp)'
         if (user.runecraft_level < 77):
             await ctx.send(f'{ctx.message.author.mention}\n{msg}\nYou must have at least 77 runecraft for blood runes and 90 for soul runes')
         elif (user.runecraft_level < 90):
@@ -68,6 +69,21 @@ class Calculators(commands.Cog):
             else:
                 await ctx.send(f'{ctx.message.author.mention}\n{msg}\n{xp}\n{bloods_needed}\n{souls_needed}')
         return
+    
+    @commands.command(name='rooftop',
+        description='Rooftop agility course calculator',
+        aliases=[],
+        case_insensitive=True)
+    async def rooftop_command(self, ctx, *username):
+        """ Rooftop agility course calculator """
+        safe_username = ' '.join(username)
+        user = Agility(safe_username)
+        msg = f'Rooftop agility calculator | {safe_username}\n**{user.agility_level}** Agility ({user.agility_xp:,} xp)'
+        if (user.course == None):
+            calc = f'You need at least level 10 agility to access Draynor rooftop course'
+        else:
+            calc = f'{user.laps_to_level_up():,.0f} laps on {user.course} to level up ({user.xp_needed_to_level_up():,.0f} xp needed)'
+        await ctx.send(f'{ctx.message.author.mention}\n{msg}\n{calc}')
 
 # Cog setup
 def setup(bot):
