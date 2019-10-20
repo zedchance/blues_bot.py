@@ -81,9 +81,15 @@ class Calculators(commands.Cog):
         msg = f'Rooftop agility calculator\n**{user.agility_level}** Agility ({user.agility_xp:,} xp) | {safe_username}'
         if (user.course == None):
             calc = f'You need at least level 10 agility to access Draynor rooftop course'
+            next = ''
         else:
             calc = f'{user.laps_to_level_up():,.0f} laps on {user.course} to level up ({user.xp_needed_to_level_up():,.0f} xp needed)'
-        await ctx.send(f'{ctx.message.author.mention}\n{msg}\n{calc}')
+            if user.determine_course() == 'Ardougne':
+                ending = 'level 99'
+            else:
+                ending = 'next course'
+            next = f'\n{user.laps_to_next_course():,.0f} laps until {ending}'
+        await ctx.send(f'{ctx.message.author.mention}\n{msg}\n{calc}{next}')
 
 # Cog setup
 def setup(bot):

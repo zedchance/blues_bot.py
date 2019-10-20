@@ -74,7 +74,24 @@ class Agility():
     
     def laps_to_next_course(self):
         """ Returns number of laps until user can access next course """
-        
+        if self.determine_course() == 'Draynor':
+            return (level_to_xp(20) - self.agility_xp) // self.lap_xp + 1
+        elif self.determine_course() == 'Al Kharid':
+            return (level_to_xp(30) - self.agility_xp) // self.lap_xp + 1
+        elif self.determine_course() == 'Varrock':
+            return (level_to_xp(40) - self.agility_xp) // self.lap_xp + 1
+        elif self.determine_course() == 'Canifis':
+            return (level_to_xp(50) - self.agility_xp) // self.lap_xp + 1
+        elif self.determine_course() == 'Falador':
+            return (level_to_xp(60) - self.agility_xp) // self.lap_xp + 1
+        elif self.determine_course() == 'Seers':
+            return (level_to_xp(70) - self.agility_xp) // self.lap_xp + 1
+        elif self.determine_course() == 'Pollniveach':
+            return (level_to_xp(80) - self.agility_xp) // self.lap_xp + 1
+        elif self.determine_course() == 'Rellekka':
+            return (level_to_xp(90) - self.agility_xp) // self.lap_xp + 1
+        else:
+            return (level_to_xp(99) - self.agility_xp) // self.lap_xp + 1
 
 # Ex
 # 70 Agility (blah xp)

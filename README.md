@@ -76,7 +76,7 @@ zezima | Overall
 ```
 
 ### Scores
-`!b help Scores` shows a list of the command available
+`!b help Scores` shows a list of the commands available
 ```
 Score commands used to pull stats from hiscore page.
 This includes LMS, Bounty Hunter, and clue scrolls.
