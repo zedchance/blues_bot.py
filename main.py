@@ -7,7 +7,8 @@ from helpers.descriptions import bot_description
 # TODO make bot reply on single '!blue' and not log all messages, only attempted commands
 def get_prefix(client, message):
     prefixes = ['!blue ', '!b ']
-    print("{0.author}: {0.content}".format(message))
+    if message.content.startswith("!b ") or message.content.startswith("!blue "):
+        print("{0.author}: {0.content}".format(message))
     return commands.when_mentioned_or(*prefixes)(client, message)
 
 bot = commands.Bot(command_prefix=get_prefix,
