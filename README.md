@@ -123,6 +123,7 @@ Or `!b rooftop bluetrane` returns
 Rooftop agility calculator
 81 Agility (2,295,164 xp) | bluetrane
 162 laps on Rellekka to level up (125,923 xp needed)
+3,912 laps until next course
 ```
 
 ### Links
