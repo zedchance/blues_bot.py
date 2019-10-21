@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+from discord.ext.commands import has_permissions
 
 from helpers.api_key import discord_key, owner_id
 from helpers.descriptions import bot_description, version_number
@@ -7,7 +8,7 @@ from helpers.descriptions import bot_description, version_number
 def get_prefix(client, message):
     prefixes = ['!blue ', '!b ']
     if message.content.startswith("!b ") or message.content.startswith("!blue "):
-        print("{0.author}: {0.content}".format(message))
+        print(f'{message.channel} - {message.author}: {message.content}')
     return commands.when_mentioned_or(*prefixes)(client, message)
 
 bot = commands.Bot(command_prefix=get_prefix,
@@ -26,8 +27,16 @@ async def on_ready():
     print("Cogs loaded")
     return
 
-# @bot.event
-# async def on_command_error(ctx, error):
+@bot.event
+async def on_command_error(ctx, error):
+    """ Simply replies with error message, shows error message if I make an error """
+    msg = f'Something went wrong.\nUse `!b bug` to report issues'
+    print(error)
+    if ctx.author.id == owner_id:
+        await ctx.send(f'{error}')
+    else:
+        await ctx.send(f'{msg}\nPinging <@{owner_id}>')
+    return
 
 @bot.command(name='reload',
     description='Reloads bot',
@@ -36,6 +45,8 @@ async def on_ready():
     case_insensitive=True)
 async def reload(ctx):
     """ Reloads cogs while bot is still online """
+    if ctx.author.id != owner_id:
+        return
     for cog in cogs:
         bot.unload_extension(cog)
     for cog in cogs:
