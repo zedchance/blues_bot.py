@@ -32,14 +32,14 @@ async def on_ready():
 @bot.event
 async def on_command_error(ctx, error):
     """ Simply replies with error message, shows error message if I make an error """
-    msg = f'{wrong_message}\nUse `!b bug` if you continue to have issues\nOwner has been notified of error.'
+    msg = f'{wrong_message}\nTo see all commands type `!b help`\nUse `!b bug` if you continue to have issues\nOwner has been notified of error.'
     print(error)
     if ctx.author.id == owner_id:
-        await ctx.send(f'{error}')
+        await ctx.send(f'```{error}```')
     else:
         await ctx.send(msg)
         admin = bot.get_user(owner_id)
-        await admin.send(f'{ctx.guild}/{ctx.channel} - {ctx.author}:\n\"{ctx.message.content}\"\n```{error}```')
+        await admin.send(f'{ctx.guild}/{ctx.channel} - {ctx.author}:\n\"{ctx.message.content}\"\n```{error}```\n')
     return
 
 @bot.command(name='reload',
