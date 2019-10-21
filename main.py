@@ -3,7 +3,7 @@ from discord.ext import commands
 from discord.ext.commands import has_permissions
 
 from helpers.api_key import discord_key, owner_id
-from helpers.descriptions import bot_description, version_number
+from helpers.descriptions import bot_description, version_number, wrong_message
 
 def get_prefix(client, message):
     prefixes = ['!blue ', '!b ']
@@ -32,12 +32,14 @@ async def on_ready():
 @bot.event
 async def on_command_error(ctx, error):
     """ Simply replies with error message, shows error message if I make an error """
-    msg = f'Something went wrong.\nUse `!b bug` to report issues'
+    msg = f'{wrong_message}\nUse `!b bug` if you continue to have issues\nOwner has been notified of error.'
     print(error)
     if ctx.author.id == owner_id:
         await ctx.send(f'{error}')
     else:
-        await ctx.send(f'{msg}\nPinging <@{owner_id}>')
+        await ctx.send(msg)
+        admin = bot.get_user(owner_id)
+        await admin.send(f'{ctx.guild}/{ctx.channel} - {ctx.author}:\n\"{ctx.message.content}\"\n```{error}```')
     return
 
 @bot.command(name='reload',
@@ -67,13 +69,18 @@ async def version_command(ctx):
     return
     
 @bot.command(name='bug',
-    description='Provides a link to the bug/issue page',
+    description='Submits a bug report to the admin of the bot',
     aliases=['issue'],
     case_insensitive=True)
 async def bug_command(ctx, *message):
-    """ Links to bug/issue page """
+    """ Use to submit bugs/issues """
     msg = ' '.join(message)
-    await ctx.send(f'Pinging <@{owner_id}>\n\"{msg}\"\nPlease report all issues and bugs here:\nhttps://github.com/zedchance/blues_bot.py/issues\n')
+    if msg == '':
+        await ctx.send(f'{ctx.message.author.mention} please enter a message after `!b bug`')
+    else:
+        admin = bot.get_user(owner_id)
+        await ctx.send(f'{ctx.message.author.mention}\nYour bug has been filed\n\"{msg}\"\nIf you continue to have problems please report all issues and bugs here:\nhttps://github.com/zedchance/blues_bot.py/issues')
+        await admin.send(f'Bug report from {ctx.author}\n\"{msg}\"')
     return
 
 bot.run(discord_key, bot=True, reconnect=True)
