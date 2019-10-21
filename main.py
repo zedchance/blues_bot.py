@@ -70,6 +70,7 @@ async def version_command(ctx):
 @bot.command(name='bug',
     description='Submits a bug report to the admin of the bot',
     aliases=['issue'],
+    hidden=True,
     case_insensitive=True)
 async def bug_command(ctx, *message):
     """ Use to submit bugs/issues """
