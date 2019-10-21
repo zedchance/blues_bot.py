@@ -1,7 +1,7 @@
 # Zeah runecrafting calculator (bloods and souls)
 
 from helpers.hiscore import Hiscore
-from calcs.experience import level_to_xp, LEVEL_99
+from calcs.experience import xp_to_next_level, level_to_xp, xp_to_level, LEVEL_99
 
 # TODO Make sure to account for new bonus with kourend elites done
 VENERATE = 2.5 / 4.0
@@ -20,7 +20,10 @@ class Zeah():
     
     def xp_needed_to_level_up(self):
         """ Returns xp needed to level up """
-        return level_to_xp(self.runecraft_level + 1) - self.runecraft_xp
+        if self.runecraft_xp == 200000000:
+            return 0
+        virtual_level = xp_to_level(self.runecraft_xp)
+        return level_to_xp(virtual_level + 1) - self.runecraft_xp
     
     def bloods_to_level_up(self):
         """ Returns number of blood runes needed to level up """

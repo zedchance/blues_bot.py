@@ -46,7 +46,7 @@ def next_level_string(xp, skill):
 # print("XP to level", test_level + 1, xp_to_next_level(test_level))
 # print("Total xp at level", test_level, level_to_xp(test_level))
 
-# test_xp = 40500
+# test_xp = 14000000
 # print(next_level_string(test_xp, "Attack"))
-
-# print("XP to level", xp_to_level(200000001))
+# print("Level to XP", level_to_xp(101))
+# print("XP to level", xp_to_level(16000000))

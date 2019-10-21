@@ -1,5 +1,6 @@
 from discord.ext import commands
 
+from calcs.experience import next_level_string
 from calcs.tasks import Tasks
 from calcs.wines import Wines
 from calcs.zeah import Zeah
@@ -51,20 +52,19 @@ class Calculators(commands.Cog):
         safe_username = ' '.join(username)
         user = Zeah(safe_username)
         msg = f'Zeah runecraft calculator | {safe_username}\n**{user.runecraft_level}** Runecraft ({user.runecraft_xp:,} xp)'
+        xp = f'{next_level_string(user.runecraft_xp, "runecraft")}'
         if (user.runecraft_level < 77):
             await ctx.send(f'{ctx.message.author.mention}\n{msg}\nYou must have at least 77 runecraft for blood runes and 90 for soul runes')
         elif (user.runecraft_level < 90):
-            xp = f'{user.xp_needed_to_level_up():,} xp to level {user.runecraft_level + 1}'
-            bloods_needed = f'{user.bloods_to_level_up() + 1:,.0f} bloods to level up (~ {user.blood_trips_to_level_up() + 1:,.0f} trips)'
-            bloods_to_99 = f'{user.bloods_to_level_99() + 1:,.0f} bloods to level 99 (~ {user.blood_trips_to_level_99() + 1:,.0f} trips)'
+            bloods_needed = f'{user.bloods_to_level_up() + 1:,.0f} bloods to level up ({user.blood_trips_to_level_up() + 1:,.0f} trips)'
+            bloods_to_99 = f'{user.bloods_to_level_99() + 1:,.0f} bloods to level 99 ({user.blood_trips_to_level_99() + 1:,.0f} trips)'
             await ctx.send(f'{ctx.message.author.mention}\n{msg}\n{xp}\n{bloods_needed}\n{bloods_to_99}')
         else:
-            xp = f'{user.xp_needed_to_level_up():,} xp to level {user.runecraft_level + 1}'
-            bloods_needed = f'{user.bloods_to_level_up() + 1:,.0f} bloods to level up (~ {user.blood_trips_to_level_up() + 1:,.0f} trips)'
-            souls_needed = f'{user.souls_to_level_up() + 1:,.0f} souls to level up (~ {user.soul_trips_to_level_up() + 1:,.0f} trips)'
+            bloods_needed = f'{user.bloods_to_level_up() + 1:,.0f} bloods to level up ({user.blood_trips_to_level_up() + 1:,.0f} trips)'
+            souls_needed = f'{user.souls_to_level_up() + 1:,.0f} souls to level up ({user.soul_trips_to_level_up() + 1:,.0f} trips)'
             if (user.runecraft_level < 99):
-                bloods_to_99 = f'{user.bloods_to_level_99() + 1:,.0f} bloods to level 99 (~ {user.blood_trips_to_level_99() + 1:,.0f} trips)'
-                souls_to_99 = f'{user.souls_to_level_99() + 1:,.0f} souls to level 99 (~ {user.soul_trips_to_level_99() + 1:,.0f} trips)'
+                bloods_to_99 = f'{user.bloods_to_level_99() + 1:,.0f} bloods to level 99 ({user.blood_trips_to_level_99() + 1:,.0f} trips)'
+                souls_to_99 = f'{user.souls_to_level_99() + 1:,.0f} souls to level 99 ({user.soul_trips_to_level_99() + 1:,.0f} trips)'
                 await ctx.send(f'{ctx.message.author.mention}\n{msg}\n{xp}\n{bloods_needed}\n{bloods_to_99}\n{souls_needed}\n{souls_to_99}')
             else:
                 await ctx.send(f'{ctx.message.author.mention}\n{msg}\n{xp}\n{bloods_needed}\n{souls_needed}')
