@@ -4,7 +4,6 @@ from discord.ext import commands
 from helpers.api_key import discord_key, owner_id
 from helpers.descriptions import bot_description
 
-# TODO make bot reply on single '!blue' and not log all messages, only attempted commands
 def get_prefix(client, message):
     prefixes = ['!blue ', '!b ']
     if message.content.startswith("!b ") or message.content.startswith("!blue "):
@@ -26,5 +25,9 @@ async def on_ready():
         bot.load_extension(cog)
     print("Cogs loaded")
     return
+
+# @bot.event
+# async def on_command_error(ctx, error):
+
 
 bot.run(discord_key, bot=True, reconnect=True)
