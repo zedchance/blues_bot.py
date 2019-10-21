@@ -73,7 +73,7 @@ async def version_command(ctx):
 async def bug_command(ctx, *message):
     """ Links to bug/issue page """
     msg = ' '.join(message)
-    await ctx.send(f'{ctx.message.author.mention}\nPlease report all issues and bugs here:\nhttps://github.com/zedchance/blues_bot.py/issues')
+    await ctx.send(f'Pinging <@{owner_id}>\n\"{msg}\"\nPlease report all issues and bugs here:\nhttps://github.com/zedchance/blues_bot.py/issues\n')
     return
 
 bot.run(discord_key, bot=True, reconnect=True)
