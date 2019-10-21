@@ -25,6 +25,8 @@ async def on_ready():
         print("Loading", cog)
         bot.load_extension(cog)
     print("Cogs loaded")
+    status = discord.Game(name='!b help to show commands')
+    await bot.change_presence(activity=status)
     return
 
 @bot.event
