@@ -53,7 +53,6 @@ async def reload(ctx):
         return
     for cog in cogs:
         bot.unload_extension(cog)
-    for cog in cogs:
         print("Reloading", cog)
         bot.load_extension(cog)
     await ctx.send("Cogs reloaded")
