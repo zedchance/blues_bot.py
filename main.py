@@ -39,7 +39,10 @@ async def on_command_error(ctx, error):
     else:
         await ctx.send(msg)
         admin = bot.get_user(owner_id)
-        await admin.send(f'{ctx.guild}/{ctx.channel} - {ctx.author}:\n\"{ctx.message.content}\"\n```{error}```\n')
+        embed = discord.Embed(description=f'{ctx.guild}/{ctx.channel} - {ctx.author}')
+        embed.add_field(name="User input", value=f'{ctx.message.content}', inline=False)
+        embed.add_field(name="Error message", value=f'```{error}```', inline=False)
+        await admin.send(embed=embed)
     return
 
 @bot.command(name='reload',

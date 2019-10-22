@@ -64,7 +64,6 @@ class Scores(commands.Cog):
             user = Hiscore(url_safe_name)
             embed = discord.Embed(title="Clue Scrolls", description=f'{safe_name}')
             embed.set_thumbnail(url=clue_icon)
-
             if user.all_clues_rank == '-1':
                 embed.add_field(name="Nothing found", value="You haven't solved any clue scrolls", inline=True)
             else:
