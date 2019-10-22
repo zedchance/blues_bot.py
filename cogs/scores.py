@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 
 from helpers.hiscore import Hiscore
+from helpers.urls import clue_icon
 
 class Scores(commands.Cog):
     """ Score commands used to pull stats from hiscore page.
@@ -62,6 +63,8 @@ class Scores(commands.Cog):
             safe_name = ' '.join(username)
             user = Hiscore(url_safe_name)
             embed = discord.Embed(title="Clue Scrolls", description=f'{safe_name}')
+            embed.set_thumbnail(url=clue_icon)
+
             if user.all_clues_rank == '-1':
                 embed.add_field(name="Nothing found", value="You haven't solved any clue scrolls", inline=True)
             else:
