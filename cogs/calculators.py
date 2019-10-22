@@ -1,3 +1,4 @@
+import discord
 from discord.ext import commands
 
 from calcs.experience import next_level_string
@@ -22,12 +23,13 @@ class Calculators(commands.Cog):
         async with ctx.typing():
             safe_username = ' '.join(username)
             user = Tasks(safe_username, num_of_tasks)
-            msg = f'Slayer calculator\n**{user.slayer_level}** slayer ({user.slayer_xp:,} xp) | {safe_username}'
-            avg = f'{user.avg_xp_per_task():,} average xp per task'
-            to_level_up = f'{user.tasks_to_level_up()} tasks to level up ({user.xp_needed_to_level_up():,} xp)'
-            to_level_99 = f'{user.tasks_to_level_99()} tasks to level 99'
-            last_task = f'{user.estimated_total_tasks()} estimated total tasks'
-            await ctx.send(f'{ctx.message.author.mention}\n{msg}\n{avg}\n{to_level_up}\n{to_level_99}\n{last_task}')
+            embed = discord.Embed(title="Slayer Task Calculator", description=f'{user.slayer_level} slayer ({user.slayer_xp:,} xp) | {safe_username}', color=0x07abff)
+            embed.add_field(name="Average XP per task", value=f'{user.avg_xp_per_task():,}', inline=True)
+            embed.add_field(name="Tasks needed to level up", value=f'{user.tasks_to_level_up()} ({user.xp_needed_to_level_up():,} xp)', inline=True)
+            embed.add_field(name="Tasks to level 99", value=f'{user.tasks_to_level_99()}', inline=True)
+            embed.add_field(name="Estimated total tasks", value=f'{user.estimated_total_tasks()}', inline=True)
+            embed.set_footer(text="This calculator is more accurate at higher slayer levels")
+            await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
 
     @commands.command(name='wines',
