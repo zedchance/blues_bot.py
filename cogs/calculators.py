@@ -63,7 +63,7 @@ class Calculators(commands.Cog):
             user = Zeah(safe_username)
             embed = discord.Embed(title="Zeah runecrafting calculator", description=f'**{user.runecraft_level}** Runecraft ({user.runecraft_xp:,} xp) | {safe_username}')
             embed.set_thumbnail(url=get_icon_url("runecraft"))
-            embed.add_field(name="XP to next level", value=f'{next_level_string(user.runecraft_xp, "runecraft")}', inline=True)
+            embed.set_footer(text=f'{next_level_string(user.runecraft_xp, "runecraft")}')
             if (user.runecraft_level < 77):
                 embed.add_field(name="Level too low", value="You need a runecraft level of at least 77 to make blood runes", inline=True)
             elif (user.runecraft_level < 90):
