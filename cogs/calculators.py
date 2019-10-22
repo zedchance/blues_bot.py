@@ -46,8 +46,12 @@ class Calculators(commands.Cog):
             user = Wines(safe_username)
             embed = discord.Embed(title="Wine cooking calculator", description=f'**{user.cooking_level}** cooking ({user.cooking_xp:,} xp) | {safe_username}')
             embed.set_thumbnail(url=get_icon_url("cooking"))
-            embed.add_field(name="Wines to reach level 99", value=f'{user.wines_to_level_99():,}', inline=True)
-            embed.add_field(name="Inventories", value=f'{user.invs_to_level_99():,}', inline=True)
+            if (user.cooking_level < 99):
+                embed.add_field(name="Wines to reach level 99", value=f'{user.wines_to_level_99():,}', inline=True)
+                embed.add_field(name="Inventories", value=f'{user.invs_to_level_99():,}', inline=True)
+            else:
+                embed.add_field(name="Wines to reach 200m xp", value=f'{user.wines_to_200m():,}', inline=True)
+                embed.add_field(name="Inventories", value=f'{user.invs_to_200m():,}', inline=True)
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
     
