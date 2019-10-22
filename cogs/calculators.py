@@ -23,7 +23,7 @@ class Calculators(commands.Cog):
         async with ctx.typing():
             safe_username = ' '.join(username)
             user = Tasks(safe_username, num_of_tasks)
-            embed = discord.Embed(title="Slayer Task Calculator", description=f'{user.slayer_level} slayer ({user.slayer_xp:,} xp) | {safe_username}')
+            embed = discord.Embed(title="Slayer Task Calculator", description=f'**{user.slayer_level}** slayer ({user.slayer_xp:,} xp) | {safe_username}')
             embed.add_field(name="Average XP per task", value=f'{user.avg_xp_per_task():,}', inline=True)
             embed.add_field(name="Tasks needed to level up", value=f'{user.tasks_to_level_up()} ({user.xp_needed_to_level_up():,} xp)', inline=True)
             embed.add_field(name="Tasks to level 99", value=f'{user.tasks_to_level_99()}', inline=True)
@@ -41,7 +41,7 @@ class Calculators(commands.Cog):
         async with ctx.typing():
             safe_username = ' '.join(username)
             user = Wines(safe_username)
-            embed = discord.Embed(title="Wine cooking calculator", description=f'{user.cooking_level} cooking ({user.cooking_xp:,} xp) | {safe_username}')
+            embed = discord.Embed(title="Wine cooking calculator", description=f'**{user.cooking_level}** cooking ({user.cooking_xp:,} xp) | {safe_username}')
             embed.add_field(name="Wines to reach level 99", value=f'{user.wines_to_level_99():,}', inline=True)
             embed.add_field(name="Inventories", value=f'{user.invs_to_level_99():,}', inline=True)
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
@@ -57,7 +57,7 @@ class Calculators(commands.Cog):
         async with ctx.typing():
             safe_username = ' '.join(username)
             user = Zeah(safe_username)
-            embed = discord.Embed(title="Zeah runecrafting calculator", description=f'{user.runecraft_level} Runecraft ({user.runecraft_xp:,} xp) | {safe_username}')
+            embed = discord.Embed(title="Zeah runecrafting calculator", description=f'**{user.runecraft_level}** Runecraft ({user.runecraft_xp:,} xp) | {safe_username}')
             embed.add_field(name="XP to next level", value=f'{next_level_string(user.runecraft_xp, "runecraft")}', inline=True)
             if (user.runecraft_level < 77):
                 embed.add_field(name="Level too low", value="You need a runecraft level of at least 77 to make blood runes", inline=True)
@@ -88,18 +88,18 @@ class Calculators(commands.Cog):
         async with ctx.typing():
             safe_username = ' '.join(username)
             user = Agility(safe_username)
-            msg = f'Rooftop agility calculator\n**{user.agility_level}** Agility ({user.agility_xp:,} xp) | {safe_username}'
+            embed = discord.Embed(title="Rooftop agility calculator", description=f'**{user.agility_level}** Agility ({user.agility_xp:,} xp) | {safe_username}')
             if (user.course == None):
-                calc = f'You need at least level 10 agility to access Draynor rooftop course'
-                next = ''
+                embed.add_field(name="Level too low", value="You need at least 10 agility to use the Draynor rooftop course", inline=False)
             else:
-                calc = f'{user.laps_to_level_up():,.0f} laps on {user.course} to level up ({user.xp_needed_to_level_up():,.0f} xp needed)'
                 if user.determine_course() == 'Ardougne':
                     ending = 'level 99'
                 else:
                     ending = 'next course'
-                next = f'\n{user.laps_to_next_course():,.0f} laps until {ending}'
-            await ctx.send(f'{ctx.message.author.mention}\n{msg}\n{calc}{next}')
+                embed.add_field(name="XP needed to level up", value=f'{user.xp_needed_to_level_up():,.0f}', inline=True)
+                embed.add_field(name=f'Laps to level up', value=f'{user.laps_to_level_up():,.0f} on {user.course}', inline=True)
+                embed.add_field(name=f'Laps until next {ending}', value=f'{user.laps_to_next_course():,.0f}', inline=True)
+            await ctx.send(f'{ctx.message.author.mention}', embed=embed)
 
 # Cog setup
 def setup(bot):
