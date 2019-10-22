@@ -57,23 +57,26 @@ class Calculators(commands.Cog):
         async with ctx.typing():
             safe_username = ' '.join(username)
             user = Zeah(safe_username)
-            msg = f'Zeah runecraft calculator | {safe_username}\n**{user.runecraft_level}** Runecraft ({user.runecraft_xp:,} xp)'
-            xp = f'{next_level_string(user.runecraft_xp, "runecraft")}'
+            embed = discord.Embed(title="Zeah runecrafting calculator", description=f'{user.runecraft_level} Runecraft ({user.runecraft_xp:,} xp) | {safe_username}')
+            embed.add_field(name="XP to next level", value=f'{next_level_string(user.runecraft_xp, "runecraft")}', inline=True)
             if (user.runecraft_level < 77):
-                await ctx.send(f'{ctx.message.author.mention}\n{msg}\nYou must have at least 77 runecraft for blood runes and 90 for soul runes')
+                embed.add_field(name="Level too low", value="You need a runecraft level of at least 77 to make blood runes", inline=True)
             elif (user.runecraft_level < 90):
-                bloods_needed = f'{user.bloods_to_level_up() + 1:,.0f} bloods to level up ({user.blood_trips_to_level_up() + 1:,.0f} trips)'
-                bloods_to_99 = f'{user.bloods_to_level_99() + 1:,.0f} bloods to level 99 ({user.blood_trips_to_level_99() + 1:,.0f} trips)'
-                await ctx.send(f'{ctx.message.author.mention}\n{msg}\n{xp}\n{bloods_needed}\n{bloods_to_99}')
+                embed.add_field(name="Bloods to level up", value=f'{user.bloods_to_level_up() + 1:,.0f}', inline=True)
+                embed.add_field(name="Blood trips", value=f'{user.blood_trips_to_level_up() + 1:,.0f}', inline=True)
+                embed.add_field(name="Bloods to level 99", value=f'{user.bloods_to_level_99() + 1:,.0f}', inline=True)
+                embed.add_field(name="Blood trips to 99", value=f'{user.blood_trips_to_level_99() + 1:,.0f}', inline=True)
             else:
-                bloods_needed = f'{user.bloods_to_level_up() + 1:,.0f} bloods to level up ({user.blood_trips_to_level_up() + 1:,.0f} trips)'
-                souls_needed = f'{user.souls_to_level_up() + 1:,.0f} souls to level up ({user.soul_trips_to_level_up() + 1:,.0f} trips)'
+                embed.add_field(name="Bloods to level up", value=f'{user.bloods_to_level_up() + 1:,.0f}', inline=True)
+                embed.add_field(name="Blood trips", value=f'{user.blood_trips_to_level_up() + 1:,.0f}', inline=True)
+                embed.add_field(name="Souls to level up", value=f'{user.souls_to_level_up() + 1:,.0f}', inline=True)
+                embed.add_field(name="Soul trips", value=f'{user.soul_trips_to_level_up() + 1:,.0f}', inline=True)
                 if (user.runecraft_level < 99):
-                    bloods_to_99 = f'{user.bloods_to_level_99() + 1:,.0f} bloods to level 99 ({user.blood_trips_to_level_99() + 1:,.0f} trips)'
-                    souls_to_99 = f'{user.souls_to_level_99() + 1:,.0f} souls to level 99 ({user.soul_trips_to_level_99() + 1:,.0f} trips)'
-                    await ctx.send(f'{ctx.message.author.mention}\n{msg}\n{xp}\n{bloods_needed}\n{bloods_to_99}\n{souls_needed}\n{souls_to_99}')
-                else:
-                    await ctx.send(f'{ctx.message.author.mention}\n{msg}\n{xp}\n{bloods_needed}\n{souls_needed}')
+                    embed.add_field(name="Bloods to level 99", value=f'{user.bloods_to_level_99() + 1:,.0f}', inline=True)
+                    embed.add_field(name="Blood trips to 99", value=f'{user.blood_trips_to_level_99() + 1:,.0f}', inline=True)
+                    embed.add_field(name="Souls to level 99", value=f'{user.souls_to_level_99() + 1:,.0f}', inline=True)
+                    embed.add_field(name="Soul trips to 99", value=f'{user.soul_trips_to_level_99() + 1:,.0f}', inline=True)
+            await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
     
     @commands.command(name='rooftop',
