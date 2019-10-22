@@ -23,7 +23,7 @@ class Calculators(commands.Cog):
         async with ctx.typing():
             safe_username = ' '.join(username)
             user = Tasks(safe_username, num_of_tasks)
-            embed = discord.Embed(title="Slayer Task Calculator", description=f'{user.slayer_level} slayer ({user.slayer_xp:,} xp) | {safe_username}', color=0x07abff)
+            embed = discord.Embed(title="Slayer Task Calculator", description=f'{user.slayer_level} slayer ({user.slayer_xp:,} xp) | {safe_username}')
             embed.add_field(name="Average XP per task", value=f'{user.avg_xp_per_task():,}', inline=True)
             embed.add_field(name="Tasks needed to level up", value=f'{user.tasks_to_level_up()} ({user.xp_needed_to_level_up():,} xp)', inline=True)
             embed.add_field(name="Tasks to level 99", value=f'{user.tasks_to_level_99()}', inline=True)
@@ -41,9 +41,10 @@ class Calculators(commands.Cog):
         async with ctx.typing():
             safe_username = ' '.join(username)
             user = Wines(safe_username)
-            msg = f'Wine calculator\n**{user.cooking_level}** cooking ({user.cooking_xp:,} xp) | {safe_username}'
-            remaining = f'{user.wines_to_level_99():,} wines needed to reach level 99 ({user.invs_to_level_99():,} inventories)'
-            await ctx.send(f'{ctx.message.author.mention}\n{msg}\n{remaining}')
+            embed = discord.Embed(title="Wine cooking calculator", description=f'{user.cooking_level} cooking ({user.cooking_xp:,} xp) | {safe_username}')
+            embed.add_field(name="Wines to reach level 99", value=f'{user.wines_to_level_99():,}', inline=True)
+            embed.add_field(name="Inventories", value=f'{user.invs_to_level_99():,}', inline=True)
+            await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
     
     # TODO Make this work with virtual levels
