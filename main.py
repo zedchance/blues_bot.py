@@ -39,7 +39,8 @@ async def on_command_error(ctx, error):
     else:
         await ctx.send(msg)
         admin = bot.get_user(owner_id)
-        embed = discord.Embed(description=f'{ctx.guild}/{ctx.channel} - {ctx.author}')
+        embed = discord.Embed()
+        embed.add_field(name="Location", value=f'{ctx.guild}/{ctx.channel.mention} - {ctx.author}')
         embed.add_field(name="User input", value=f'{ctx.message.content}', inline=False)
         embed.add_field(name="Error message", value=f'```{error}```', inline=False)
         await admin.send(embed=embed)
@@ -67,7 +68,10 @@ async def reload(ctx):
     case_insensitive=True)
 async def version_command(ctx):
     """ Shows bot version number """
-    await ctx.send(f'{ctx.message.author.mention}\n**!blue** *version {version_number}*\nRecent changes here:\nhttps://github.com/zedchance/blues_bot.py/commits/master')
+    embed = discord.Embed(title="!blue", description="Old School Runescape bot written in Python")
+    embed.add_field(name="Version Number", value=f'*{version_number}*')
+    embed.add_field(name="Recent changes", value=f'https://github.com/zedchance/blues_bot.py/commits/master')
+    await ctx.send(f'{ctx.message.author.mention}', embed=embed)
     return
     
 @bot.command(name='bug',
