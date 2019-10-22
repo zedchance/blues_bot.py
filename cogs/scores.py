@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 
 from helpers.hiscore import Hiscore
-from helpers.urls import clue_icon
+from helpers.urls import clue_icon, bounty_icon, lms_icon
 
 class Scores(commands.Cog):
     """ Score commands used to pull stats from hiscore page.
@@ -22,16 +22,17 @@ class Scores(commands.Cog):
             url_safe_name = '+'.join(username)
             safe_name = ' '.join(username)
             user = Hiscore(url_safe_name)
-            msg = f'{safe_name} | Bounty Hunter scores'
+            embed = discord.Embed(title="Bounty Hunter", description=f'{safe_name}')
+            embed.set_thumbnail(url=bounty_icon)
             if user.bounty_hunter_hunter_score == '-1':
-                hunter = f'\nYou have never played as hunter'
+                embed.add_field(name="Hunter", value="You have never played as Hunter", inline=False)
             else:
-                hunter = f'\n**{int(user.bounty_hunter_hunter_score):,}** Hunter score (Rank {int(user.bounty_hunter_hunter_rank):,})'
+                embed.add_field(name="Hunter", value=f'**{int(user.bounty_hunter_hunter_score):,}** score (Rank {int(user.bounty_hunter_hunter_rank):,})', inline=False)
             if user.bounty_hunter_rogue_rank == '-1':
-                rogue = f'\nYou have never played as rogue'
+                embed.add_field(name="Rogue", value="You have never played as Rogue", inline=False)
             else:
-                rogue = f'\n**{int(user.bounty_hunter_rogue_score):,}** Rogue score (Rank {int(user.bounty_hunter_rogue_rank):,})'
-            await ctx.send(f'{ctx.message.author.mention}\n{msg}{hunter}{rogue}')
+                embed.add_field(name="Rogue", value=f'**{int(user.bounty_hunter_rogue_score):,}** score (Rank {int(user.bounty_hunter_rogue_rank):,})', inline=False)
+            await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
     
     @commands.command(name='lms',
@@ -44,12 +45,13 @@ class Scores(commands.Cog):
             url_safe_name = '+'.join(username)
             safe_name = ' '.join(username)
             user = Hiscore(url_safe_name)
-            msg = f'{safe_name} | Last Man Standing scores'
+            embed = discord.Embed(title="Last Man Standing", description=f'{safe_name}')
+            embed.set_thumbnail(url=lms_icon)
             if user.lms_score == '-1':
-                lms = f'\nYou have never played LMS'
+                embed.add_field(name="Score", value="You have never played LMS")
             else:
-                lms = f'\n**{int(user.lms_score):,}** score (Rank {int(user.lms_rank):,})'
-            await ctx.send(f'{ctx.message.author.mention}\n{msg}{lms}')
+                embed.add_field(name="Score", value=f'**{int(user.lms_score):,}** score (Rank {int(user.lms_rank):,})', inline=False)
+            await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
     
     @commands.command(name='clues',
@@ -75,9 +77,9 @@ class Scores(commands.Cog):
             if user.medium_clues_rank != '-1':
                 embed.add_field(name="Medium clues", value=f'**{int(user.medium_clues_score):,}** (Rank {int(user.medium_clues_rank):,})', inline=True)
             if user.hard_clues_rank != '-1':
-               embed.add_field(name="Hard clues", value=f'**{int(user.hard_clues_score):,}** (Rank {int(user.hard_clues_rank):,})', inline=True)
+                embed.add_field(name="Hard clues", value=f'**{int(user.hard_clues_score):,}** (Rank {int(user.hard_clues_rank):,})', inline=True)
             if user.elite_clues_rank != '-1':
-               embed.add_field(name="Elite clues", value=f'**{int(user.elite_clues_score):,}** (Rank {int(user.elite_clues_rank):,})', inline=True)
+                embed.add_field(name="Elite clues", value=f'**{int(user.elite_clues_score):,}** (Rank {int(user.elite_clues_rank):,})', inline=True)
             if user.master_clues_rank != '-1':
                 embed.add_field(name="Master clues", value=f'**{int(user.master_clues_score):,}** (Rank {int(user.master_clues_rank):,})', inline=True)
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)

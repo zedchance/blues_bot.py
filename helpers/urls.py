@@ -13,3 +13,5 @@ def get_icon_url(skill):
     return f'https://www.runescape.com/img/rsp777/hiscores/skill_icon_{skill}1.gif'
 
 clue_icon = 'https://www.runescape.com/img/rsp777/game_icon_cluescrollsall.png'
+bounty_icon = 'https://www.runescape.com/img/rsp777/game_icon_bountyhunterrogue.png'
+lms_icon = 'https://www.runescape.com/img/rsp777/game_icon_lmsrank.png'
