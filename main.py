@@ -16,7 +16,8 @@ bot = commands.Bot(command_prefix=get_prefix,
         owner_id=owner_id,
         case_insensitive=True)
 
-cogs = ['cogs.links', 'cogs.levels', 'cogs.calculators', 'cogs.scores']
+bot.remove_command('help')
+cogs = ['cogs.links', 'cogs.levels', 'cogs.calculators', 'cogs.scores', 'cogs.embed_help.help']
 
 @bot.event
 async def on_ready():

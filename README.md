@@ -157,3 +157,4 @@ Dependencies | |
 --- | ---
 [discord.py](https://discordpy.readthedocs.io/en/latest/) | Discord bot API
 [BeautifulSoup](https://www.crummy.com/software/BeautifulSoup/) | Web scraping tool
+[embed_help](https://github.com/zedchance/embed_help) | Better looking help messages
