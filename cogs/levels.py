@@ -5,11 +5,28 @@ from helpers.hiscore import Hiscore
 from calcs.experience import next_level_string, xp_to_next_level, xp_to_level
 from helpers.urls import get_icon_url
 
-class Levels(commands.Cog):
+class Levels(commands.Cog, command_attrs=dict(hidden=True)):
     """ Level commands used to pull stats from hiscore page.\n(Logout or hop to update hiscore page) """
 
     def __init__(self, bot):
         self.bot = bot
+    
+    @commands.command(name='lvl',
+        description='Use to list all available level commands',
+        aliases=['levels', 'lvls'],
+        hidden=False,
+        case_insensitive=True)
+    async def levels_command(self, ctx):
+        """ Simply reply with a list of available level commands """
+        bot = ctx.bot
+        embed = discord.Embed(title="Levels", description="Here is a list of available level lookup commands")
+        temp = ""
+        for command in bot.get_cog("Levels").get_commands():
+            temp += f'`{command}`\n'
+        embed.add_field(name="Commands", value=temp, inline=True)
+        example = f'```!b [command|alias] <username>```Common nicknames are possible to use\nFor example:```!b att bluetrane```To see list of aliases type ```!b help [command]```'
+        embed.add_field(name="Usage", value=example)
+        await ctx.send(f'{ctx.message.author.mention}', embed=embed)
     
     @commands.command(name='overall',
         description='Pulls the overall level for a specific username',
