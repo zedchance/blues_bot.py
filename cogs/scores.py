@@ -55,7 +55,7 @@ class Scores(commands.Cog):
             return
     
     @commands.command(name='clues',
-        description='Pulls LMS scores for a specific username',
+        description='Pulls clue scroll scores for a specific username',
         aliases=['clue', 'scrolls'],
         case_insensitive=True)
     async def clue_lookup(self, ctx, *username):
