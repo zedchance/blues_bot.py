@@ -24,11 +24,7 @@ Each command starts with `!blue` or `!b`. Summon a list of the bots commands by 
 You can call `!b help` with a command name after to 
 show information on how to use each command.  
 For example: `!b help attack`  
-```
-Pulls the attack level for a specific username
-
-!b [attack|att] [username...]
-```
+![help_att](screenshots/help_att_light.png =250x)
 
 ### Levels
 `!b help Levels` shows all the available commands.
