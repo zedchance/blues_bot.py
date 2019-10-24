@@ -15,7 +15,8 @@ and common calculators.
 ## Use
 Each command starts with `!blue` or `!b`. Summon a list of the bots commands by typing `!blue help`.  
 `!blue help [command]` to see how to use the command  
-`!blue help [Category]` to see a description of the category
+`!blue help [Category]` to see a description of the category  
+<img src="screenshots/help_light.png" width="400">
 
 ## Commands
 ### Help
@@ -24,119 +25,39 @@ Each command starts with `!blue` or `!b`. Summon a list of the bots commands by 
 You can call `!b help` with a command name after to 
 show information on how to use each command.  
 For example: `!b help attack`  
-![help_att](screenshots/help_att_light.png =250x)
+<img src="screenshots/help_att_light.png" width="300">
 
 ### Levels
-`!b help Levels` shows all the available commands.
-```
-Level commands used to pull stats from hiscore page.
-(Logout or hop to update hiscore page) 
+`!b lvl` shows all the available commands.  
+<img src="screenshots/lvl_light.png" width="350">
 
-Commands:
-  agility      
-  attack       
-  construction 
-  cooking      
-  crafting     
-  defence      
-  farming      
-  firemaking   
-  fishing      
-  fletching    
-  herblore     
-  hitpoints    
-  hunter       
-  magic        
-  mining       
-  overall      
-  prayer       
-  ranged       
-  runecraft    
-  slayer       
-  smithing     
-  strength     
-  thieving     
-  woodcutting  
-```
+For example `!b attack bluetrane` returns:  
+<img src="screenshots/att_command_light.png" width="400">
 
-For example `!b attack bluetrane` returns:
-```
-bluetrane | Attack
-99 (13,474,967 xp)
-```
-
-Or `!b total zezima`
-```
-zezima | Overall
-1,465 (27,957,906 xp)
-```
+Or `!b total zezima`  
+<img src="screenshots/total_zezima_light.png" width="300">
 
 ### Scores
-`!b help Scores` shows a list of the commands available
-```
-Score commands used to pull stats from hiscore page.
-This includes LMS, Bounty Hunter, and clue scrolls.
-(Logout or hop to update hiscore page) 
+`!b help Scores` shows a list of the commands available  
+<img src="screenshots/scores_light.png" width="450">
 
-Commands:
-  bounty Shows bounty hunter scores and rank 
-  clues  Shows clue scrolls for user 
-  lms    Shows LMS scores and rank 
-```
-
-For example `!b clues bluetrane` returns
-```
-bluetrane | Clue scrolls
-368       Total clues    (Rank 42,997)
-1         Beginner clues (Rank 306,089)
-4         Easy clues     (Rank 425,770)
-350       Medium clues   (Rank 11,933)
-12        Hard clues     (Rank 305,230)
-1         Elite clues    (Rank 248,543)
-```
+For example `!b clues bluetrane` returns  
+<img src="screenshots/clues_light.png" width="400">
 
 ### Calculators
-`!b help Calcs` can be used to see all available calculators with short descriptions.
-```
-Commonly used calculators 
+`!b help Calculators` can be used to see all available calculators with short descriptions.  
+<img src="screenshots/calculators_light.png" width="300">
 
-Commands:
-  rooftop Rooftop agility course calculator 
-  tasks   Calculates estimated slayer tasks remaining 
-  wines   Calculates wines needed to level 99 
-  zeah    Blood and soul rune calculator 
-```
+For example `!b wines zezima` returns  
+<img src="screenshots/wines_light.png" width="350">
 
-For example `!b wines zezima` returns
-```
-Wine calculator
-80 cooking (1,986,131 xp) | zezima
-55,241 wines needed to reach level 99 (3,945 inventories)
-```
-
-Or `!b rooftop bluetrane` returns
-```
-Rooftop agility calculator
-81 Agility (2,295,164 xp) | bluetrane
-162 laps on Rellekka to level up (125,923 xp needed)
-3,912 laps until next course
-```
+Or `!b rooftop bluetrane` returns  
+<img src="screenshots/rooftop_light.png" width="400">
 
 ### Links
 The bot can return useful URLs for an easy way to share/lookup a link.
 `!b help Links` shows a list of available commands.
-```
-Link commands to return URLs of common stuff 
-
-Commands:
-  ge      Links to the Grand Exchange website for a search 
-  hiscore Links to hiscore page for a user 
-  rsbuddy Links to the RSBuddy page of a search 
-  wiki    Links to wiki page for a search 
-
-Type !b help command for more info on a command.
-You can also type !b help category for more info on a category.
-```
+<img src="screenshots/links_light.png" width="350">
 
 For example `!b wiki rune plate` returns
 ```
