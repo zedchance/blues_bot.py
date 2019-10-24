@@ -16,7 +16,7 @@ and common calculators.
 Each command starts with `!blue` or `!b`. Summon a list of the bots commands by typing `!blue help`.  
 `!blue help [command]` to see how to use the command  
 `!blue help [Category]` to see a description of the category  
-<img src="screenshots/help_light.png" width="400">
+<img src="screenshots/help_light.png" width="450">
 
 ## Commands
 ### Help
@@ -56,7 +56,7 @@ Or `!b rooftop bluetrane` returns
 
 ### Links
 The bot can return useful URLs for an easy way to share/lookup a link.
-`!b help Links` shows a list of available commands.
+`!b help Links` shows a list of available commands.  
 <img src="screenshots/links_light.png" width="350">
 
 For example `!b wiki rune plate` returns
