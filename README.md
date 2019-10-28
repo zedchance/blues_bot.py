@@ -52,7 +52,7 @@ For example `!b wines zezima` returns
 <img src="screenshots/wines_light.png" width="350">
 
 Or `!b rooftop bluetrane` returns  
-<img src="screenshots/rooftop_light.png" width="400">
+<img src="screenshots/rooftop_light.png" width="450">
 
 ### Links
 The bot can return useful URLs for an easy way to share/lookup a link.
