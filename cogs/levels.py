@@ -4,6 +4,7 @@ from discord.ext import commands
 from helpers.hiscore import Hiscore
 from calcs.experience import next_level_string, xp_to_next_level, xp_to_level
 from helpers.urls import get_icon_url
+from calcs.combat import Combat
 
 class Levels(commands.Cog, command_attrs=dict(hidden=True)):
     """ Level commands used to pull stats from hiscore page.\n(Logout or hop to update hiscore page) """
@@ -27,6 +28,22 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
         example = f'```!b [command|alias] <username>```Common nicknames are possible to use\nFor example:```!b att bluetrane```To see list of aliases type ```!b help [command]```'
         embed.add_field(name="Usage", value=example)
         await ctx.send(f'{ctx.message.author.mention}', embed=embed)
+    
+    @commands.command(name='combat',
+        description='Calculate combat level',
+        aliases=['cmb'],
+        hidden=False,
+        case_insensitive=True)
+    async def combat_command(self, ctx, *username):
+        """ Calculates combat level for a user """
+        async with ctx.typing():
+            url_safe_name = '+'.join(username)
+            safe_name = ' '.join(username)
+            user = Combat(url_safe_name)
+            embed = discord.Embed(title="Combat", description=f'{safe_name}')
+            embed.add_field(name="Level", value=f'**{user.calculate_combat():.2f}**')
+            await ctx.send(f'{ctx.message.author.mention}', embed=embed)
+            return
     
     @commands.command(name='overall',
         description='Pulls the overall level for a specific username',
