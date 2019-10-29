@@ -10,10 +10,12 @@ class Hiscore:
 
     def __init__(self, username):
         # Pull hiscores
+        if username == '':
+            raise MissingUsername(f'You need to enter a username after the command')
         session = requests.session()
         req = session.get(main_url + username)
         if req.status_code == 404:
-            raise UserNotFound(f'No hiscore data for **{username}**.')
+            raise UserNotFound(f'No hiscore data for {username}.')
         doc = BeautifulSoup(req.content, 'html.parser')
         first = [i.split() for i in doc]
         self.scores = [i.split(',') for i in first[0]]
@@ -117,6 +119,9 @@ class Hiscore:
         self.master_clues_score = self.scores[33][1]
 
 class UserNotFound(TypeError):
+    pass
+
+class MissingUsername(Exception):
     pass
 
 # Test code

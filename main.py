@@ -4,7 +4,7 @@ from discord.ext.commands import has_permissions
 
 from helpers.api_key import discord_key, owner_id
 from helpers.descriptions import bot_description, version_number, wrong_message, user_not_found_message
-from helpers.hiscore import UserNotFound
+from helpers.hiscore import UserNotFound, MissingUsername
 
 def get_prefix(client, message):
     prefixes = ['!blue ', '!b ']
@@ -38,7 +38,11 @@ async def on_command_error(ctx, error):
     msg = f'{wrong_message}'
     error = getattr(error, 'original', error)
     # Exceptions
-    if isinstance(error, UserNotFound):
+    if isinstance(error, discord.ext.commands.errors.CommandNotFound):
+        msg += f'{error}\nType `!b help` for a list of commands'
+    elif isinstance(error, UserNotFound):
+        msg += f'{error}'
+    elif isinstance(error, MissingUsername):
         msg += f'{error}'
     # All other errors
     else:
@@ -46,7 +50,7 @@ async def on_command_error(ctx, error):
     # If its me that makes the error, show the message
     if ctx.author.id == owner_id:
         await ctx.send(f'```{error}```')
-    # Otherwise reply with error message and PM me details
+    # # Otherwise reply with error message and PM me details
     else:
         await ctx.send(msg)
         admin = bot.get_user(owner_id)
