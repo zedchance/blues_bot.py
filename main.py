@@ -3,7 +3,8 @@ from discord.ext import commands
 from discord.ext.commands import has_permissions
 
 from helpers.api_key import discord_key, owner_id
-from helpers.descriptions import bot_description, version_number, wrong_message
+from helpers.descriptions import bot_description, version_number, wrong_message, user_not_found_message
+from helpers.hiscore import UserNotFound
 
 def get_prefix(client, message):
     prefixes = ['!blue ', '!b ']
@@ -33,10 +34,19 @@ async def on_ready():
 @bot.event
 async def on_command_error(ctx, error):
     """ Simply replies with error message, shows error message if I make an error """
-    msg = f'{wrong_message}\nTo see all commands type `!b help`\nUse `!b bug` if you continue to have issues\nOwner has been notified of error.'
     print(error)
+    msg = f'{wrong_message}'
+    error = getattr(error, 'original', error)
+    # Exceptions
+    if isinstance(error, UserNotFound):
+        msg += f'{error}'
+    # All other errors
+    else:
+        msg += f'To see all commands type `!b help`\nUse `!b bug` if you continue to have issues\nOwner has been notified of error.'
+    # If its me that makes the error, show the message
     if ctx.author.id == owner_id:
         await ctx.send(f'```{error}```')
+    # Otherwise reply with error message and PM me details
     else:
         await ctx.send(msg)
         admin = bot.get_user(owner_id)

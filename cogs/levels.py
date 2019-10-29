@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 
-from helpers.hiscore import Hiscore
+from helpers.hiscore import Hiscore, UserNotFound
 from calcs.experience import next_level_string, xp_to_next_level, xp_to_level
 from helpers.urls import get_icon_url
 from calcs.combat import Combat

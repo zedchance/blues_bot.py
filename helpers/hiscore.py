@@ -12,6 +12,8 @@ class Hiscore:
         # Pull hiscores
         session = requests.session()
         req = session.get(main_url + username)
+        if req.status_code == 404:
+            raise UserNotFound(f'No hiscore data for **{username}**.')
         doc = BeautifulSoup(req.content, 'html.parser')
         first = [i.split() for i in doc]
         self.scores = [i.split(',') for i in first[0]]
@@ -114,6 +116,8 @@ class Hiscore:
         self.master_clues_rank = self.scores[33][0]
         self.master_clues_score = self.scores[33][1]
 
+class UserNotFound(TypeError):
+    pass
 
 # Test code
 # bluetrane = Hiscore("bluetrane")
