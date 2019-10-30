@@ -32,6 +32,17 @@ async def on_ready():
     return
 
 @bot.event
+async def on_message(message):
+    # Handles when the user doesn't type a command
+    if message.content == '!b' or message.content == '!blue':
+        channel = message.channel
+        embed = discord.Embed(title='!blue', description='Type `!b help` for a list of commands.')
+        await channel.send(embed=embed)
+        return
+    # Pass message onto the rest of the commands
+    await bot.process_commands(message)
+
+@bot.event
 async def on_command_error(ctx, error):
     """ Simply replies with error message, shows error message if I make an error """
     print(error)
@@ -50,7 +61,7 @@ async def on_command_error(ctx, error):
     # If its me that makes the error, show the message
     if ctx.author.id == owner_id:
         await ctx.send(f'```{error}```')
-    # # Otherwise reply with error message and PM me details
+    # Otherwise reply with error message and PM me details
     else:
         await ctx.send(msg)
         admin = bot.get_user(owner_id)
