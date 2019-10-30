@@ -1,0 +1,3 @@
+[submodule "cogs/embed_help"]
+	path = cogs/embed_help
+	url = https://github.com/zedchance/embed_help.git
