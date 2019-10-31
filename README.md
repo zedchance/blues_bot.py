@@ -3,6 +3,7 @@
 A Discord bot for pulling *Old School Runescape* hiscores, generating useful links, 
 and common calculators.
 
+* [Try the bot out](#try-the-bot-out)
 * [Use](#use)
 * [Commands](#commands)
   * [Help](#help)
@@ -11,6 +12,10 @@ and common calculators.
   * [Calculators](#calculators)
   * [Links](#links)
   * [Other commands](#other-commands)
+* [Dependencies](#dependencies)
+
+## Try the bot out
+You can test the bot [in my server](https://discord.gg/WUsZ5Hf). Feel free to leave suggestions in the `#suggestions` channel! You can report any issues you have with the bot [on the issue page](https://github.com/zedchance/blues_bot.py/issues).
 
 ## Use
 Each command starts with `!blue` or `!b`. Summon a list of the bots commands by typing `!blue help`.  
@@ -68,9 +73,9 @@ https://oldschool.runescape.wiki/?search=rune+plate
 `!b version` shows the current version of the bot  
 `!b bug` links to the [issue/bug](https://github.com/zedchance/blues_bot.py/issues) page
 
----
+## Dependencies
 
-Dependencies | |
+Library | Description
 --- | ---
 [discord.py](https://discordpy.readthedocs.io/en/latest/) | Discord bot API
 [BeautifulSoup](https://www.crummy.com/software/BeautifulSoup/) | Web scraping tool
