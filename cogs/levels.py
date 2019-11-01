@@ -56,6 +56,7 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             user = Hiscore(url_safe_name)
             embed = discord.Embed(title="Overall", description=f'{safe_name}')
             embed.add_field(name="Level", value=f'**{int(user.overall_level):,}**', inline=True)
+            embed.add_field(name="XP", value=f'{int(user.overall_xp):,}', inline=True)
             embed.add_field(name="Rank", value=f'{int(user.overall_rank):,}', inline=True)
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
