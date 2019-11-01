@@ -78,5 +78,6 @@ https://oldschool.runescape.wiki/?search=rune+plate
 Library | Description
 --- | ---
 [discord.py](https://discordpy.readthedocs.io/en/latest/) | Discord bot API
+[requests](https://github.com/psf/requests) | HTTP request library
 [BeautifulSoup](https://www.crummy.com/software/BeautifulSoup/) | Web scraping tool
 [embed_help](https://github.com/zedchance/embed_help) | Better looking help messages
