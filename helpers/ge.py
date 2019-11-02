@@ -18,7 +18,6 @@ class GrandExchange:
         item_id = ""
         for i in id_list:
             if query.lower() in i['name'].lower():
-                print("Found ID:", i['id'])
                 item_id = str(i['id'])
                 break
         file.close()
@@ -32,7 +31,7 @@ class GrandExchange:
         data = req.json()
 
         # Assign variables
-        self.icon = data['item']['icon']
+        self.icon = data['item']['icon_large']
         self.id = data['item']['id']
         self.name = data['item']['name']
         self.description = data['item']['description']
@@ -44,13 +43,13 @@ class GrandExchange:
 
         # Prices over time
         self.todays_price_trend = data['item']['today']['trend']
-        self.todays_price = data['item']['today']['price']
-        self.day30_price_trend = data['item']['day30']['trend']
-        self.day30_price = data['item']['day30']['change']
-        self.day90_price_trend = data['item']['day90']['trend']
-        self.day90_price = data['item']['day90']['change']
-        self.day180_price_trend = data['item']['day180']['trend']
-        self.day180_price = data['item']['day180']['change']
+        self.todays_price_change = data['item']['today']['price']
+        self.day30_trend = data['item']['day30']['trend']
+        self.day30_change = data['item']['day30']['change']
+        self.day90_trend = data['item']['day90']['trend']
+        self.day90_change = data['item']['day90']['change']
+        self.day180_trend = data['item']['day180']['trend']
+        self.day180_change = data['item']['day180']['change']
 
 class MissingQuery(Exception):
     pass
