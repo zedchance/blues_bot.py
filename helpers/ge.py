@@ -6,15 +6,15 @@ from helpers.urls import ge_api_item_url
 
 class GrandExchange:
     """ Pulls API data from the GE website """
-    def __init__(self, item):
-        self.item = item
-        if item == '':
+    def __init__(self, item_id):
+        self.item = item_id
+        if item_id == '':
             raise MissingQuery("You must enter a search term")
         # Request data
         session = requests.session()
-        req = session.get(ge_api_item_url + item)
+        req = session.get(ge_api_item_url + item_id)
         if req.status_code == 404:
-            raise NoResults(f'No results for {item} found')
+            raise NoResults(f'No results for {item_id} found')
         data = req.json()
 
         # Assign variables
