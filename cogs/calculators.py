@@ -54,8 +54,7 @@ class Calculators(commands.Cog):
                 embed.add_field(name="Inventories", value=f'{user.invs_to_200m():,}', inline=True)
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
-    
-    # TODO Make this work with virtual levels
+
     @commands.command(name='zeah',
         description='Zeah runecrafting calculator',
         aliases=['bloods', 'blood', 'souls', 'soul'],
