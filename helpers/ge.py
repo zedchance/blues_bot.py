@@ -17,7 +17,7 @@ class GrandExchange:
         id_list = json.load(file)
         item_id = ""
         for i in id_list:
-            if query.capitalize() == i['name'].capitalize():
+            if query.lower() in i['name'].lower():
                 print("Found ID:", i['id'])
                 item_id = str(i['id'])
                 break
