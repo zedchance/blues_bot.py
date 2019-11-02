@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 
-from helpers.descriptions import version_number
+from helpers.ge import GrandExchange
 from helpers.urls import hiscore_url, wiki_url, ge_url, rsbuddy_url, cml_url, cml_sig
 from helpers.tracker import Tracker
 
@@ -30,15 +30,21 @@ class Links(commands.Cog):
         url_safe = '+'.join(search_description)
         await ctx.send(f'{ctx.message.author.mention}\n{wiki_url}{url_safe}')
         return
-    
+
     @commands.command(name='ge',
-        description='Returns a URL to the official Grand Exchange page for an item',
-        aliases=['-g'],
+        description='Use to lookup items on the Grand Exchange',
+        aliases=['-g', 'price'],
         case_insensitive=True)
     async def ge_command(self, ctx, *search_description):
-        """ Links to the Grand Exchange website for a search """
-        url_safe = '+'.join(search_description)
-        await ctx.send(f'{ctx.message.author.mention}\n{ge_url}{url_safe}')
+        """ Responds with information about an item from the Grand Exchange """
+        safe_name = ' '.join(search_description)
+        ge = GrandExchange(safe_name)
+        embed = discord.Embed(title=ge.name, description=ge.description)
+        embed.set_thumbnail(url=ge.icon)
+        embed.add_field(name='Price', value=f'**{ge.current_price}** gp')
+        embed.add_field(name='Today\'s trend', value=f'**{ge.todays_price_change}** change today, trending {ge.todays_price_trend}')
+        embed.set_footer(text=f'30d: {ge.day30_change}, 90d: {ge.day90_change}, 180d: {ge.day180_change}')
+        await ctx.send(f'{ctx.message.author.mention}', embed=embed)
         return
     
     @commands.command(name='rsbuddy',
