@@ -1,20 +1,34 @@
 # Used to pull API data from the GE page
 
 import requests
+import json
 
 from helpers.urls import ge_api_item_url
 
 class GrandExchange:
     """ Pulls API data from the GE website """
-    def __init__(self, item_id):
-        self.item = item_id
-        if item_id == '':
+    def __init__(self, query):
+        # Check if query was entered
+        if query == '':
             raise MissingQuery("You must enter a search term")
+
+        # Search for ID number from query
+        file = open('assets/item_ids.json')
+        id_list = json.load(file)
+        item_id = ""
+        for i in id_list:
+            if query.capitalize() == i['name'].capitalize():
+                print("Found ID:", i['id'])
+                item_id = str(i['id'])
+                break
+        file.close()
+
         # Request data
+        self.item = str(item_id)
         session = requests.session()
         req = session.get(ge_api_item_url + item_id)
         if req.status_code == 404:
-            raise NoResults(f'No results for {item_id} found')
+            raise NoResults(f'No results for {query} found')
         data = req.json()
 
         # Assign variables
