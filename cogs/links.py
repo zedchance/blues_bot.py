@@ -47,7 +47,7 @@ class Links(commands.Cog):
         # Graph
         ge.generate_graph()
         file = discord.File('assets/graph.png')
-        embed.set_image(url='attachment://assets/graph.png')
+        # embed.set_image(url='attachment://assets/graph.png')
         await ctx.send(f'{ctx.message.author.mention}', embed=embed)
         # TODO make this respond with file only if attach_files permission is true
         await ctx.send(file=file)
