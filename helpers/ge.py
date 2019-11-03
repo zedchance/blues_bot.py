@@ -2,8 +2,9 @@
 
 import requests
 import json
+import matplotlib.pyplot as plotter
 
-from helpers.urls import ge_api_item_url
+from helpers.urls import ge_api_item_url, ge_graph_url
 
 class GrandExchange:
     """ Pulls API data from the GE website """
@@ -23,12 +24,16 @@ class GrandExchange:
         file.close()
 
         # Request data
+        # Price info
         self.item = str(item_id)
         session = requests.session()
         req = session.get(ge_api_item_url + item_id)
         if req.status_code == 404:
             raise NoResults(f'No results for {query} found')
         data = req.json()
+        # Graph data
+        graph_req = session.get(f'{ge_graph_url}{item_id}.json')
+        self.graph_data = graph_req.json()
 
         # Assign variables
         self.icon = data['item']['icon_large']
@@ -50,6 +55,20 @@ class GrandExchange:
         self.day90_change = data['item']['day90']['change']
         self.day180_trend = data['item']['day180']['trend']
         self.day180_change = data['item']['day180']['change']
+
+    def generate_graph(self):
+        """ Generates a graph of daily price data """
+        prices = []
+        for data in self.graph_data['daily']:
+            prices.append(self.graph_data['daily'][data])
+        plotter.rcParams['xtick.color'] = 'white'
+        plotter.rcParams['ytick.color'] = 'white'
+        plotter.rcParams['figure.figsize'] = 8, 3
+        plotter.xticks([])
+        plotter.title('Past 180 days', loc='right', color='white')
+        plotter.plot(prices, color="white")
+        plotter.savefig('assets/graph.png', transparent=True)
+        plotter.close()
 
 class MissingQuery(Exception):
     pass

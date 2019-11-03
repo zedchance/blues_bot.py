@@ -44,7 +44,14 @@ class Links(commands.Cog):
         embed.add_field(name='Price', value=f'**{ge.current_price}** gp')
         embed.add_field(name='Today\'s trend', value=f'**{ge.todays_price_change}** change today, trending {ge.todays_price_trend}')
         embed.set_footer(text=f'30d: {ge.day30_change}, 90d: {ge.day90_change}, 180d: {ge.day180_change}')
+        # Graph
+        ge.generate_graph()
+        file = discord.File('assets/graph.png')
+        embed.set_image(url='attachment://assets/graph.png')
         await ctx.send(f'{ctx.message.author.mention}', embed=embed)
+        # TODO make this respond with file only if attach_files permission is true
+        await ctx.send(file=file)
+        file.close()
         return
     
     @commands.command(name='rsbuddy',
