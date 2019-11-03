@@ -64,6 +64,7 @@ class GrandExchange:
         plotter.rcParams['xtick.color'] = 'white'
         plotter.rcParams['ytick.color'] = 'white'
         plotter.rcParams['figure.figsize'] = 8, 3
+        plotter.box(on=None)
         plotter.xticks([])
         plotter.title('Past 180 days', loc='right', color='white')
         plotter.plot(prices, color="white")
