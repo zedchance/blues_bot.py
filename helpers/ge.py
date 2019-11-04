@@ -64,14 +64,13 @@ class GrandExchange:
             prices.append(self.graph_data['daily'][data])
         for data in self.graph_data['average']:
             average.append(self.graph_data['average'][data])
-        plotter.rcParams['xtick.color'] = 'white'
-        plotter.rcParams['ytick.color'] = 'white'
+        plotter.rcParams['ytick.color'] = 'lightslategrey'
         plotter.rcParams['figure.figsize'] = 8, 3
         plotter.box(on=None)
         plotter.xticks([])
-        plotter.title('Past 180 days', loc='right', color='white')
+        plotter.title('Past 180 days', loc='right', color='lightslategrey')
         plotter.plot(average, color="red")
-        plotter.plot(prices, color="white")
+        plotter.plot(prices, color="lightslategrey")
         plotter.savefig('assets/graph.png', transparent=True)
         plotter.close()
 
