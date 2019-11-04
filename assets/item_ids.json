@@ -12042,5 +12042,25 @@
   {
     "id": 13190,
     "name": "Old school bond"
+  },
+  {
+    "id": 20997,
+    "name": "Twisted bow"
+  },
+  {
+    "id": 21000,
+    "name": "Twisted buckler"
+  },
+  {
+    "id": 22324,
+    "name": "Ghrazi rapier"
+  },
+  {
+    "id": 22486,
+    "name": "Scythe of vitur (uncharged)"
+  },
+  {
+    "id": 23997,
+    "name": "Blade of saeldor (inactive)"
   }
 ]
