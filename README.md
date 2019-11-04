@@ -64,7 +64,10 @@ The bot can return useful URLs for an easy way to share/lookup a link.
 `!b help Links` shows a list of available commands.  
 <img src="screenshots/links_light.png" width="350">
 
-For example `!b wiki rune plate` returns
+For example `!b ge trident` returns  
+<img src="screenshots/ge_light.png" width="450">
+
+Or `!b wiki rune plate` returns
 ```
 https://oldschool.runescape.wiki/?search=rune+plate
 ```
