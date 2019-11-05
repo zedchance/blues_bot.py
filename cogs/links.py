@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 
 from helpers.ge import GrandExchange
-from helpers.urls import hiscore_url, wiki_url, ge_url, rsbuddy_url, cml_url, cml_sig
+from helpers.urls import hiscore_url, wiki_url, ge_url, rsbuddy_url, cml_url, cml_sig, members_icon
 from helpers.tracker import Tracker
 
 class Links(commands.Cog):
@@ -43,8 +43,12 @@ class Links(commands.Cog):
         embed = discord.Embed(title=ge.name, description=ge.description, url=f'{ge_url}{url_safe_name}')
         embed.set_thumbnail(url=ge.icon)
         embed.add_field(name='Price', value=f'**{ge.current_price}** gp')
-        embed.add_field(name='Today\'s trend', value=f'**{ge.todays_price_change}** change today, trending {ge.todays_price_trend}')
-        embed.set_footer(text=f'30d: {ge.day30_change}, 90d: {ge.day90_change}, 180d: {ge.day180_change}')
+        embed.add_field(name='Today\'s trend', value=f'**{ge.todays_price_change}** change today, trending *{ge.todays_price_trend}*')
+        embed.add_field(name="History", value=f'30d: **{ge.day30_change}**\n90d: **{ge.day90_change}**\n180d: **{ge.day180_change}**')
+        if ge.is_members:
+            embed.set_footer(text="Members item", icon_url=members_icon)
+        else:
+            embed.set_footer(text="Non members item")
         await ctx.send(f'{ctx.message.author.mention}', embed=embed)
         # Graph
         # TODO make this respond with file only if attach_files permission is true
