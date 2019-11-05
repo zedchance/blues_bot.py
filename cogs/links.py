@@ -44,9 +44,9 @@ class Links(commands.Cog):
         embed = discord.Embed(title=ge.name, description=ge.description, url=f'{ge_url}{url_safe_name}',
                               timestamp=datetime.now())
         if ge.todays_price_trend == 'positive':
-            embed.color = discord.Colour.green()
+            embed.color = discord.Colour.dark_green()
         elif ge.todays_price_trend == 'negative':
-            embed.color = discord.Colour.red()
+            embed.color = discord.Colour.dark_red()
         embed.set_thumbnail(url=ge.icon)
         embed.add_field(name='Price', value=f'**{ge.current_price}** gp')
         embed.add_field(name='Today\'s trend', value=f'**{ge.todays_price_change}** change today, trending *{ge.todays_price_trend}*')
