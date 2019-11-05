@@ -43,7 +43,6 @@ class Links(commands.Cog):
         ge = GrandExchange(safe_name)
         embed = discord.Embed(title=ge.name, description=ge.description, url=f'{ge_url}{url_safe_name}',
                               timestamp=datetime.now())
-        color = None
         if ge.todays_price_trend == 'positive':
             embed.color = discord.Colour.green()
         elif ge.todays_price_trend == 'negative':
