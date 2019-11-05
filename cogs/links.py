@@ -1,3 +1,4 @@
+from datetime import datetime
 import discord
 from discord.ext import commands
 
@@ -40,11 +41,19 @@ class Links(commands.Cog):
         safe_name = ' '.join(search_description)
         url_safe_name = '+'.join(search_description)
         ge = GrandExchange(safe_name)
-        embed = discord.Embed(title=ge.name, description=ge.description, url=f'{ge_url}{url_safe_name}')
+        embed = discord.Embed(title=ge.name, description=ge.description, url=f'{ge_url}{url_safe_name}',
+                              timestamp=datetime.now())
+        color = None
+        if ge.todays_price_trend == 'positive':
+            embed.color = discord.Colour.green()
+        elif ge.todays_price_trend == 'negative':
+            embed.color = discord.Colour.red()
         embed.set_thumbnail(url=ge.icon)
         embed.add_field(name='Price', value=f'**{ge.current_price}** gp')
         embed.add_field(name='Today\'s trend', value=f'**{ge.todays_price_change}** change today, trending *{ge.todays_price_trend}*')
-        embed.add_field(name="History", value=f'30d: **{ge.day30_change}**\n90d: **{ge.day90_change}**\n180d: **{ge.day180_change}**')
+        embed.add_field(name="Change", value=f'**{ge.day30_change}** over the last month\n'
+                                             f'**{ge.day90_change}** over the last 3 months\n'
+                                             f'**{ge.day180_change}** over the last 6 months')
         if ge.is_members:
             embed.set_footer(text="Members item", icon_url=members_icon)
         else:
