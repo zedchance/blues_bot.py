@@ -1,4 +1,5 @@
 from datetime import datetime
+import pytz
 import discord
 from discord.ext import commands
 
@@ -41,8 +42,11 @@ class Links(commands.Cog):
         safe_name = ' '.join(search_description)
         url_safe_name = '+'.join(search_description)
         ge = GrandExchange(safe_name)
+        time = datetime.now()
+        timezone = pytz.timezone("America/Los_Angeles")
+        pst_time = timezone.localize(time)
         embed = discord.Embed(title=ge.name, description=ge.description, url=f'{ge_url}{url_safe_name}',
-                              timestamp=datetime.now())
+                              timestamp=pst_time)
         if ge.todays_price_trend == 'positive':
             embed.color = discord.Colour.dark_green()
         elif ge.todays_price_trend == 'negative':

@@ -3,6 +3,7 @@
 import requests
 import json
 import matplotlib.pyplot as plotter
+from matplotlib.ticker import FormatStrFormatter, StrMethodFormatter
 
 from helpers.urls import ge_api_item_url, ge_graph_url
 
@@ -71,6 +72,7 @@ class GrandExchange:
         plotter.title('Past 180 days', loc='right', color='lightslategrey')
         plotter.plot(average, color="red")
         plotter.plot(prices, color="lightslategrey")
+        plotter.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:,.0f} gp'))
         plotter.savefig('assets/graph.png', transparent=True)
         plotter.close()
 
