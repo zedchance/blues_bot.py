@@ -84,3 +84,4 @@ Library | Description
 [requests](https://github.com/psf/requests) | HTTP request library
 [BeautifulSoup](https://www.crummy.com/software/BeautifulSoup/) | Web scraping tool
 [embed_help](https://github.com/zedchance/embed_help) | Better looking help messages
+[matplotlib](https://matplotlib.org) | Python 2D plotting library
