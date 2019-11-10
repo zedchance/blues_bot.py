@@ -65,7 +65,7 @@ The bot can return useful URLs for an easy way to share/lookup a link.
 <img src="screenshots/links_light.png" width="350">
 
 For example `!b ge trident` returns  
-<img src="screenshots/ge_light.png" width="450">
+<img src="screenshots/ge_light_graph.png" width="450">
 
 Or `!b wiki rune plate` returns
 ```
