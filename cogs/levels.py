@@ -25,8 +25,11 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
         for command in bot.get_cog("Levels").get_commands():
             temp += f'`{command}`\n'
         embed.add_field(name="Commands", value=temp, inline=True)
-        example = f'```!b [command|alias] <username>```Common nicknames are possible to use\nFor example:```!b att bluetrane```To see list of aliases type ```!b help [command]```'
+        example = f'```!b [command|alias] <username>```Common nicknames are possible to use\n' \
+                  f'For example:```!b att bluetrane```To see list of aliases type ```!b help [command]```'
         embed.add_field(name="Usage", value=example)
+        embed.set_footer(text=f'Level commands used to pull stats from hiscore page.\n'
+                              f'(Logout or hop to update hiscore page)')
         await ctx.send(f'{ctx.message.author.mention}', embed=embed)
     
     @commands.command(name='combat',
