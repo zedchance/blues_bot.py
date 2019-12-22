@@ -35,33 +35,43 @@ class Agility():
     def determine_course(self):
         """ Determines highest level course user can use and sets lap xp"""
         if self.agility_level < DRAYNOR_LEVEL:
+            self.next_course = "Draynor"
             return None
         elif self.agility_level < AL_KHARID_LEVEL:
             self.lap_xp = DRAYNOR_LAP
+            self.next_course = "Al Kharid"
             return "Draynor"
         elif self.agility_level < VARROCK_LEVEL:
             self.lap_xp = AL_KHARID_LAP
+            self.next_course = "Varrock"
             return "Al Kharid"
         elif self.agility_level < CANIFIS_LEVEL:
             self.lap_xp = VARROCK_LAP
+            self.next_course = "Canifis"
             return "Varrock"
         elif self.agility_level < FALADOR_LEVEL:
             self.lap_xp = CANIFIS_LAP
+            self.next_course = "Falador"
             return "Canifis"
         elif self.agility_level < SEERS_LEVEL:
             self.lap_xp = FALADOR_LAP
+            self.next_course = "Seers"
             return "Falador"
         elif self.agility_level < POLLNIVEACH_LEVEL:
             self.lap_xp = SEERS_LAP
+            self.next_course = "Pollniveach"
             return "Seers"
         elif self.agility_level < RELLEKKA_LEVEL:
             self.lap_xp = POLLNIVEACH_LAP
+            self.next_course = "Rellekka"
             return "Pollniveach"
         elif self.agility_level < ARDOUGNE_LEVEL:
             self.lap_xp = RELLEKKA_LAP
+            self.next_course = "Ardougne"
             return "Rellekka"
         else:
             self.lap_xp = ARDOUGNE_LAP
+            self.next_course = "level 99"
             return "Ardougne"
     
     def xp_needed_to_level_up(self):

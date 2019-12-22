@@ -101,13 +101,9 @@ class Calculators(commands.Cog):
             if (user.course == None):
                 embed.add_field(name="Level too low", value="You need at least 10 agility to use the Draynor rooftop course", inline=False)
             else:
-                if user.determine_course() == 'Ardougne':
-                    ending = 'level 99'
-                else:
-                    ending = 'next course'
                 embed.add_field(name="XP needed to level up", value=f'{user.xp_needed_to_level_up():,.0f}', inline=True)
                 embed.add_field(name=f'Laps to level up', value=f'{user.laps_to_level_up():,.0f} on {user.course}', inline=True)
-                embed.add_field(name=f'Laps until next {ending}', value=f'{user.laps_to_next_course():,.0f}', inline=True)
+                embed.add_field(name=f'Laps until {user.next_course}', value=f'{user.laps_to_next_course():,.0f}', inline=True)
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
 
 # Cog setup
