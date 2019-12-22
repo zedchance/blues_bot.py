@@ -65,9 +65,6 @@ class Tracker:
 
         # Sort boss kills array
         self.top_kills = sorted(self.boss_kills, key=lambda tup: tup[1], reverse=True)
-        print("Top 5 kills")
-        for (name, kills, rank) in self.top_kills[:5]:
-            print(name, kills)
 
     def get_sig(self):
         return f'{cml_sig}{self.username}'

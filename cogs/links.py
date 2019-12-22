@@ -53,7 +53,7 @@ class Links(commands.Cog):
         elif ge.todays_price_trend == 'negative':
             embed.color = discord.Colour.dark_red()
         embed.set_thumbnail(url=ge.icon)
-        embed.add_field(name='Price', value=f'**{ge.current_price}** gp')
+        embed.add_field(name='Price', value=f'**{ge.current_price}** gp', inline=False)
         embed.add_field(name='Today\'s trend', value=f'**{ge.todays_price_change}** change today, trending *{ge.todays_price_trend}*')
         embed.add_field(name="Change", value=f'**{ge.day30_change}** over the last month\n'
                                              f'**{ge.day90_change}** over the last 3 months\n'
