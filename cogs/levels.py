@@ -478,6 +478,31 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
 
+    @commands.command(name='kc',
+        description='Pulls kill counts for a specific username',
+        aliases=['killcount', 'boss'],
+        hidden=False,
+        case_insensitive=True)
+    async def kc_lookup(self, ctx, *username):
+        """ Lookup a user's boss kill counts """
+        async with ctx.typing():
+            url_safe_name = '+'.join(username)
+            safe_name = ' '.join(username)
+            user = Hiscore(url_safe_name)
+            field_count = 0
+            await ctx.send(f'{ctx.message.author.mention}')
+            embed = discord.Embed(title="Boss kill counts", description=f'{safe_name}')
+            for (name, kc, rank) in user.kcs:
+                if int(kc) > -1:
+                    embed.add_field(name=name, value=f'**{int(kc):,}** (Rank {int(rank):,})')
+                    field_count += 1
+                if field_count == 25:
+                    await ctx.send(embed=embed)
+                    embed = discord.Embed()
+                    field_count = 0
+            await ctx.send(embed=embed)
+            return
+
 # Cog setup
 def setup(bot):
     bot.add_cog(Levels(bot))

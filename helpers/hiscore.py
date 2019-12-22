@@ -118,6 +118,140 @@ class Hiscore:
         self.master_clues_rank = self.scores[33][0]
         self.master_clues_score = self.scores[33][1]
 
+        # Assign boss kill counts
+        self.kc_abyssal_sire = self.scores[35][1]
+        self.kc_abyssal_sire_rank = self.scores[35][0]
+        self.kc_alchemical_hydra = self.scores[36][1]
+        self.kc_alchemical_hydra_rank = self.scores[36][0]
+        self.kc_barrows_chest = self.scores[37][1]
+        self.kc_barrows_chest_rank = self.scores[37][0]
+        self.kc_bryophyta = self.scores[37][1]
+        self.kc_bryophyta_rank = self.scores[37][0]
+        # self.kc_callisto = self.scores[38][1]
+        # self.kc_callisto_rank = self.scores[38][0]
+        # self.kc_cerberus = self.scores[39][1]
+        # self.kc_cerberus_rank = self.scores[39][0]
+        self.kc_chambers_of_xeric = self.scores[39][1]
+        self.kc_chambers_of_xeric_rank = self.scores[39][0]
+        self.kc_chambers_of_xeric_challenge = self.scores[40][1]
+        self.kc_chambers_of_xeric_challenge_rank = self.scores[40][0]
+        self.kc_chaos_elemental = self.scores[41][1]
+        self.kc_chaos_elemental_rank = self.scores[41][0]
+        self.kc_chaos_fanatic = self.scores[42][1]
+        self.kc_chaos_fanatic_rank = self.scores[42][0]
+        self.kc_commander_zilyana = self.scores[43][1]
+        self.kc_commander_zilyana_rank = self.scores[43][0]
+        self.kc_corporeal_beast = self.scores[44][1]
+        self.kc_corporeal_beast_rank = self.scores[44][0]
+        self.kc_crazy_archaeologist = self.scores[45][1]
+        self.kc_crazy_archaeologist_rank = self.scores[45][0]
+        self.kc_dagannoth_prime = self.scores[46][1]
+        self.kc_dagannoth_prime_rank = self.scores[46][0]
+        self.kc_dagannoth_rex = self.scores[47][1]
+        self.kc_dagannoth_rex_rank = self.scores[47][0]
+        self.kc_dagannoth_supreme = self.scores[48][1]
+        self.kc_dagannoth_supreme_rank = self.scores[48][0]
+        self.kc_deranged_archaeologist = self.scores[49][1]
+        self.kc_deranged_archaeologist_rank = self.scores[49][0]
+        self.kc_general_graardor = self.scores[50][1]
+        self.kc_general_graardor_rank = self.scores[50][0]
+        self.kc_giant_mole = self.scores[51][1]
+        self.kc_giant_mole_rank = self.scores[51][0]
+        self.kc_grotesque_guardians = self.scores[52][1]
+        self.kc_grotesque_guardians_rank = self.scores[52][0]
+        self.kc_hespori = self.scores[53][1]
+        self.kc_hespori_rank = self.scores[53][0]
+        self.kc_kalphite_queen = self.scores[54][1]
+        self.kc_kalphite_queen_rank = self.scores[54][0]
+        self.kc_king_black_dragon = self.scores[55][1]
+        self.kc_king_black_dragon_rank = self.scores[55][0]
+        self.kc_kraken = self.scores[56][1]
+        self.kc_kraken_rank = self.scores[56][0]
+        self.kc_kreearra = self.scores[57][1]
+        self.kc_kreearra_rank = self.scores[57][0]
+        self.kc_kril_tsutsaroth = self.scores[58][1]
+        self.kc_kril_tsutsaroth_rank = self.scores[58][0]
+        self.kc_mimic = self.scores[59][1]
+        self.kc_mimic_rank = self.scores[59][0]
+        self.kc_obor = self.scores[60][1]
+        self.kc_obor_rank = self.scores[60][0]
+        self.kc_sarachnis = self.scores[61][1]
+        self.kc_sarachnis_rank = self.scores[61][0]
+        self.kc_scorpia = self.scores[62][1]
+        self.kc_scorpia_rank = self.scores[62][0]
+        self.kc_skotizo = self.scores[63][1]
+        self.kc_skotizo_rank = self.scores[63][0]
+        self.kc_the_gauntlet = self.scores[64][1]
+        self.kc_the_gauntlet_rank = self.scores[64][0]
+        self.kc_the_corrupted_gauntlet = self.scores[65][1]
+        self.kc_the_corrupted_gauntlet_rank = self.scores[65][0]
+        self.kc_theatre_of_blood = self.scores[66][1]
+        self.kc_theatre_of_blood_rank = self.scores[66][0]
+        self.kc_thermonuclear_smoke_devil = self.scores[67][1]
+        self.kc_thermonuclear_smoke_devil_rank = self.scores[67][0]
+        self.kc_tzkal_zuk = self.scores[68][1]
+        self.kc_tzkal_zuk_rank = self.scores[68][0]
+        self.kc_tztok_jad = self.scores[69][1]
+        self.kc_tztok_jad_rank = self.scores[69][0]
+        self.kc_venenatis = self.scores[70][1]
+        self.kc_venenatis_rank = self.scores[70][0]
+        self.kc_vetion = self.scores[71][1]
+        self.kc_vetion_rank = self.scores[71][0]
+        self.kc_vorkath = self.scores[72][1]
+        self.kc_vorkath_rank = self.scores[72][0]
+        self.kc_wintertodt = self.scores[73][1]
+        self.kc_wintertodt_rank = self.scores[73][0]
+        self.kc_zalcano = self.scores[74][1]
+        self.kc_zalcano_rank = self.scores[74][0]
+        self.kc_zulrah = self.scores[75][1]
+        self.kc_zulrah_rank = self.scores[75][0]
+
+        # Build array of kc
+        self.kcs = []
+        self.kcs.append(("Abyssal Sire", self.kc_abyssal_sire, self.kc_abyssal_sire_rank))
+        self.kcs.append(("Alchemical Hydra", self.kc_alchemical_hydra, self.kc_alchemical_hydra_rank))
+        self.kcs.append(("Barrows Chest", self.kc_barrows_chest, self.kc_barrows_chest_rank))
+        self.kcs.append(("Bryophyta", self.kc_bryophyta, self.kc_bryophyta_rank))
+        # self.kcs.append(("Callisto", self.kc_callisto, self.kc_callisto_rank))
+        # self.kcs.append(("Cerberus", self.kc_cerberus, self.kc_cerberus_rank))
+        self.kcs.append(("Chambers of Xeric", self.kc_chambers_of_xeric, self.kc_chambers_of_xeric_rank))
+        self.kcs.append(("Chambers of Xeric: Challenge Mode", self.kc_chambers_of_xeric_challenge, self.kc_chambers_of_xeric_challenge_rank))
+        self.kcs.append(("Chaos Elemental", self.kc_chaos_elemental, self.kc_chaos_elemental_rank))
+        self.kcs.append(("Chaos Fanatic", self.kc_chaos_fanatic, self.kc_chaos_fanatic_rank))
+        self.kcs.append(("Commander Zilyana", self.kc_commander_zilyana, self.kc_commander_zilyana_rank))
+        self.kcs.append(("Corporeal Beast", self.kc_corporeal_beast, self.kc_corporeal_beast_rank))
+        self.kcs.append(("Crazy Archaeologist", self.kc_crazy_archaeologist, self.kc_crazy_archaeologist_rank))
+        self.kcs.append(("Dagannoth Prime", self.kc_dagannoth_prime, self.kc_dagannoth_prime))
+        self.kcs.append(("Dagannoth Rex", self.kc_dagannoth_rex, self.kc_dagannoth_rex_rank))
+        self.kcs.append(("Dagannoth Supreme", self.kc_dagannoth_supreme, self.kc_dagannoth_supreme_rank))
+        self.kcs.append(("Deranged Archaeologist", self.kc_deranged_archaeologist, self.kc_deranged_archaeologist_rank))
+        self.kcs.append(("General Graardor", self.kc_general_graardor, self.kc_general_graardor_rank))
+        self.kcs.append(("Giant Mole", self.kc_giant_mole, self.kc_giant_mole_rank))
+        self.kcs.append(("Grotesque Guardians", self.kc_grotesque_guardians, self.kc_grotesque_guardians_rank))
+        self.kcs.append(("Hespori", self.kc_hespori, self.kc_hespori_rank))
+        self.kcs.append(("Kalphite Queen", self.kc_kalphite_queen, self.kc_kalphite_queen_rank))
+        self.kcs.append(("King Black Dragon", self.kc_king_black_dragon, self.kc_king_black_dragon_rank))
+        self.kcs.append(("Kraken", self.kc_kraken, self.kc_kraken_rank))
+        self.kcs.append(("Kree'Arra", self.kc_kreearra, self.kc_kreearra_rank))
+        self.kcs.append(("K'ril Tsutsaroth", self.kc_kril_tsutsaroth, self.kc_kril_tsutsaroth_rank))
+        self.kcs.append(("Mimic", self.kc_mimic, self.kc_mimic_rank))
+        self.kcs.append(("Obor", self.kc_obor, self.kc_obor_rank))
+        self.kcs.append(("Sarachnis", self.kc_sarachnis, self.kc_sarachnis_rank))
+        self.kcs.append(("Scorpia", self.kc_scorpia, self.kc_scorpia_rank))
+        self.kcs.append(("Skotizo", self.kc_skotizo, self.kc_skotizo_rank))
+        self.kcs.append(("The Gauntlet", self.kc_the_gauntlet, self.kc_the_gauntlet_rank))
+        self.kcs.append(("The Corrupted Gauntlet", self.kc_the_corrupted_gauntlet, self.kc_the_corrupted_gauntlet_rank))
+        self.kcs.append(("Theatre of Blood", self.kc_theatre_of_blood, self.kc_theatre_of_blood_rank))
+        self.kcs.append(("Thermonuclear Smoke Devil", self.kc_thermonuclear_smoke_devil, self.kc_thermonuclear_smoke_devil_rank))
+        self.kcs.append(("TzKal-Zuk", self.kc_tzkal_zuk, self.kc_tzkal_zuk_rank))
+        self.kcs.append(("TzTok-Jad", self.kc_tztok_jad, self.kc_tztok_jad_rank))
+        self.kcs.append(("Venenatis", self.kc_venenatis, self.kc_venenatis_rank))
+        self.kcs.append(("Vet'ion", self.kc_vetion, self.kc_vetion_rank))
+        self.kcs.append(("Vorkath", self.kc_vorkath, self.kc_vorkath_rank))
+        self.kcs.append(("Wintertodt", self.kc_wintertodt, self.kc_wintertodt_rank))
+        self.kcs.append(("Zalcano", self.kc_zalcano, self.kc_zalcano_rank))
+        self.kcs.append(("Zulrah", self.kc_zulrah, self.kc_zulrah_rank))
+
 class UserNotFound(TypeError):
     pass
 
