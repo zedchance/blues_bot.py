@@ -2,6 +2,7 @@ from datetime import datetime
 import pytz
 import discord
 from discord.ext import commands
+from discord.permissions import Permissions
 
 from helpers.ge import GrandExchange
 from helpers.urls import hiscore_url, wiki_url, ge_url, rsbuddy_url, cml_url, cml_sig, members_icon
@@ -33,9 +34,9 @@ class Links(commands.Cog):
         await ctx.send(f'{ctx.message.author.mention}\n{wiki_url}{url_safe}')
         return
 
-    @commands.command(name='ge',
+    @commands.command(name='price',
         description='Use to lookup items on the Grand Exchange',
-        aliases=['-g', 'price'],
+        aliases=['-g', 'ge'],
         case_insensitive=True)
     async def ge_command(self, ctx, *search_description):
         """ Responds with information about an item from the Grand Exchange """
@@ -64,10 +65,15 @@ class Links(commands.Cog):
         await ctx.send(f'{ctx.message.author.mention}', embed=embed)
         # Graph
         # TODO make this respond with file only if attach_files permission is true
-        ge.generate_graph()
-        file = discord.File('assets/graph.png')
-        await ctx.send(file=file)
-        file.close()
+        print("YO", discord.Permissions.attach_files)
+        if discord.Permissions.attach_files:
+            ge.generate_graph()
+            file = discord.File('assets/graph.png')
+            await ctx.send(file=file)
+            file.close()
+        else:
+            msg = discord.Embed(title="Missing permissions", description="Bot needs 'Attach files' permissions")
+            await ctx.send(embed=msg)
         return
     
     @commands.command(name='rsbuddy',
