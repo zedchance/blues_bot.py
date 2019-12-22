@@ -3,7 +3,8 @@ from discord.ext import commands
 
 from helpers.hiscore import Hiscore, UserNotFound
 from calcs.experience import next_level_string, xp_to_next_level, xp_to_level
-from helpers.urls import get_icon_url
+from helpers.tracker import Tracker
+from helpers.urls import get_icon_url, cml_logo, cml_url
 from calcs.combat import Combat
 
 class Levels(commands.Cog, command_attrs=dict(hidden=True)):
@@ -507,7 +508,7 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
         description='Shows all level 99s for a user',
         aliases=['99', 'max'],
         hidden=False,
-        case_insensitive=False)
+        case_insensitive=True)
     async def max_lvl_lookup(self, ctx, *username):
         """ Shows user's level 99s """
         async with ctx.typing():
@@ -525,6 +526,46 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
                 embed.add_field(name="**0 / 23**", value="User doesn't have any level 99s")
             else:
                 embed.add_field(name=f"**{count} / 23**", value=msg)
+            await ctx.send(f'{ctx.message.author.mention}', embed=embed)
+            return
+
+    @commands.command(name='xp',
+        description='XP tracker using Crystal Math Labs\n'
+                    'This command can be really slow because it needs to update your XP',
+        aliases=['tracker', 'gains'],
+        hidden=False,
+        case_insensitive=True)
+    async def tracker_command(self, ctx, *username):
+        """ Shows weekly activity for a user """
+        async with ctx.typing():
+            url_safe_name = '+'.join(username)
+            safe_name = ' '.join(username)
+            if safe_name != '':
+                await ctx.send(f'Tracking **{safe_name}**...')
+            hiscore = Hiscore(url_safe_name)
+            tracker = Tracker(url_safe_name)
+            embed = discord.Embed(title='Weekly activity', url=f'{cml_url}{url_safe_name}')
+            embed.set_thumbnail(url=cml_logo)
+            embed.add_field(name=f'{safe_name}',
+                            value=f'**{int(hiscore.overall_xp):,}** XP\n'
+                                  f'**{int(hiscore.overall_level):,}** Total\n'
+                                  f'**{int(hiscore.overall_rank):,}** Rank',
+                            inline=False)
+            (overall_name, overall_xp, overall_rank, overall_levels, overall_ehp) = tracker.top_gains[0]
+            embed.add_field(name='Overall gains', value=f'+{overall_xp:,} XP\n'
+                                                        f'{overall_levels} levels\n'
+                                                        f'{overall_rank} overall rank')
+            for (name, xp, rank, levels, ehp) in tracker.top_gains[1:6]:
+                if xp > 0:
+                    embed.add_field(name=f'**{name}**', value=f'+{xp:,} xp\n{levels} levels\n{rank} rank')
+            kills_msg = f''
+            for (name, kills, rank) in tracker.top_kills[:5]:
+                if kills > 0:
+                    kills_msg += f'{kills:,}\t{name}\n'
+            if kills_msg != '':
+                embed.add_field(name='Recent kills', value=f'```{kills_msg}```', inline=False)
+            embed.set_footer(text=f'Last checked: {tracker.last_checked} ago\n'
+                                  f'Last changed: {tracker.last_changed} ago')
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
 

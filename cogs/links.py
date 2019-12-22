@@ -79,20 +79,6 @@ class Links(commands.Cog):
         url_safe = '+'.join(search_description)
         await ctx.send(f'{ctx.message.author.mention}\n{rsbuddy_url}{url_safe}')
         return
-    
-    @commands.command(name='sig',
-        description='Updates your xp tracker page and shows signature',
-        aliases=['cml', 'tracker'],
-        case_insensitive=True)
-    async def cml_command(self, ctx, *username):
-        """ Crystal Math Labs xp tracker signature """
-        async with ctx.typing():
-            url_safe = '+'.join(username)
-            user = Tracker(url_safe)
-            imageURL = cml_sig + url_safe
-            embed = discord.Embed()
-            embed.set_image(url=imageURL)
-            await ctx.send(f'{ctx.message.author.mention}\n{cml_url}{url_safe}', embed=embed)
 
 # Cog setup
 def setup(bot):
