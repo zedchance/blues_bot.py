@@ -30,42 +30,52 @@ Each command starts with `!blue` or `!b`. Summon a list of the bots commands by 
 You can call `!b help` with a command name after to 
 show information on how to use each command.  
 For example: `!b help attack`  
-<img src="screenshots/help_att_light.png" width="300">
+<img src="screenshots/help_att_light.png" width="350">
 
 ### Levels
 `!b lvl` shows all the available commands.  
-<img src="screenshots/lvl_light.png" width="350">
+<img src="screenshots/lvl_light.png" width="400">
 
 For example `!b attack bluetrane` returns:  
-<img src="screenshots/att_command_light.png" width="400">
+<img src="screenshots/att_command_light.png" width="250">
 
 Or `!b total zezima`  
-<img src="screenshots/total_zezima_light.png" width="300">
+<img src="screenshots/total_zezima_light.png" width="250">
+
+Show a user's boss kill counts with `!b kc bluetrane`:  
+<img src="screenshots/kc_light.png" width="480">
+
+To view all level 99s use `!b 99s bluetrane`:  
+<img src="screenshots/99s_light.png" width="200">
+
+`!b xp bluetrane` is a helpful weekly summary of XP gains and other details.  
+<img src="screenshots/xp_light.png" width="430">  
+This pulls data from [Crystal Math Labs](https://crystalmathlabs.com).
 
 ### Scores
-`!b help Scores` shows a list of the commands available  
-<img src="screenshots/scores_light.png" width="450">
+`!b help scores` shows a list of the commands available  
+<img src="screenshots/scores_light.png" width="350">
 
 For example `!b clues bluetrane` returns  
-<img src="screenshots/clues_light.png" width="400">
+<img src="screenshots/clues_light.png" width="450">
 
 ### Calculators
-`!b help Calculators` can be used to see all available calculators with short descriptions.  
-<img src="screenshots/calculators_light.png" width="300">
+`!b help calculators` can be used to see all available calculators with short descriptions.  
+<img src="screenshots/calculators_light.png" width="400">
 
 For example `!b wines zezima` returns  
-<img src="screenshots/wines_light.png" width="350">
+<img src="screenshots/wines_light.png" width="320">
 
 Or `!b rooftop bluetrane` returns  
 <img src="screenshots/rooftop_light.png" width="450">
 
 ### Links
 The bot can return useful URLs for an easy way to share/lookup a link.
-`!b help Links` shows a list of available commands.  
-<img src="screenshots/links_light.png" width="350">
+`!b help links` shows a list of available commands.  
+<img src="screenshots/links_light.png" width="550">
 
 For example `!b ge trident` returns  
-<img src="screenshots/ge_light_graph.png" width="450">
+<img src="screenshots/ge_light_graph.png" width="550">
 
 Or `!b wiki rune plate` returns
 ```
@@ -85,3 +95,4 @@ Library | Description
 [BeautifulSoup](https://www.crummy.com/software/BeautifulSoup/) | Web scraping tool
 [embed_help](https://github.com/zedchance/embed_help) | Better looking help messages
 [matplotlib](https://matplotlib.org) | Python 2D plotting library
+[Crystal Math Labs](https://crystalmathlabs.com) | OSRS XP tracking site
