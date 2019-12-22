@@ -101,19 +101,15 @@ async def version_command(ctx):
     return
     
 @bot.command(name='bug',
-    description='Submits a bug report to the admin of the bot',
+    description='Links to the issue page for the bot',
     aliases=['issue'],
     hidden=True,
     case_insensitive=True)
-async def bug_command(ctx, *message):
+async def bug_command(ctx):
     """ Use to submit bugs/issues """
-    msg = ' '.join(message)
-    if msg == '':
-        await ctx.send(f'{ctx.message.author.mention} please enter a message after `!b bug`')
-    else:
-        admin = bot.get_user(owner_id)
-        await ctx.send(f'{ctx.message.author.mention}\nYour bug has been filed\n\"{msg}\"\nIf you continue to have problems please report all issues and bugs here:\nhttps://github.com/zedchance/blues_bot.py/issues')
-        await admin.send(f'Bug report from {ctx.author}\n\"{msg}\"')
+    embed = discord.Embed(title="Bugs/issues", description="Use the following link to submit issues with the bot")
+    embed.add_field(name="Link", value=f'https://github.com/zedchance/blues_bot.py/issues')
+    await ctx.send(f'{ctx.message.author.mention}', embed=embed)
     return
 
 bot.run(discord_key, bot=True, reconnect=True)
