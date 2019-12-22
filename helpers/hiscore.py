@@ -94,6 +94,32 @@ class Hiscore:
         self.construction_level = self.scores[23][1]
         self.construction_xp = self.scores[23][2]
 
+        # Build array of level 99s
+        self.levels = []
+        self.levels.append(("Attack", self.attack_level, self.attack_xp, self.attack_rank))
+        self.levels.append(("Defence", self.defence_level, self.defence_xp, self.defence_rank))
+        self.levels.append(("Strength", self.strength_level, self.strength_xp, self.strength_rank))
+        self.levels.append(("Hitpoints", self.hitpoints_level, self.hitpoints_xp, self.hitpoints_rank))
+        self.levels.append(("Ranged", self.ranged_level, self.ranged_xp, self.ranged_rank))
+        self.levels.append(("Prayer", self.prayer_level, self.prayer_xp, self.prayer_rank))
+        self.levels.append(("Magic", self.magic_level, self.magic_xp, self.magic_rank))
+        self.levels.append(("Cooking", self.cooking_level, self.cooking_xp, self.cooking_rank))
+        self.levels.append(("Woodcutting", self.woodcutting_level, self.woodcutting_xp, self.woodcutting_rank))
+        self.levels.append(("Fletching", self.fletching_level, self.fletching_xp, self.fletching_rank))
+        self.levels.append(("Fishing", self.fishing_level, self.fishing_xp, self.fishing_rank))
+        self.levels.append(("Firemaking", self.firemaking_level, self.firemaking_xp, self.firemaking_rank))
+        self.levels.append(("Crafting", self.crafting_level, self.crafting_xp, self.crafting_rank))
+        self.levels.append(("Smithing", self.smithing_level, self.smithing_xp, self.smithing_rank))
+        self.levels.append(("Mining", self.mining_level, self.mining_xp, self.mining_rank))
+        self.levels.append(("Herblore", self.herblore_level, self.herblore_xp, self.herblore_rank))
+        self.levels.append(("Agility", self.agility_level, self.agility_xp, self.agility_rank))
+        self.levels.append(("Thieving", self.thieving_level, self.thieving_xp, self.thieving_rank))
+        self.levels.append(("Slayer", self.slayer_level, self.slayer_xp, self.slayer_rank))
+        self.levels.append(("Farming", self.farming_level, self.farming_xp, self.farming_rank))
+        self.levels.append(("Runecraft", self.runecraft_level, self.runecraft_xp, self.runecraft_rank))
+        self.levels.append(("Hunter", self.hunter_level, self.hunter_xp, self.hunter_rank))
+        self.levels.append(("Construction", self.construction_level, self.construction_xp, self.construction_rank))
+
         # Assign mini-game scores
         self.bounty_hunter_hunter_rank = self.scores[24][0]
         self.bounty_hunter_hunter_score = self.scores[24][1]

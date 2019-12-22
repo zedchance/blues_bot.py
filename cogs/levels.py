@@ -503,6 +503,31 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             await ctx.send(embed=embed)
             return
 
+    @commands.command(name="99s",
+        description='Shows all level 99s for a user',
+        aliases=['99', 'max'],
+        hidden=False,
+        case_insensitive=False)
+    async def max_lvl_lookup(self, ctx, *username):
+        """ Shows user's level 99s """
+        async with ctx.typing():
+            url_safe_name = '+'.join(username)
+            safe_name = ' '.join(username)
+            user = Hiscore(url_safe_name)
+            embed = discord.Embed(title="99s", description=f'{safe_name}\n*{user.overall_level}* total level')
+            count = 0
+            msg = f''
+            for (name, level, xp, rank) in user.levels:
+                if int(level) == 99:
+                    msg += f'**{name}** {int(xp) / 1000000:.2f}M xp\n'
+                    count += 1
+            if count == 0:
+                embed.add_field(name="**0 / 23**", value="User doesn't have any level 99s")
+            else:
+                embed.add_field(name=f"**{count} / 23**", value=msg)
+            await ctx.send(f'{ctx.message.author.mention}', embed=embed)
+            return
+
 # Cog setup
 def setup(bot):
     bot.add_cog(Levels(bot))
