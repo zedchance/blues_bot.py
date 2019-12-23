@@ -116,7 +116,7 @@ class Hiscore:
         self.levels.append(("Thieving", self.thieving_level, self.thieving_xp, self.thieving_rank))
         self.levels.append(("Slayer", self.slayer_level, self.slayer_xp, self.slayer_rank))
         self.levels.append(("Farming", self.farming_level, self.farming_xp, self.farming_rank))
-        self.levels.append(("Runecraft", self.runecraft_level, self.runecraft_xp, self.runecraft_rank))
+        self.levels.append(("Runecrafting", self.runecraft_level, self.runecraft_xp, self.runecraft_rank))
         self.levels.append(("Hunter", self.hunter_level, self.hunter_xp, self.hunter_rank))
         self.levels.append(("Construction", self.construction_level, self.construction_xp, self.construction_rank))
 
@@ -277,6 +277,12 @@ class Hiscore:
         self.kcs.append(("Wintertodt", self.kc_wintertodt, self.kc_wintertodt_rank))
         self.kcs.append(("Zalcano", self.kc_zalcano, self.kc_zalcano_rank))
         self.kcs.append(("Zulrah", self.kc_zulrah, self.kc_zulrah_rank))
+
+    def level_lookup(self, skill):
+        for (name, level, xp, rank) in self.levels:
+            if (name == skill):
+                return level
+        return None
 
 class UserNotFound(TypeError):
     pass

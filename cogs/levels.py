@@ -552,20 +552,22 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
                                   f'**{int(hiscore.overall_rank):,}** Rank',
                             inline=False)
             (overall_name, overall_xp, overall_rank, overall_levels, overall_ehp) = tracker.top_gains[0]
-            embed.add_field(name='Overall gains', value=f'+{overall_xp:,} XP\n'
-                                                        f'{overall_levels} levels\n'
-                                                        f'{overall_rank} overall rank')
+            embed.add_field(name='**Overall gains**', value=f'+{overall_xp:,} XP\n'
+                                                            f'{overall_levels} levels\n'
+                                                            f'{overall_rank} overall rank')
             for (name, xp, rank, levels, ehp) in tracker.top_gains[1:6]:
                 if xp > 0:
-                    embed.add_field(name=f'**{name}**', value=f'+{xp:,} xp\n{levels} levels\n{rank} rank')
+                    embed.add_field(name=f'**{hiscore.level_lookup(name)}** {name}', value=f'+{xp:,} xp\n'
+                                                                                           f'{levels} levels\n'
+                                                                                           f'{rank} rank')
             kills_msg = f''
             for (name, kills, rank) in tracker.top_kills[:5]:
                 if kills > 0:
                     kills_msg += f'{kills:,}\t{name}\n'
             if kills_msg != '':
                 embed.add_field(name='Recent kills', value=f'```{kills_msg}```', inline=False)
-            embed.set_footer(text=f'Last checked: {tracker.last_checked} ago\n'
-                                  f'Last changed: {tracker.last_changed} ago')
+            embed.set_footer(text=f'Checked {tracker.last_checked} ago\n'
+                                  f'Changed {tracker.last_changed} ago')
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
 
