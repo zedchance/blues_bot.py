@@ -41,11 +41,19 @@ class Tracker:
         # Sort results by xp gained (seconds item in tuple)
         # https://stackoverflow.com/a/3121985
         self.top_gains = sorted(self.results, key=lambda tup: tup[1], reverse=True)
+        for (name, xp, rank, levels, ehp) in self.top_gains:
+            if name == 'Overall':
+                if xp == 0:
+                    raise NoDataPoints(f'Either this is the first time {username} has been tracked this week, '
+                                       f'or no XP has been gained.\n'
+                                       'Gain some more XP and try again.\n'
+                                       '(This command is more useful if you use it often.)')
 
         # Extract last changed time
         details_response = doc.find_all('div', {"id": "track_details"})
         details_search = details_response[0].find_all('span')
         self.results_duration = details_search[0].text
+        self.oldest_data = details_search[2].text
         self.last_checked = details_search[6].text
         self.last_changed = details_search[8].text
 
@@ -70,4 +78,7 @@ class Tracker:
         return f'{cml_sig}{self.username}'
 
 class UserNotFound(TypeError):
+    pass
+
+class NoDataPoints(Exception):
     pass

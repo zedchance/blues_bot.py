@@ -566,8 +566,9 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
                     kills_msg += f'{kills:,}\t{name}\n'
             if kills_msg != '':
                 embed.add_field(name='Recent kills', value=f'```{kills_msg}```', inline=False)
-            embed.set_footer(text=f'Checked {tracker.last_checked} ago\n'
-                                  f'Changed {tracker.last_changed} ago')
+            embed.set_footer(text=f'Checked: {tracker.last_checked} ago\n'
+                                  f'Changed: {tracker.last_changed} ago\n'
+                                  f'Oldest data point: {tracker.oldest_data} ago')
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
 
