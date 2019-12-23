@@ -247,7 +247,7 @@ class Hiscore:
         self.kcs.append(("Commander Zilyana", self.kc_commander_zilyana, self.kc_commander_zilyana_rank))
         self.kcs.append(("Corporeal Beast", self.kc_corporeal_beast, self.kc_corporeal_beast_rank))
         self.kcs.append(("Crazy Archaeologist", self.kc_crazy_archaeologist, self.kc_crazy_archaeologist_rank))
-        self.kcs.append(("Dagannoth Prime", self.kc_dagannoth_prime, self.kc_dagannoth_prime))
+        self.kcs.append(("Dagannoth Prime", self.kc_dagannoth_prime, self.kc_dagannoth_prime_rank))
         self.kcs.append(("Dagannoth Rex", self.kc_dagannoth_rex, self.kc_dagannoth_rex_rank))
         self.kcs.append(("Dagannoth Supreme", self.kc_dagannoth_supreme, self.kc_dagannoth_supreme_rank))
         self.kcs.append(("Deranged Archaeologist", self.kc_deranged_archaeologist, self.kc_deranged_archaeologist_rank))
