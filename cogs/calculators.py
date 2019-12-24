@@ -141,7 +141,7 @@ class Calculators(commands.Cog):
                 embed.add_field(name="Wintertodt kill count", value=f'{int(wt.kc_wintertodt):,}')
                 embed.add_field(name="Average XP per kill", value=f'{wt.average():,} xp')
                 embed.add_field(name="Kills to level up", value=f'{wt.kills_to_level_up():,.0f}')
-                embed.add_field(name="Kills to level 99", value=f'{wt.kills_to_level_99():,} (~{wt.estimated_total_kills():,} total)')
+                embed.add_field(name="Kills to level 99", value=f'{wt.kills_to_level_99():,} (Estimated {wt.estimated_total_kills():,} total)')
             embed.set_footer(text=f'{next_level_string(int(wt.firemaking_xp), "firemaking")}')
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
