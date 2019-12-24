@@ -4,8 +4,10 @@ from discord.ext import commands
 from calcs.experience import next_level_string
 from calcs.tasks import Tasks
 from calcs.wines import Wines
+from calcs.wintertodt import Wintertodt
 from calcs.zeah import Zeah
 from calcs.agility import Agility
+from helpers.hiscore import Hiscore
 from helpers.urls import get_icon_url
 
 class Calculators(commands.Cog):
@@ -105,6 +107,28 @@ class Calculators(commands.Cog):
                 embed.add_field(name=f'Laps to level up', value=f'{user.laps_to_level_up():,.0f} on {user.course}', inline=True)
                 embed.add_field(name=f'Laps until {user.next_course}', value=f'{user.laps_to_next_course():,.0f}', inline=True)
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
+
+    @commands.command(name='wintertodt',
+        description='Calculates estimated Wintertodt kill count',
+        aliases=['wt'],
+        case_insensitive=True)
+    async def wintertodt_command(self, ctx, *username):
+        """ Wintertodt calculator """
+        async with ctx.typing():
+            url_safe_name = '+'.join(username)
+            safe_name = ' '.join(username)
+            wt = Wintertodt(url_safe_name)
+            embed = discord.Embed(title="Wintertodt calculator", description=f'{safe_name}')
+            embed.set_thumbnail(url=f'{get_icon_url("firemaking")}')
+            embed.add_field(name="Level", value=f'**{int(wt.firemaking_level):,}**', inline=True)
+            embed.add_field(name="XP", value=f'{int(wt.firemaking_xp):,}', inline=True)
+            embed.add_field(name="Wintertodt kill count", value=f'{int(wt.kc_wintertodt):,}')
+            embed.add_field(name="Average XP per kill", value=f'{wt.average():,} xp')
+            embed.add_field(name="Kills to level up", value=f'{wt.kills_to_level_up():,}')
+            embed.add_field(name="Kills to level 99", value=f'{wt.kills_to_level_99():,}')
+            embed.set_footer(text=f'{next_level_string(int(wt.firemaking_xp), "firemaking")}')
+            await ctx.send(f'{ctx.message.author.mention}', embed=embed)
+            return
 
 # Cog setup
 def setup(bot):
