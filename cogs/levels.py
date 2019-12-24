@@ -59,9 +59,9 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             safe_name = ' '.join(username)
             user = Hiscore(url_safe_name)
             embed = discord.Embed(title="Overall", description=f'{safe_name}')
-            embed.add_field(name="Level", value=f'**{int(user.overall_level):,}**', inline=True)
-            embed.add_field(name="XP", value=f'{int(user.overall_xp):,}', inline=True)
-            embed.add_field(name="Rank", value=f'{int(user.overall_rank):,}', inline=True)
+            embed.add_field(name="Level", value=f'**{user.overall_level:,}**', inline=True)
+            embed.add_field(name="XP", value=f'{user.overall_xp:,}', inline=True)
+            embed.add_field(name="Rank", value=f'{user.overall_rank:,}', inline=True)
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
     
@@ -76,10 +76,10 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             user = Hiscore(url_safe_name)
             embed = discord.Embed(title="Attack", description=f'{safe_name}')
             embed.set_thumbnail(url=f'{get_icon_url("attack")}')
-            embed.add_field(name="Level", value=f'**{int(user.attack_level):,}**', inline=True)
-            embed.add_field(name="XP", value=f'{int(user.attack_xp):,}', inline=True)
-            embed.add_field(name="Rank", value=f'{int(user.attack_rank):,}')
-            embed.set_footer(text=f'{next_level_string(int(user.attack_xp), "attack")}')
+            embed.add_field(name="Level", value=f'**{user.attack_level:,}**', inline=True)
+            embed.add_field(name="XP", value=f'{user.attack_xp:,}', inline=True)
+            embed.add_field(name="Rank", value=f'{user.attack_rank:,}')
+            embed.set_footer(text=f'{next_level_string(user.attack_xp, "attack")}')
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
     
@@ -94,10 +94,10 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             user = Hiscore(url_safe_name)
             embed = discord.Embed(title="Defence", description=f'{safe_name}')
             embed.set_thumbnail(url=f'{get_icon_url("defence")}')
-            embed.add_field(name="Level", value=f'**{int(user.defence_level):,}**', inline=True)
-            embed.add_field(name="XP", value=f'{int(user.defence_xp):,}', inline=True)
-            embed.add_field(name="Rank", value=f'{int(user.defence_rank):,}')
-            embed.set_footer(text=f'{next_level_string(int(user.defence_xp), "defence")}')
+            embed.add_field(name="Level", value=f'**{user.defence_level:,}**', inline=True)
+            embed.add_field(name="XP", value=f'{user.defence_xp:,}', inline=True)
+            embed.add_field(name="Rank", value=f'{user.defence_rank:,}')
+            embed.set_footer(text=f'{next_level_string(user.defence_xp, "defence")}')
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
     
@@ -112,10 +112,10 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             user = Hiscore(url_safe_name)
             embed = discord.Embed(title="Strength", description=f'{safe_name}')
             embed.set_thumbnail(url=f'{get_icon_url("strength")}')
-            embed.add_field(name="Level", value=f'**{int(user.strength_level):,}**', inline=True)
-            embed.add_field(name="XP", value=f'{int(user.strength_xp):,}', inline=True)
-            embed.add_field(name="Rank", value=f'{int(user.strength_rank):,}')
-            embed.set_footer(text=f'{next_level_string(int(user.strength_xp), "strength")}')
+            embed.add_field(name="Level", value=f'**{user.strength_level:,}**', inline=True)
+            embed.add_field(name="XP", value=f'{user.strength_xp:,}', inline=True)
+            embed.add_field(name="Rank", value=f'{user.strength_rank:,}')
+            embed.set_footer(text=f'{next_level_string(user.strength_xp, "strength")}')
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
     
@@ -130,10 +130,10 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             user = Hiscore(url_safe_name)
             embed = discord.Embed(title="Hitpoints", description=f'{safe_name}')
             embed.set_thumbnail(url=f'{get_icon_url("hitpoints")}')
-            embed.add_field(name="Level", value=f'**{int(user.hitpoints_level):,}**', inline=True)
-            embed.add_field(name="XP", value=f'{int(user.hitpoints_xp):,}', inline=True)
-            embed.add_field(name="Rank", value=f'{int(user.hitpoints_rank):,}')
-            embed.set_footer(text=f'{next_level_string(int(user.hitpoints_xp), "hitpoints")}')
+            embed.add_field(name="Level", value=f'**{user.hitpoints_level:,}**', inline=True)
+            embed.add_field(name="XP", value=f'{user.hitpoints_xp:,}', inline=True)
+            embed.add_field(name="Rank", value=f'{user.hitpoints_rank:,}')
+            embed.set_footer(text=f'{next_level_string(user.hitpoints_xp, "hitpoints")}')
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
     
@@ -148,10 +148,10 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             user = Hiscore(url_safe_name)
             embed = discord.Embed(title="Ranged", description=f'{safe_name}')
             embed.set_thumbnail(url=f'{get_icon_url("ranged")}')
-            embed.add_field(name="Level", value=f'**{int(user.ranged_level):,}**', inline=True)
-            embed.add_field(name="XP", value=f'{int(user.ranged_xp):,}', inline=True)
-            embed.add_field(name="Rank", value=f'{int(user.ranged_rank):,}')
-            embed.set_footer(text=f'{next_level_string(int(user.ranged_xp), "ranged")}')
+            embed.add_field(name="Level", value=f'**{user.ranged_level:,}**', inline=True)
+            embed.add_field(name="XP", value=f'{user.ranged_xp:,}', inline=True)
+            embed.add_field(name="Rank", value=f'{user.ranged_rank:,}')
+            embed.set_footer(text=f'{next_level_string(user.ranged_xp, "ranged")}')
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
     
@@ -166,10 +166,10 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             user = Hiscore(url_safe_name)
             embed = discord.Embed(title="Prayer", description=f'{safe_name}')
             embed.set_thumbnail(url=f'{get_icon_url("prayer")}')
-            embed.add_field(name="Level", value=f'**{int(user.prayer_level):,}**', inline=True)
-            embed.add_field(name="XP", value=f'{int(user.prayer_xp):,}', inline=True)
-            embed.add_field(name="Rank", value=f'{int(user.prayer_rank):,}')
-            embed.set_footer(text=f'{next_level_string(int(user.prayer_xp), "prayer")}')
+            embed.add_field(name="Level", value=f'**{user.prayer_level:,}**', inline=True)
+            embed.add_field(name="XP", value=f'{user.prayer_xp:,}', inline=True)
+            embed.add_field(name="Rank", value=f'{user.prayer_rank:,}')
+            embed.set_footer(text=f'{next_level_string(user.prayer_xp, "prayer")}')
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
     
@@ -184,10 +184,10 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             user = Hiscore(url_safe_name)
             embed = discord.Embed(title="Magic", description=f'{safe_name}')
             embed.set_thumbnail(url=f'{get_icon_url("magic")}')
-            embed.add_field(name="Level", value=f'**{int(user.magic_level):,}**', inline=True)
-            embed.add_field(name="XP", value=f'{int(user.magic_xp):,}', inline=True)
-            embed.add_field(name="Rank", value=f'{int(user.magic_rank):,}')
-            embed.set_footer(text=f'{next_level_string(int(user.magic_xp), "magic")}')
+            embed.add_field(name="Level", value=f'**{user.magic_level:,}**', inline=True)
+            embed.add_field(name="XP", value=f'{user.magic_xp:,}', inline=True)
+            embed.add_field(name="Rank", value=f'{user.magic_rank:,}')
+            embed.set_footer(text=f'{next_level_string(user.magic_xp, "magic")}')
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
     
@@ -202,10 +202,10 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             user = Hiscore(url_safe_name)
             embed = discord.Embed(title="Cooking", description=f'{safe_name}')
             embed.set_thumbnail(url=f'{get_icon_url("cooking")}')
-            embed.add_field(name="Level", value=f'**{int(user.cooking_level):,}**', inline=True)
-            embed.add_field(name="XP", value=f'{int(user.cooking_xp):,}', inline=True)
-            embed.add_field(name="Rank", value=f'{int(user.cooking_rank):,}')
-            embed.set_footer(text=f'{next_level_string(int(user.cooking_xp), "cooking")}')
+            embed.add_field(name="Level", value=f'**{user.cooking_level:,}**', inline=True)
+            embed.add_field(name="XP", value=f'{user.cooking_xp:,}', inline=True)
+            embed.add_field(name="Rank", value=f'{user.cooking_rank:,}')
+            embed.set_footer(text=f'{next_level_string(user.cooking_xp, "cooking")}')
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
     
@@ -220,10 +220,10 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             user = Hiscore(url_safe_name)
             embed = discord.Embed(title="Woodcutting", description=f'{safe_name}')
             embed.set_thumbnail(url=f'{get_icon_url("woodcutting")}')
-            embed.add_field(name="Level", value=f'**{int(user.woodcutting_level):,}**', inline=True)
-            embed.add_field(name="XP", value=f'{int(user.woodcutting_xp):,}', inline=True)
-            embed.add_field(name="Rank", value=f'{int(user.woodcutting_rank):,}')
-            embed.set_footer(text=f'{next_level_string(int(user.woodcutting_xp), "woodcutting")}')
+            embed.add_field(name="Level", value=f'**{user.woodcutting_level:,}**', inline=True)
+            embed.add_field(name="XP", value=f'{user.woodcutting_xp:,}', inline=True)
+            embed.add_field(name="Rank", value=f'{user.woodcutting_rank:,}')
+            embed.set_footer(text=f'{next_level_string(user.woodcutting_xp, "woodcutting")}')
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
     
@@ -238,10 +238,10 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             user = Hiscore(url_safe_name)
             embed = discord.Embed(title="Fletching", description=f'{safe_name}')
             embed.set_thumbnail(url=f'{get_icon_url("fletching")}')
-            embed.add_field(name="Level", value=f'**{int(user.fletching_level):,}**', inline=True)
-            embed.add_field(name="XP", value=f'{int(user.fletching_xp):,}', inline=True)
-            embed.add_field(name="Rank", value=f'{int(user.fletching_rank):,}')
-            embed.set_footer(text=f'{next_level_string(int(user.fletching_xp), "fletching")}')
+            embed.add_field(name="Level", value=f'**{user.fletching_level:,}**', inline=True)
+            embed.add_field(name="XP", value=f'{user.fletching_xp:,}', inline=True)
+            embed.add_field(name="Rank", value=f'{user.fletching_rank:,}')
+            embed.set_footer(text=f'{next_level_string(user.fletching_xp, "fletching")}')
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
     
@@ -256,10 +256,10 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             user = Hiscore(url_safe_name)
             embed = discord.Embed(title="Fishing", description=f'{safe_name}')
             embed.set_thumbnail(url=f'{get_icon_url("fishing")}')
-            embed.add_field(name="Level", value=f'**{int(user.fishing_level):,}**', inline=True)
-            embed.add_field(name="XP", value=f'{int(user.fishing_xp):,}', inline=True)
-            embed.add_field(name="Rank", value=f'{int(user.fishing_rank):,}')
-            embed.set_footer(text=f'{next_level_string(int(user.fishing_xp), "fishing")}')
+            embed.add_field(name="Level", value=f'**{user.fishing_level:,}**', inline=True)
+            embed.add_field(name="XP", value=f'{user.fishing_xp:,}', inline=True)
+            embed.add_field(name="Rank", value=f'{user.fishing_rank:,}')
+            embed.set_footer(text=f'{next_level_string(user.fishing_xp, "fishing")}')
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
     
@@ -274,10 +274,10 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             user = Hiscore(url_safe_name)
             embed = discord.Embed(title="Firemaking", description=f'{safe_name}')
             embed.set_thumbnail(url=f'{get_icon_url("firemaking")}')
-            embed.add_field(name="Level", value=f'**{int(user.firemaking_level):,}**', inline=True)
-            embed.add_field(name="XP", value=f'{int(user.firemaking_xp):,}', inline=True)
-            embed.add_field(name="Rank", value=f'{int(user.firemaking_rank):,}')
-            embed.set_footer(text=f'{next_level_string(int(user.firemaking_xp), "firemaking")}')
+            embed.add_field(name="Level", value=f'**{user.firemaking_level:,}**', inline=True)
+            embed.add_field(name="XP", value=f'{user.firemaking_xp:,}', inline=True)
+            embed.add_field(name="Rank", value=f'{user.firemaking_rank:,}')
+            embed.set_footer(text=f'{next_level_string(user.firemaking_xp, "firemaking")}')
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
     
@@ -292,10 +292,10 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             user = Hiscore(url_safe_name)
             embed = discord.Embed(title="Crafting", description=f'{safe_name}')
             embed.set_thumbnail(url=f'{get_icon_url("crafting")}')
-            embed.add_field(name="Level", value=f'**{int(user.crafting_level):,}**', inline=True)
-            embed.add_field(name="XP", value=f'{int(user.crafting_xp):,}', inline=True)
-            embed.add_field(name="Rank", value=f'{int(user.crafting_rank):,}')
-            embed.set_footer(text=f'{next_level_string(int(user.crafting_xp), "crafting")}')
+            embed.add_field(name="Level", value=f'**{user.crafting_level:,}**', inline=True)
+            embed.add_field(name="XP", value=f'{user.crafting_xp:,}', inline=True)
+            embed.add_field(name="Rank", value=f'{user.crafting_rank:,}')
+            embed.set_footer(text=f'{next_level_string(user.crafting_xp, "crafting")}')
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
     
@@ -310,10 +310,10 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             user = Hiscore(url_safe_name)
             embed = discord.Embed(title="Smithing", description=f'{safe_name}')
             embed.set_thumbnail(url=f'{get_icon_url("smithing")}')
-            embed.add_field(name="Level", value=f'**{int(user.smithing_level):,}**', inline=True)
-            embed.add_field(name="XP", value=f'{int(user.smithing_xp):,}', inline=True)
-            embed.add_field(name="Rank", value=f'{int(user.smithing_rank):,}')
-            embed.set_footer(text=f'{next_level_string(int(user.smithing_xp), "smithing")}')
+            embed.add_field(name="Level", value=f'**{user.smithing_level:,}**', inline=True)
+            embed.add_field(name="XP", value=f'{user.smithing_xp:,}', inline=True)
+            embed.add_field(name="Rank", value=f'{user.smithing_rank:,}')
+            embed.set_footer(text=f'{next_level_string(user.smithing_xp, "smithing")}')
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
     
@@ -328,10 +328,10 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             user = Hiscore(url_safe_name)
             embed = discord.Embed(title="Mining", description=f'{safe_name}')
             embed.set_thumbnail(url=f'{get_icon_url("mining")}')
-            embed.add_field(name="Level", value=f'**{int(user.mining_level):,}**', inline=True)
-            embed.add_field(name="XP", value=f'{int(user.mining_xp):,}', inline=True)
-            embed.add_field(name="Rank", value=f'{int(user.mining_rank):,}')
-            embed.set_footer(text=f'{next_level_string(int(user.mining_xp), "mining")}')
+            embed.add_field(name="Level", value=f'**{user.mining_level:,}**', inline=True)
+            embed.add_field(name="XP", value=f'{user.mining_xp:,}', inline=True)
+            embed.add_field(name="Rank", value=f'{user.mining_rank:,}')
+            embed.set_footer(text=f'{next_level_string(user.mining_xp, "mining")}')
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
     
@@ -346,10 +346,10 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             user = Hiscore(url_safe_name)
             embed = discord.Embed(title="Herblore", description=f'{safe_name}')
             embed.set_thumbnail(url=f'{get_icon_url("herblore")}')
-            embed.add_field(name="Level", value=f'**{int(user.herblore_level):,}**', inline=True)
-            embed.add_field(name="XP", value=f'{int(user.herblore_xp):,}', inline=True)
-            embed.add_field(name="Rank", value=f'{int(user.herblore_rank):,}')
-            embed.set_footer(text=f'{next_level_string(int(user.herblore_xp), "herblore")}')
+            embed.add_field(name="Level", value=f'**{user.herblore_level:,}**', inline=True)
+            embed.add_field(name="XP", value=f'{user.herblore_xp:,}', inline=True)
+            embed.add_field(name="Rank", value=f'{user.herblore_rank:,}')
+            embed.set_footer(text=f'{next_level_string(user.herblore_xp, "herblore")}')
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
     
@@ -364,10 +364,10 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             user = Hiscore(url_safe_name)
             embed = discord.Embed(title="Agility", description=f'{safe_name}')
             embed.set_thumbnail(url=f'{get_icon_url("agility")}')
-            embed.add_field(name="Level", value=f'**{int(user.agility_level):,}**', inline=True)
-            embed.add_field(name="XP", value=f'{int(user.agility_xp):,}', inline=True)
-            embed.add_field(name="Rank", value=f'{int(user.agility_rank):,}')
-            embed.set_footer(text=f'{next_level_string(int(user.agility_xp), "agility")}')
+            embed.add_field(name="Level", value=f'**{user.agility_level:,}**', inline=True)
+            embed.add_field(name="XP", value=f'{user.agility_xp:,}', inline=True)
+            embed.add_field(name="Rank", value=f'{user.agility_rank:,}')
+            embed.set_footer(text=f'{next_level_string(user.agility_xp, "agility")}')
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
     
@@ -382,10 +382,10 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             user = Hiscore(url_safe_name)
             embed = discord.Embed(title="Thieving", description=f'{safe_name}')
             embed.set_thumbnail(url=f'{get_icon_url("thieving")}')
-            embed.add_field(name="Level", value=f'**{int(user.thieving_level):,}**', inline=True)
-            embed.add_field(name="XP", value=f'{int(user.thieving_xp):,}', inline=True)
-            embed.add_field(name="Rank", value=f'{int(user.thieving_rank):,}')
-            embed.set_footer(text=f'{next_level_string(int(user.thieving_xp), "thieving")}')
+            embed.add_field(name="Level", value=f'**{user.thieving_level:,}**', inline=True)
+            embed.add_field(name="XP", value=f'{user.thieving_xp:,}', inline=True)
+            embed.add_field(name="Rank", value=f'{user.thieving_rank:,}')
+            embed.set_footer(text=f'{next_level_string(user.thieving_xp, "thieving")}')
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
     
@@ -400,10 +400,10 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             user = Hiscore(url_safe_name)
             embed = discord.Embed(title="Slayer", description=f'{safe_name}')
             embed.set_thumbnail(url=f'{get_icon_url("slayer")}')
-            embed.add_field(name="Level", value=f'**{int(user.slayer_level):,}**', inline=True)
-            embed.add_field(name="XP", value=f'{int(user.slayer_xp):,}', inline=True)
-            embed.add_field(name="Rank", value=f'{int(user.slayer_rank):,}')
-            embed.set_footer(text=f'{next_level_string(int(user.slayer_xp), "slayer")}')
+            embed.add_field(name="Level", value=f'**{user.slayer_level:,}**', inline=True)
+            embed.add_field(name="XP", value=f'{user.slayer_xp:,}', inline=True)
+            embed.add_field(name="Rank", value=f'{user.slayer_rank:,}')
+            embed.set_footer(text=f'{next_level_string(user.slayer_xp, "slayer")}')
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
     
@@ -418,10 +418,10 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             user = Hiscore(url_safe_name)
             embed = discord.Embed(title="Farming", description=f'{safe_name}')
             embed.set_thumbnail(url=f'{get_icon_url("farming")}')
-            embed.add_field(name="Level", value=f'**{int(user.farming_level):,}**', inline=True)
-            embed.add_field(name="XP", value=f'{int(user.farming_xp):,}', inline=True)
-            embed.add_field(name="Rank", value=f'{int(user.farming_rank):,}')
-            embed.set_footer(text=f'{next_level_string(int(user.farming_xp), "farming")}')
+            embed.add_field(name="Level", value=f'**{user.farming_level:,}**', inline=True)
+            embed.add_field(name="XP", value=f'{user.farming_xp:,}', inline=True)
+            embed.add_field(name="Rank", value=f'{user.farming_rank:,}')
+            embed.set_footer(text=f'{next_level_string(user.farming_xp, "farming")}')
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
     
@@ -436,10 +436,10 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             user = Hiscore(url_safe_name)
             embed = discord.Embed(title="Runecraft", description=f'{safe_name}')
             embed.set_thumbnail(url=f'{get_icon_url("runecraft")}')
-            embed.add_field(name="Level", value=f'**{int(user.runecraft_level):,}**', inline=True)
-            embed.add_field(name="XP", value=f'{int(user.runecraft_xp):,}', inline=True)
-            embed.add_field(name="Rank", value=f'{int(user.runecraft_rank):,}')
-            embed.set_footer(text=f'{next_level_string(int(user.runecraft_xp), "runecraft")}')
+            embed.add_field(name="Level", value=f'**{user.runecraft_level:,}**', inline=True)
+            embed.add_field(name="XP", value=f'{user.runecraft_xp:,}', inline=True)
+            embed.add_field(name="Rank", value=f'{user.runecraft_rank:,}')
+            embed.set_footer(text=f'{next_level_string(user.runecraft_xp, "runecraft")}')
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
     
@@ -454,10 +454,10 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             user = Hiscore(url_safe_name)
             embed = discord.Embed(title="Hunter", description=f'{safe_name}')
             embed.set_thumbnail(url=f'{get_icon_url("hunter")}')
-            embed.add_field(name="Level", value=f'**{int(user.hunter_level):,}**', inline=True)
-            embed.add_field(name="XP", value=f'{int(user.hunter_xp):,}', inline=True)
-            embed.add_field(name="Rank", value=f'{int(user.hunter_rank):,}')
-            embed.set_footer(text=f'{next_level_string(int(user.hunter_xp), "hunter")}')
+            embed.add_field(name="Level", value=f'**{user.hunter_level:,}**', inline=True)
+            embed.add_field(name="XP", value=f'{user.hunter_xp:,}', inline=True)
+            embed.add_field(name="Rank", value=f'{user.hunter_rank:,}')
+            embed.set_footer(text=f'{next_level_string(user.hunter_xp, "hunter")}')
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
     
@@ -472,10 +472,10 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             user = Hiscore(url_safe_name)
             embed = discord.Embed(title="Construction", description=f'{safe_name}')
             embed.set_thumbnail(url=f'{get_icon_url("construction")}')
-            embed.add_field(name="Level", value=f'**{int(user.construction_level):,}**', inline=True)
-            embed.add_field(name="XP", value=f'{int(user.construction_xp):,}', inline=True)
-            embed.add_field(name="Rank", value=f'{int(user.construction_rank):,}')
-            embed.set_footer(text=f'{next_level_string(int(user.construction_xp), "construction")}')
+            embed.add_field(name="Level", value=f'**{user.construction_level:,}**', inline=True)
+            embed.add_field(name="XP", value=f'{user.construction_xp:,}', inline=True)
+            embed.add_field(name="Rank", value=f'{user.construction_rank:,}')
+            embed.set_footer(text=f'{next_level_string(user.construction_xp, "construction")}')
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
 
