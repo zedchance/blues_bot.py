@@ -22,14 +22,11 @@ RELLEKKA_LAP = 780
 ARDOUGNE_LEVEL = 90
 ARDOUGNE_LAP = 793
 
-class Agility():
+class Agility(Hiscore):
     """ Agility rooftop course calculator """
     
     def __init__(self, username):
-        self.username = username
-        user = Hiscore(username)
-        self.agility_level = int(user.agility_level)
-        self.agility_xp = int(user.agility_xp)
+        super().__init__(username)
         self.course = self.determine_course()
     
     def determine_course(self):

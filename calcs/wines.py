@@ -6,14 +6,8 @@ from calcs.experience import LEVEL_99
 WINE_XP = 200
 WINE_XP_PER_INV = WINE_XP * 14
 
-class Wines():
+class Wines(Hiscore):
     """ Wine cooking calculator """
-    
-    def __init__(self, username):
-        self.username = username
-        user = Hiscore(username)
-        self.cooking_level = int(user.cooking_level)
-        self.cooking_xp = int(user.cooking_xp)
     
     def wines_to_level_99(self):
         """ Returns the amount of wines needed to reach level 99 cooking """

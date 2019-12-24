@@ -3,15 +3,12 @@
 from helpers.hiscore import Hiscore
 from calcs.experience import level_to_xp, LEVEL_99
 
-class Tasks():
+class Tasks(Hiscore):
     """ Calculates the estimated slayer tasks left to level up """
     
     def __init__(self, username, tasks):
-        self.username = username
+        super().__init__(username)
         self.tasks = int(tasks)
-        user = Hiscore(username)
-        self.slayer_level = int(user.slayer_level)
-        self.slayer_xp = int(user.slayer_xp)
     
     def xp_needed_to_level_up(self):
         """ Returns xp needed to level up """

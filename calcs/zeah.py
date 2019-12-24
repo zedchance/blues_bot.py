@@ -9,15 +9,9 @@ BLOOD_XP = 23.8 + VENERATE
 SOUL_XP = 29.7 + VENERATE
 RUNES_PER_TRIP = 204
 
-class Zeah():
+class Zeah(Hiscore):
     """ Calculator for blood and soul runes """
-    
-    def __init__(self, username):
-        self.username = username
-        user = Hiscore(username)
-        self.runecraft_level = int(user.runecraft_level)
-        self.runecraft_xp = int(user.runecraft_xp)
-    
+
     def xp_needed_to_level_up(self):
         """ Returns xp needed to level up """
         if self.runecraft_xp == 200000000:

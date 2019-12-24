@@ -4,19 +4,8 @@ from math import floor
 
 from helpers.hiscore import Hiscore
 
-class Combat():
+class Combat(Hiscore):
     """ Combat level calculator """
-    
-    def __init__(self, username):
-        self.username = username
-        user = Hiscore(username)
-        self.hitpoints_level = int(user.hitpoints_level)
-        self.attack_level = int(user.attack_level)
-        self.strength_level = int(user.strength_level)
-        self.defence_level = int(user.defence_level)
-        self.prayer_level = int(user.prayer_level)
-        self.ranged_level = int(user.ranged_level)
-        self.magic_level = int(user.magic_level)
     
     def calculate_combat(self):
         """ Calculate user's combat level """
