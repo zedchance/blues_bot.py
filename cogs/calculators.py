@@ -72,20 +72,32 @@ class Calculators(commands.Cog):
             if (user.runecraft_level < 77):
                 embed.add_field(name="Level too low", value="You need a runecraft level of at least 77 to make blood runes", inline=True)
             elif (user.runecraft_level < 90):
-                embed.add_field(name="Bloods to level up", value=f'{user.bloods_to_level_up() + 1:,.0f}', inline=True)
-                embed.add_field(name="Blood trips", value=f'{user.blood_trips_to_level_up() + 1:,.0f}', inline=True)
-                embed.add_field(name="Bloods to level 99", value=f'{user.bloods_to_level_99() + 1:,.0f}', inline=True)
-                embed.add_field(name="Blood trips to 99", value=f'{user.blood_trips_to_level_99() + 1:,.0f}', inline=True)
+                embed.add_field(name="Bloods to level up",
+                                value=f'{user.bloods_to_level_up() + 1:,.0f}\n'
+                                      f'({user.blood_trips_to_level_up() + 1:,.0f} trips)',
+                                inline=True)
+                embed.add_field(name="Bloods to level 99",
+                                value=f'{user.bloods_to_level_99() + 1:,.0f}\n'
+                                      f'({user.blood_trips_to_level_99() + 1:,.0f} trips)',
+                                inline=True)
             else:
-                embed.add_field(name="Bloods to level up", value=f'{user.bloods_to_level_up() + 1:,.0f}', inline=True)
-                embed.add_field(name="Blood trips", value=f'{user.blood_trips_to_level_up() + 1:,.0f}', inline=True)
-                embed.add_field(name="Souls to level up", value=f'{user.souls_to_level_up() + 1:,.0f}', inline=True)
-                embed.add_field(name="Soul trips", value=f'{user.soul_trips_to_level_up() + 1:,.0f}', inline=True)
+                embed.add_field(name="Bloods to level up",
+                                value=f'{user.bloods_to_level_up() + 1:,.0f}\n'
+                                      f'({user.blood_trips_to_level_up() + 1:,.0f} trips)',
+                                inline=True)
+                embed.add_field(name="Souls to level up",
+                                value=f'{user.souls_to_level_up() + 1:,.0f}\n'
+                                      f'({user.soul_trips_to_level_up() + 1:,.0f} trips)',
+                                inline=True)
                 if (user.runecraft_level < 99):
-                    embed.add_field(name="Bloods to level 99", value=f'{user.bloods_to_level_99() + 1:,.0f}', inline=True)
-                    embed.add_field(name="Blood trips to 99", value=f'{user.blood_trips_to_level_99() + 1:,.0f}', inline=True)
-                    embed.add_field(name="Souls to level 99", value=f'{user.souls_to_level_99() + 1:,.0f}', inline=True)
-                    embed.add_field(name="Soul trips to 99", value=f'{user.soul_trips_to_level_99() + 1:,.0f}', inline=True)
+                    embed.add_field(name="Bloods to level 99",
+                                    value=f'{user.bloods_to_level_99() + 1:,.0f}\n'
+                                          f'({user.blood_trips_to_level_99() + 1:,.0f} trips)',
+                                    inline=True)
+                    embed.add_field(name="Souls to level 99",
+                                    value=f'{user.souls_to_level_99() + 1:,.0f}\n'
+                                          f'({user.soul_trips_to_level_99() + 1:,.0f} trips)',
+                                    inline=True)
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
     
