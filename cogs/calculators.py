@@ -120,12 +120,16 @@ class Calculators(commands.Cog):
             wt = Wintertodt(url_safe_name)
             embed = discord.Embed(title="Wintertodt calculator", description=f'{safe_name}')
             embed.set_thumbnail(url=f'{get_icon_url("firemaking")}')
-            embed.add_field(name="Level", value=f'**{int(wt.firemaking_level):,}**', inline=True)
-            embed.add_field(name="XP", value=f'{int(wt.firemaking_xp):,}', inline=True)
-            embed.add_field(name="Wintertodt kill count", value=f'{int(wt.kc_wintertodt):,}')
-            embed.add_field(name="Average XP per kill", value=f'{wt.average():,} xp')
-            embed.add_field(name="Kills to level up", value=f'{wt.kills_to_level_up():,}')
-            embed.add_field(name="Kills to level 99", value=f'{wt.kills_to_level_99():,}')
+            if int(wt.firemaking_level) < 50:
+                embed.add_field(name="Level too low", value=f'You need at least **50** firemaking to attempt Wintertodt.\n'
+                                                            f'You currently only have level **{wt.firemaking_level}**')
+            else:
+                embed.add_field(name="Level", value=f'**{int(wt.firemaking_level):,}**', inline=True)
+                embed.add_field(name="XP", value=f'{int(wt.firemaking_xp):,}', inline=True)
+                embed.add_field(name="Wintertodt kill count", value=f'{int(wt.kc_wintertodt):,}')
+                embed.add_field(name="Average XP per kill", value=f'{wt.average():,} xp')
+                embed.add_field(name="Kills to level up", value=f'{wt.kills_to_level_up():,.0f}')
+                embed.add_field(name="Kills to level 99", value=f'{wt.kills_to_level_99():,} (~{wt.estimated_total_kills():,} total)')
             embed.set_footer(text=f'{next_level_string(int(wt.firemaking_xp), "firemaking")}')
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return

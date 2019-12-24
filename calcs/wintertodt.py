@@ -15,4 +15,8 @@ class Wintertodt(Hiscore):
 
     # Estimated kills remaining until level 99
     def kills_to_level_99(self):
-        return LEVEL_99 // self.average()
+        return (LEVEL_99 - int(self.firemaking_xp)) // self.average()
+
+    # Estimate total kills
+    def estimated_total_kills(self):
+        return int(self.kc_wintertodt) + self.kills_to_level_99()
