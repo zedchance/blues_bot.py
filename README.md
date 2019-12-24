@@ -74,7 +74,7 @@ The bot can return useful URLs for an easy way to share/lookup a link.
 `!b help links` shows a list of available commands.  
 <img src="screenshots/links_light.png" width="550">
 
-For example `!b ge trident` returns  
+For example `!b price trident` returns  
 <img src="screenshots/ge_light_graph.png" width="550">
 
 Or `!b wiki rune plate` returns
