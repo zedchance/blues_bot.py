@@ -136,7 +136,7 @@ class Calculators(commands.Cog):
                 embed.add_field(name="Level too low", value=f'You need at least **50** firemaking to attempt Wintertodt.\n'
                                                             f'You currently only have level **{wt.firemaking_level}**')
             else:
-                embed.add_field(name="Level", value=f'**{int(wt.firemaking_level):,}**', inline=True)
+                embed.add_field(name="Firemaking level", value=f'**{int(wt.firemaking_level):,}**', inline=True)
                 embed.add_field(name="XP", value=f'{int(wt.firemaking_xp):,}', inline=True)
                 embed.add_field(name="Wintertodt kill count", value=f'{int(wt.kc_wintertodt):,}')
                 embed.add_field(name="Average XP per kill", value=f'{wt.average():,} xp')
