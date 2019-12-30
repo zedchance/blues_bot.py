@@ -6,7 +6,7 @@ help_footer = 'Use `!blue help [command]` or `!blue help [category]` for more in
 bot_description = '!blue Old School Runescape bot'
 # version_number = '0.4 (20191018)'
 # version_number = '0.6 (20191029)'
-version_number = '0.7 (20191222)'
+# version_number = '0.7 (20191222)'
 wrong_message = '''
 ```
  ______________________ 
