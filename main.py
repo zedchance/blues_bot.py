@@ -1,10 +1,10 @@
 import discord
 from discord.ext import commands
-from discord.ext.commands import has_permissions
 
 from helpers.api_key import discord_key, owner_id
-from helpers.descriptions import bot_description, version_number, wrong_message, user_not_found_message
+from helpers.descriptions import bot_description, wrong_message
 from helpers.hiscore import UserNotFound, MissingUsername
+from helpers.version import get_version
 
 def get_prefix(client, message):
     prefixes = ['!blue ', '!b ']
@@ -94,8 +94,9 @@ async def reload(ctx):
     case_insensitive=True)
 async def version_command(ctx):
     """ Shows bot version number """
+    version = get_version()
     embed = discord.Embed(title="!blue", description="Old School Runescape bot written in Python")
-    embed.add_field(name="Version Number", value=f'*{version_number}*')
+    embed.add_field(name="Version Number", value=version)
     embed.add_field(name="Recent changes", value=f'https://github.com/zedchance/blues_bot.py/commits/master')
     await ctx.send(f'{ctx.message.author.mention}', embed=embed)
     return
