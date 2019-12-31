@@ -166,8 +166,9 @@ class Calculators(commands.Cog):
                 embed.add_field(name="Magic level", value=f'**{alch.magic_level}** ({alch.magic_xp:,} xp)', inline=False)
                 embed.add_field(name="Alchs to level up", value=f'{alch.alchs_to_level_up():,.0f} Nature runes\n'
                                                                 f'({alch.price_to_level_up():,} gp)')
-                embed.add_field(name="Alchs to level 99", value=f'{alch.alchs_to_level_99():,} Nature runes\n'
-                                                                f'({alch.price_to_level_99():,} gp)')
+                if alch.magic_level < 99:
+                    embed.add_field(name="Alchs to level 99", value=f'{alch.alchs_to_level_99():,} Nature runes\n'
+                                                                    f'({alch.price_to_level_99():,} gp)')
                 embed.set_footer(text=f'{next_level_string(alch.magic_xp, "magic")}\n'
                                       f'Nature rune cost: {alch.current_price} gp')
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
