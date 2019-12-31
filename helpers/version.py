@@ -6,4 +6,5 @@ def get_version():
     ret = ''
     for line in file:
         ret += line
+    file.close()
     return ret
