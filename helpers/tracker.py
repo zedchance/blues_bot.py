@@ -3,7 +3,7 @@
 import requests
 from bs4 import BeautifulSoup
 
-from helpers.urls import cml_track, cml_update_url, cml_sig, cml_url, cml_boss_url
+from helpers.urls import cml_update_url, cml_sig, cml_url, cml_boss_url
 
 
 class Tracker:
@@ -38,15 +38,14 @@ class Tracker:
             # Store results
             self.results.append((name, xp_gained, rank_change, levels_gained, ehp))
 
-        # Sort results by xp gained (seconds item in tuple)
+        # Sort results by xp gained (second item in tuple)
         # https://stackoverflow.com/a/3121985
         self.top_gains = sorted(self.results, key=lambda tup: tup[1], reverse=True)
         for (name, xp, rank, levels, ehp) in self.top_gains:
             if name == 'Overall':
                 if xp == 0:
                     raise NoDataPoints(f'Either this is the first time {username} has been tracked this week, '
-                                       f'or no XP has been gained.\n'
-                                       'Gain some more XP and try again.\n'
+                                       f'or no XP has been gained. Gain some more XP and try again.\n\n'
                                        '(This command is more useful if you use it often.)')
 
         # Extract last changed time
