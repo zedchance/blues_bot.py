@@ -149,7 +149,7 @@ class Calculators(commands.Cog):
 
     @commands.command(name='alch',
         description='High alchemy calculator',
-        aliases=[],
+        aliases=['ha'],
         case_insensitive=True)
     async def alchemy_command(self, ctx, *username):
         """ High alch calculator """
