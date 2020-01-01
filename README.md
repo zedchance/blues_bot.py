@@ -50,7 +50,7 @@ To view all level 99s use `!b 99s bluetrane`:
 
 `!b xp bluetrane` is a helpful weekly summary of XP gains and other details.  
 <img src="screenshots/xp_light.png" width="430">  
-This pulls data from [Crystal Math Labs](https://crystalmathlabs.com).
+> This pulls data from [Crystal Math Labs](https://crystalmathlabs.com).
 
 ### Scores
 `!b help scores` shows a list of the commands available  

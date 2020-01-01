@@ -4,6 +4,7 @@ from discord.ext import commands
 from helpers.api_key import discord_key, owner_id
 from helpers.descriptions import bot_description, wrong_message
 from helpers.hiscore import UserNotFound, MissingUsername
+from helpers.tracker import NoDataPoints
 from helpers.version import get_version
 
 def get_prefix(client, message):
@@ -54,6 +55,8 @@ async def on_command_error(ctx, error):
     elif isinstance(error, UserNotFound):
         msg += f'{error}'
     elif isinstance(error, MissingUsername):
+        msg += f'{error}'
+    elif isinstance(error, NoDataPoints):
         msg += f'{error}'
     # All other errors
     else:
