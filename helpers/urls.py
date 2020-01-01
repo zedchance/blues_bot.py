@@ -4,6 +4,9 @@
 hiscore_url = 'https://secure.runescape.com/m=hiscore_oldschool/hiscorepersonal.ws?user1='
 wiki_url = 'https://oldschool.runescape.wiki/?search='
 
+# News RSS feed
+news_rss_feed = 'https://secure.runescape.com/m=news/latest_news.rss?oldschool=true'
+
 # Grand exchange
 ge_url = 'http://services.runescape.com/m=itemdb_oldschool/results?query='
 ge_api_url = 'http://services.runescape.com/m=itemdb_oldschool'
@@ -28,6 +31,7 @@ clue_icon = 'https://www.runescape.com/img/rsp777/game_icon_cluescrollsall.png'
 bounty_icon = 'https://www.runescape.com/img/rsp777/game_icon_bountyhunterrogue.png'
 lms_icon = 'https://www.runescape.com/img/rsp777/game_icon_lmsrank.png'
 members_icon = 'http://www.runescape.com/img/rsp777/grand_exchange/members.png'
+news_icon = 'https://cdn.runescape.com/assets/img/external/oldschool/2019/newsposts/2019-12-16/summary_3.png'
 
 def get_icon_url(skill):
     return f'https://www.runescape.com/img/rsp777/hiscores/skill_icon_{skill}1.gif'

@@ -5,7 +5,8 @@ from discord.ext import commands
 from discord.permissions import Permissions
 
 from helpers.ge import GrandExchange
-from helpers.urls import hiscore_url, wiki_url, ge_url, rsbuddy_url, cml_url, cml_sig, members_icon
+from helpers.news import News
+from helpers.urls import hiscore_url, wiki_url, ge_url, rsbuddy_url, cml_url, cml_sig, members_icon, news_icon
 from helpers.tracker import Tracker
 
 class Links(commands.Cog):
@@ -85,6 +86,27 @@ class Links(commands.Cog):
         url_safe = '+'.join(search_description)
         await ctx.send(f'{ctx.message.author.mention}\n{rsbuddy_url}{url_safe}')
         return
+
+    @commands.command(name='news',
+        description='Latest OSRS news',
+        aliases=['latest'],
+        case_insensitive=True)
+    async def news_command(self, ctx):
+        """ Latest OSRS news """
+        async with ctx.typing():
+            news = News()
+            embed = discord.Embed(title=news.title)
+            embed.set_thumbnail(url=news_icon)
+            embed.add_field(name=f'Latest post - {news.articles[0][2]}',
+                            value=f'[**{news.articles[0][0]}**]({news.articles[0][3]})\n'
+                                  f'{news.latest_article_text}',
+                            inline=False)
+            for i in range(1, 4):
+                embed.add_field(name=news.articles[i][2], value=f'**[{news.articles[i][0]}]({news.articles[i][3]})**\n'
+                                                                f'{news.articles[i][1]}')
+            embed.set_footer(text=f'Latest post: {news.articles[0][4]}')
+            await ctx.send(f'{ctx.message.author.mention}', embed=embed)
+            return
 
 # Cog setup
 def setup(bot):
