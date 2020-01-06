@@ -125,16 +125,17 @@ class Links(commands.Cog):
             stats += f"`Max hit:` {loaded_monster.max_hit} \n"
             stats += f"`Aggressive:` {'Yes' if loaded_monster.aggressive else 'No'} \n"
             stats += f"`Attack speed:` {loaded_monster.attack_speed} ticks \n"
-            stats += f"`Weakness:` {'None' if len(loaded_monster.weakness) == 0 else ', '.join([x for x in loaded_monster.weakness])} \n "
-            stats += f"`Attack style:` {', '.join([x for x in loaded_monster.attack_type])} \n"
-            embed = discord.Embed(title=loaded_monster.name)
+            stats += f"`Weakness:` {'None' if len(loaded_monster.weakness) == 0 else ', '.join([x.capitalize() for x in loaded_monster.weakness])} \n "
+            stats += f"`Attack style:` {', '.join([x.capitalize() for x in loaded_monster.attack_type])} \n"
+            embed = discord.Embed(title=loaded_monster.name, url=loaded_monster.wiki_url)
             embed.add_field(name="Members only", value="Yes" if loaded_monster.members else "No", inline=True)
-            embed.add_field(name="Release date", value=loaded_monster.release_date, inline=True)
+            embed.add_field(name="Examine", value=loaded_monster.examine, inline=True)
             embed.add_field(name="Detailed", value=stats, inline=False)
+            embed.set_footer(text=f"Released: {loaded_monster.release_date}")
             loaded_monster_drops = parse_monster_drops(loaded_monster.drops)
             if len(loaded_monster_drops) > 0:
-                drops = [f"`{drop['name']}:` {drop['value']}gp" for drop in loaded_monster_drops[:5]]
-                embed.add_field(name="Top 5 rarest drops", value="\n".join(drops))
+                drops = [f"`{drop['name']}:` {drop['value']:,d}gp" for drop in loaded_monster_drops[:5]]
+                embed.add_field(name="Most valuable drops", value="\n".join(drops))
             return await ctx.send(embed=embed)
         else:
             return await ctx.send("Sorry, we could not find that monster.")

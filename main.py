@@ -7,19 +7,22 @@ from helpers.hiscore import UserNotFound, MissingUsername
 from helpers.tracker import NoDataPoints
 from helpers.version import get_version
 
+
 def get_prefix(client, message):
     prefixes = ['!blue ', '!b ']
     if message.content.startswith("!b ") or message.content.startswith("!blue "):
         print(f'{message.channel} - {message.author}: {message.content}')
     return commands.when_mentioned_or(*prefixes)(client, message)
 
+
 bot = commands.Bot(command_prefix=get_prefix,
-        description=bot_description,
-        owner_id=owner_id,
-        case_insensitive=True)
+                   description=bot_description,
+                   owner_id=owner_id,
+                   case_insensitive=True)
 
 bot.remove_command('help')
 cogs = ['cogs.links', 'cogs.levels', 'cogs.calculators', 'cogs.scores', 'cogs.embed_help.help']
+
 
 @bot.event
 async def on_ready():
@@ -32,6 +35,7 @@ async def on_ready():
     await bot.change_presence(activity=status)
     return
 
+
 @bot.event
 async def on_message(message):
     # Handles when the user doesn't type a command
@@ -42,6 +46,7 @@ async def on_message(message):
         return
     # Pass message onto the rest of the commands
     await bot.process_commands(message)
+
 
 @bot.event
 async def on_command_error(ctx, error):
@@ -75,11 +80,12 @@ async def on_command_error(ctx, error):
         await admin.send(embed=embed)
     return
 
+
 @bot.command(name='reload',
-    description='Reloads bot',
-    aliases=['-r'],
-    hidden=True,
-    case_insensitive=True)
+             description='Reloads bot',
+             aliases=['-r'],
+             hidden=True,
+             case_insensitive=True)
 async def reload(ctx):
     """ Reloads cogs while bot is still online """
     if ctx.author.id != owner_id:
@@ -90,11 +96,12 @@ async def reload(ctx):
         bot.load_extension(cog)
     await ctx.send("Cogs reloaded")
 
+
 @bot.command(name='version',
-    description='Bot version',
-    aliases=['--version', '-v'],
-    hidden=True,
-    case_insensitive=True)
+             description='Bot version',
+             aliases=['--version', '-v'],
+             hidden=True,
+             case_insensitive=True)
 async def version_command(ctx):
     """ Shows bot version number """
     version = get_version()
@@ -103,17 +110,19 @@ async def version_command(ctx):
     embed.add_field(name="Recent changes", value=f'https://github.com/zedchance/blues_bot.py/commits/master')
     await ctx.send(f'{ctx.message.author.mention}', embed=embed)
     return
-    
+
+
 @bot.command(name='bug',
-    description='Links to the issue page for the bot',
-    aliases=['issue'],
-    hidden=True,
-    case_insensitive=True)
+             description='Links to the issue page for the bot',
+             aliases=['issue'],
+             hidden=True,
+             case_insensitive=True)
 async def bug_command(ctx):
     """ Use to submit bugs/issues """
     embed = discord.Embed(title="Bugs/issues", description="Use the following link to submit issues with the bot")
     embed.add_field(name="Link", value=f'https://github.com/zedchance/blues_bot.py/issues')
     await ctx.send(f'{ctx.message.author.mention}', embed=embed)
     return
+
 
 bot.run(discord_key, bot=True, reconnect=True)
