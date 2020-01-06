@@ -127,17 +127,14 @@ class Links(commands.Cog):
             stats += f"`Attack speed:` {loaded_monster.attack_speed} ticks \n"
             stats += f"`Weakness:` {'None' if len(loaded_monster.weakness) == 0 else ', '.join([x for x in loaded_monster.weakness])} \n "
             stats += f"`Attack style:` {', '.join([x for x in loaded_monster.attack_type])} \n"
-            loaded_monster_drops = parse_monster_drops(loaded_monster.drops)
-            drops = ""
-            index = 0
-            for drop in range(5):
-                index += 1
-                drops += f"`{loaded_monster_drops[index]['name']}:` {loaded_monster_drops[index]['value']}gp \n"
             embed = discord.Embed(title=loaded_monster.name)
             embed.add_field(name="Members only", value="Yes" if loaded_monster.members else "No", inline=True)
             embed.add_field(name="Release date", value=loaded_monster.release_date, inline=True)
             embed.add_field(name="Detailed", value=stats, inline=False)
-            embed.add_field(name="Top 5 rarest drops", value=drops)
+            loaded_monster_drops = parse_monster_drops(loaded_monster.drops)
+            if len(loaded_monster_drops) > 0:
+                drops = [f"`{drop['name']}:` {drop['value']}gp" for drop in loaded_monster_drops[:5]]
+                embed.add_field(name="Top 5 rarest drops", value="\n".join(drops))
             return await ctx.send(embed=embed)
         else:
             return await ctx.send("Sorry, we could not find that monster.")
