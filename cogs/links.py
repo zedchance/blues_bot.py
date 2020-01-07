@@ -134,7 +134,7 @@ class Links(commands.Cog):
             embed.set_footer(text=f"Released: {loaded_monster.release_date}")
             loaded_monster_drops = parse_monster_drops(loaded_monster.drops)
             if len(loaded_monster_drops) > 0:
-                drops = [f"`{drop['name']}:` __{drop['rarity_string']}__" for drop in loaded_monster_drops[:5]]
+                drops = [f"`{drop['name']}:` {drop['rarity_string']}" for drop in loaded_monster_drops[:5]]
                 embed.add_field(name="Rarest drops", value="\n".join(drops))
             return await ctx.send(embed=embed)
         else:
