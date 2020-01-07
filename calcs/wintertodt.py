@@ -1,5 +1,6 @@
-from calcs.experience import LEVEL_99, xp_to_next_level, level_to_xp
+from calcs.experience import LEVEL_99, level_to_xp
 from helpers.hiscore import Hiscore
+
 
 class Wintertodt(Hiscore):
     """ Used to calculate information about Wintertodt """

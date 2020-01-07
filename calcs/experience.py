@@ -3,11 +3,13 @@ from math import floor
 
 LEVEL_99 = 13034431
 
+
 def xp_to_next_level(level):
     """ Returns xp to next level up """
     if level == 120:
         return 0
     return floor((level - 1) + 300 * (2 ** ((level - 1) / 7))) / 4
+
 
 def level_to_xp(level):
     """ Converts level number to xp, handles virtual levels"""
@@ -18,6 +20,7 @@ def level_to_xp(level):
         xp += xp_to_next_level(i)
     return xp
 
+
 def xp_to_level(xp):
     """ Converts xp to level number, handles virtual levels """
     level = 1
@@ -26,6 +29,7 @@ def xp_to_level(xp):
     while xp >= level_to_xp(level):
         level += 1
     return level - 1
+
 
 def next_level_string(xp, skill):
     """ Returns string representation of next level of skill, takes into account virtual levels """
@@ -39,7 +43,6 @@ def next_level_string(xp, skill):
     else:
         skill = f'{skill}'
     return f'{next_xp:,.0f} xp to {next_level} {skill}'
-        
 
 # Test code
 # test_level = 40

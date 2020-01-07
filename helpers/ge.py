@@ -1,9 +1,10 @@
 # Used to pull API data from the GE page
 
-import requests
 import json
+
 import matplotlib.pyplot as plotter
-from matplotlib.ticker import FormatStrFormatter, StrMethodFormatter
+import requests
+from matplotlib.ticker import StrMethodFormatter
 
 from helpers.urls import ge_api_item_url, ge_graph_url
 
