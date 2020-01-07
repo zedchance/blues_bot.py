@@ -76,8 +76,10 @@ class Tracker:
     def get_sig(self):
         return f'{cml_sig}{self.username}'
 
+
 class UserNotFound(TypeError):
     pass
+
 
 class NoDataPoints(Exception):
     pass

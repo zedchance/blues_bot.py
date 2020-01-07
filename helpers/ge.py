@@ -7,8 +7,10 @@ from matplotlib.ticker import FormatStrFormatter, StrMethodFormatter
 
 from helpers.urls import ge_api_item_url, ge_graph_url
 
+
 class GrandExchange:
     """ Pulls API data from the GE website """
+
     def __init__(self, query):
         # Check if query was entered
         if query == '':
@@ -76,8 +78,10 @@ class GrandExchange:
         plotter.savefig('assets/graph.png', transparent=True)
         plotter.close()
 
+
 class MissingQuery(Exception):
     pass
+
 
 class NoResults(TypeError):
     pass
