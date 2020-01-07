@@ -1,14 +1,13 @@
 from datetime import datetime
-import pytz
-import discord
-from discord.ext import commands
-from discord.permissions import Permissions
 
-from helpers.monsters import load_monster_from_api, parse_monster_drops
+import discord
+import pytz
+from discord.ext import commands
+
 from helpers.ge import GrandExchange
+from helpers.monsters import load_monster_from_api, parse_monster_drops
 from helpers.news import News
-from helpers.urls import hiscore_url, wiki_url, ge_url, rsbuddy_url, cml_url, cml_sig, members_icon, news_icon
-from helpers.tracker import Tracker
+from helpers.urls import hiscore_url, wiki_url, ge_url, rsbuddy_url, members_icon, news_icon
 
 
 class Links(commands.Cog):
@@ -115,7 +114,7 @@ class Links(commands.Cog):
                       description='Lookup osrs monsters.',
                       aliases=['qs'],
                       case_insensitive=True)
-    async def quest_command(self, ctx, *monster):
+    async def monster_command(self, ctx, *monster):
         """ Looks up a monster """
         monster = " ".join(monster)
         loaded_monster = load_monster_from_api(monster.lower())

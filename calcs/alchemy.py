@@ -1,11 +1,12 @@
 # High alch calculator
 
-from helpers.hiscore import Hiscore
-from helpers.ge import GrandExchange
 from calcs.experience import LEVEL_99, level_to_xp, xp_to_level
+from helpers.ge import GrandExchange
+from helpers.hiscore import Hiscore
 
 HIGH_ALCH_XP = 65
 ALCHS_PER_HR = 1200
+
 
 class Alchemy(Hiscore, GrandExchange):
     """ High alch calculator """
