@@ -29,13 +29,11 @@ class GrandExchange:
             item_id = str(self.matches[0]['id'])
         elif len(self.matches) == 0:
             # Search JSON file
-            print("Searching JSON...")
             file = open('assets/item_ids.json')
             id_list = json.load(file)
             item_id = ''
             for i in id_list:
                 if query.lower() in i['name'].lower():
-                    print("Found match in JSON file.")
                     item_id = str(i['id'])
                     break
             file.close()
