@@ -50,7 +50,9 @@ class Links(commands.Cog):
         pst_time = timezone.localize(time)
         if ge.multiple_results:
             embed = discord.Embed(title="Grand Exchange",
-                                  description=f'There are multiple results for `{safe_name}`')
+                                  description=f'There are multiple results for `{safe_name}`',
+                                  url=f'{ge_url}{url_safe_name}',
+                                  timestamp=pst_time)
             embed.add_field(name="Results", value=ge.get_possible_matches_str())
             await ctx.send(embed=embed)
         else:
