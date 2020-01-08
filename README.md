@@ -17,7 +17,7 @@ and common calculators.
 
 ## Try the bot out  
 You can test the bot [in my server](https://discord.gg/WUsZ5Hf). Feel free to leave suggestions in the `#suggestions` channel! You can report any issues you have with the bot [on the issue page](https://github.com/zedchance/blues_bot.py/issues).  
-![Blue's Bots](https://img.shields.io/discord/532781992027357184?color=%237289DA&label=Blue%27s%20Bots&logo=discord&logoColor=white)  
+<a href="https://discord.gg/WUsZ5Hf">![Blue's Bots](https://img.shields.io/discord/532781992027357184?color=%237289DA&label=Blue%27s%20Bots&logo=discord&logoColor=white)</a>  
 
 ## Contributing
 Contribution to the project is welcome! Please check out the [guidelines](CONTRIBUTING.md).
