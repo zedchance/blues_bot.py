@@ -4,6 +4,7 @@ A Discord bot for pulling *Old School Runescape* hiscores, generating useful lin
 and common calculators.
 
 * [Try the bot out](#try-the-bot-out)
+* [Contributing](#contributing)
 * [Use](#use)
 * [Commands](#commands)
   * [Help](#help)
@@ -14,8 +15,12 @@ and common calculators.
   * [Other commands](#other-commands)
 * [Dependencies](#dependencies)
 
-## Try the bot out
-You can test the bot [in my server](https://discord.gg/WUsZ5Hf). Feel free to leave suggestions in the `#suggestions` channel! You can report any issues you have with the bot [on the issue page](https://github.com/zedchance/blues_bot.py/issues).
+## Try the bot out  
+You can test the bot [in my server](https://discord.gg/WUsZ5Hf). Feel free to leave suggestions in the `#suggestions` channel! You can report any issues you have with the bot [on the issue page](https://github.com/zedchance/blues_bot.py/issues).  
+![Blue's Bots](https://img.shields.io/discord/532781992027357184?color=%237289DA&label=Blue%27s%20Bots&logo=discord&logoColor=white)  
+
+## Contributing
+Contribution to the project is welcome! Please check out the [guidelines](CONTRIBUTING.md).
 
 ## Use
 Each command starts with `!blue` or `!b`. Summon a list of the bots commands by typing `!blue help`.  
