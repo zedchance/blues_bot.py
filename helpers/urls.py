@@ -13,6 +13,9 @@ ge_api_url = 'http://services.runescape.com/m=itemdb_oldschool'
 ge_api_item_url = ge_api_url + '/api/catalogue/detail.json?item='  # + itemID
 ge_graph_url = ge_api_url + '/api/graph/'  # + itemID.json
 
+def ge_query_url(query):
+    return f'{ge_api_url}/api/catalogue/items.json?category=1&alpha={query}&page=1'
+
 # Rsbuddy exchange
 rsbuddy_url = 'https://rsbuddy.com/exchange?search='
 

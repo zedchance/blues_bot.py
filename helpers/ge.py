@@ -6,7 +6,7 @@ import matplotlib.pyplot as plotter
 import requests
 from matplotlib.ticker import StrMethodFormatter
 
-from helpers.urls import ge_api_item_url, ge_graph_url
+from helpers.urls import ge_api_item_url, ge_graph_url, ge_query_url
 
 
 class GrandExchange:
@@ -14,18 +14,34 @@ class GrandExchange:
 
     def __init__(self, query):
         # Check if query was entered
+        self.query = query
         if query == '':
             raise MissingQuery("You must enter a search term")
 
-        # Search for ID number from query
-        file = open('assets/item_ids.json')
-        id_list = json.load(file)
-        item_id = ""
-        for i in id_list:
-            if query.lower() in i['name'].lower():
-                item_id = str(i['id'])
-                break
-        file.close()
+        # This boolean is flipped if there is a lot of results from query
+        self.multiple_results = False
+
+        # Search using API query
+        self.matches = self.get_matches()
+        if len(self.matches) == 1:
+            item_id = str(self.matches[0]['id'])
+        elif len(self.matches) > 0 and self.matches[0]['name'].lower() == self.query.lower():
+            item_id = str(self.matches[0]['id'])
+        elif len(self.matches) == 0:
+            # Search JSON file
+            print("Searching JSON...")
+            file = open('assets/item_ids.json')
+            id_list = json.load(file)
+            item_id = ''
+            for i in id_list:
+                if query.lower() in i['name'].lower():
+                    print("Found match in JSON file.")
+                    item_id = str(i['id'])
+                    break
+            file.close()
+        else:
+            self.multiple_results = True
+            return
 
         # Request data
         # Price info
@@ -79,6 +95,24 @@ class GrandExchange:
         plotter.savefig('assets/graph.png', transparent=True)
         plotter.close()
 
+    def get_matches(self):
+        """ Searches for the ID number of the query """
+        session = requests.session()
+        url = ge_query_url(self.query)
+        req = session.get(url)
+        data = req.json()
+        matches = []
+        for item in data['items']:
+            if self.query.lower() in item['name'].lower():
+                matches.append(item)
+        return matches
+
+    def get_possible_matches_str(self):
+        """ Returns a string of the top possible matches """
+        ret = f''
+        for i in self.matches:
+            ret += f"{i['name']} - *{i['current']['price']} gp*\n"
+        return ret
 
 class MissingQuery(Exception):
     pass

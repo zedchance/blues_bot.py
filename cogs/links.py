@@ -48,36 +48,40 @@ class Links(commands.Cog):
         time = datetime.now()
         timezone = pytz.timezone("America/Los_Angeles")
         pst_time = timezone.localize(time)
-        embed = discord.Embed(title=ge.name, description=ge.description, url=f'{ge_url}{url_safe_name}',
-                              timestamp=pst_time)
-        if ge.todays_price_trend == 'positive':
-            embed.color = discord.Colour.dark_green()
-        elif ge.todays_price_trend == 'negative':
-            embed.color = discord.Colour.dark_red()
-        embed.set_thumbnail(url=ge.icon)
-        embed.add_field(name='Price', value=f'**{ge.current_price}** gp', inline=False)
-        embed.add_field(name='Today\'s trend',
-                        value=f'**{ge.todays_price_change}** change today, trending *{ge.todays_price_trend}*')
-        embed.add_field(name="Change", value=f'**{ge.day30_change}** over the last month\n'
-                                             f'**{ge.day90_change}** over the last 3 months\n'
-                                             f'**{ge.day180_change}** over the last 6 months')
-        if ge.is_members:
-            embed.set_footer(text="Members item", icon_url=members_icon)
+        if ge.multiple_results:
+            embed = discord.Embed(title="Grand Exchange",
+                                  description=f'There are multiple results for `{safe_name}`')
+            embed.add_field(name="Results", value=ge.get_possible_matches_str())
+            await ctx.send(embed=embed)
         else:
-            embed.set_footer(text="Non members item")
-        await ctx.send(f'{ctx.message.author.mention}', embed=embed)
-        # Graph
-        # TODO make this respond with file only if attach_files permission is true
-        print("YO", discord.Permissions.attach_files)
-        if discord.Permissions.attach_files:
-            ge.generate_graph()
-            file = discord.File('assets/graph.png')
-            await ctx.send(file=file)
-            file.close()
-        else:
-            msg = discord.Embed(title="Missing permissions", description="Bot needs 'Attach files' permissions")
-            await ctx.send(embed=msg)
-        return
+            embed = discord.Embed(title=ge.name, description=ge.description, url=f'{ge_url}{url_safe_name}',
+                                  timestamp=pst_time)
+            if ge.todays_price_trend == 'positive':
+                embed.color = discord.Colour.dark_green()
+            elif ge.todays_price_trend == 'negative':
+                embed.color = discord.Colour.dark_red()
+            embed.set_thumbnail(url=ge.icon)
+            embed.add_field(name='Price', value=f'**{ge.current_price}** gp', inline=False)
+            embed.add_field(name='Today\'s trend',
+                            value=f'**{ge.todays_price_change}** change today, trending *{ge.todays_price_trend}*')
+            embed.add_field(name="Change", value=f'**{ge.day30_change}** over the last month\n'
+                                                 f'**{ge.day90_change}** over the last 3 months\n'
+                                                 f'**{ge.day180_change}** over the last 6 months')
+            if ge.is_members:
+                embed.set_footer(text="Members item", icon_url=members_icon)
+            else:
+                embed.set_footer(text="Non members item")
+            await ctx.send(f'{ctx.message.author.mention}', embed=embed)
+            # Graph
+            if discord.Permissions.attach_files:
+                ge.generate_graph()
+                file = discord.File('assets/graph.png')
+                await ctx.send(file=file)
+                file.close()
+            else:
+                msg = discord.Embed(title="Missing permissions", description="Bot needs 'Attach files' permissions")
+                await ctx.send(embed=msg)
+            return
 
     @commands.command(name='rsbuddy',
                       description='Returns a URL to the RSBuddy page for an item',
