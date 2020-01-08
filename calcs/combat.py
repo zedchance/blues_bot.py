@@ -4,9 +4,10 @@ from math import floor
 
 from helpers.hiscore import Hiscore
 
+
 class Combat(Hiscore):
     """ Combat level calculator """
-    
+
     def calculate_combat(self):
         """ Calculate user's combat level """
         base = 0.25 * (self.defence_level + self.hitpoints_level + floor(self.prayer_level / 2))
@@ -19,4 +20,3 @@ class Combat(Hiscore):
         if magic > m:
             m = magic
         return base + m
-        

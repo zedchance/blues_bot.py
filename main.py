@@ -65,7 +65,8 @@ async def on_command_error(ctx, error):
         msg += f'{error}'
     # All other errors
     else:
-        msg += f'To see all commands type `!b help`\nUse `!b bug` if you continue to have issues\nOwner has been notified of error.'
+        msg += f'To see all commands type `!b help`\nUse `!b bug` if you continue to have issues\nOwner has been ' \
+               f'notified of error. '
     # If its me that makes the error, show the message
     if ctx.author.id == owner_id:
         await ctx.send(f'```{error}```')

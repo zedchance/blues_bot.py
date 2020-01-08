@@ -1,23 +1,24 @@
 import discord
 from discord.ext import commands
 
-from helpers.hiscore import Hiscore, UserNotFound
-from calcs.experience import next_level_string, xp_to_next_level, xp_to_level
+from calcs.combat import Combat
+from calcs.experience import next_level_string
+from helpers.hiscore import Hiscore
 from helpers.tracker import Tracker
 from helpers.urls import get_icon_url, cml_logo, cml_url
-from calcs.combat import Combat
+
 
 class Levels(commands.Cog, command_attrs=dict(hidden=True)):
     """ Level commands used to pull stats from hiscore page.\n(Logout or hop to update hiscore page) """
 
     def __init__(self, bot):
         self.bot = bot
-    
+
     @commands.command(name='lvl',
-        description='Use to list all available level commands',
-        aliases=['levels', 'lvls'],
-        hidden=False,
-        case_insensitive=True)
+                      description='Use to list all available level commands',
+                      aliases=['levels', 'lvls'],
+                      hidden=False,
+                      case_insensitive=True)
     async def levels_command(self, ctx):
         """ Simply reply with a list of available level commands """
         bot = ctx.bot
@@ -32,12 +33,12 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
         embed.set_footer(text=f'Level commands used to pull stats from hiscore page.\n'
                               f'(Logout or hop to update hiscore page)')
         await ctx.send(f'{ctx.message.author.mention}', embed=embed)
-    
+
     @commands.command(name='combat',
-        description='Calculate combat level',
-        aliases=['cmb'],
-        hidden=False,
-        case_insensitive=True)
+                      description='Calculate combat level',
+                      aliases=['cmb'],
+                      hidden=False,
+                      case_insensitive=True)
     async def combat_command(self, ctx, *username):
         """ Calculates combat level for a user """
         async with ctx.typing():
@@ -48,11 +49,11 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             embed.add_field(name="Level", value=f'**{user.calculate_combat():.2f}**')
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
-    
+
     @commands.command(name='overall',
-        description='Pulls the overall level for a specific username',
-        aliases=['total'],
-        case_insensitive=True)
+                      description='Pulls the overall level for a specific username',
+                      aliases=['total'],
+                      case_insensitive=True)
     async def overall_lookup(self, ctx, *username):
         async with ctx.typing():
             url_safe_name = '+'.join(username)
@@ -64,11 +65,11 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             embed.add_field(name="Rank", value=f'{user.overall_rank:,}', inline=True)
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
-    
+
     @commands.command(name='attack',
-        description='Pulls the attack level for a specific username',
-        aliases=['att'],
-        case_insensitive=True)
+                      description='Pulls the attack level for a specific username',
+                      aliases=['att'],
+                      case_insensitive=True)
     async def attack_lookup(self, ctx, *username):
         async with ctx.typing():
             url_safe_name = '+'.join(username)
@@ -82,11 +83,11 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             embed.set_footer(text=f'{next_level_string(user.attack_xp, "attack")}')
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
-    
+
     @commands.command(name='defence',
-        description='Pulls the defence level for a specific username',
-        aliases=['defense', 'def'],
-        case_insensitive=True)
+                      description='Pulls the defence level for a specific username',
+                      aliases=['defense', 'def'],
+                      case_insensitive=True)
     async def defence_lookup(self, ctx, *username):
         async with ctx.typing():
             url_safe_name = '+'.join(username)
@@ -100,11 +101,11 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             embed.set_footer(text=f'{next_level_string(user.defence_xp, "defence")}')
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
-    
+
     @commands.command(name='strength',
-        description='Pulls the strength level for a specific username',
-        aliases=['str'],
-        case_insensitive=True)
+                      description='Pulls the strength level for a specific username',
+                      aliases=['str'],
+                      case_insensitive=True)
     async def strength_lookup(self, ctx, *username):
         async with ctx.typing():
             url_safe_name = '+'.join(username)
@@ -118,11 +119,11 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             embed.set_footer(text=f'{next_level_string(user.strength_xp, "strength")}')
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
-    
+
     @commands.command(name='hitpoints',
-        description='Pulls the hitpoints level for a specific username',
-        aliases=['hp', 'health'],
-        case_insensitive=True)
+                      description='Pulls the hitpoints level for a specific username',
+                      aliases=['hp', 'health'],
+                      case_insensitive=True)
     async def hitpoints_lookup(self, ctx, *username):
         async with ctx.typing():
             url_safe_name = '+'.join(username)
@@ -136,11 +137,11 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             embed.set_footer(text=f'{next_level_string(user.hitpoints_xp, "hitpoints")}')
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
-    
+
     @commands.command(name='ranged',
-        description='Pulls the ranged level for a specific username',
-        aliases=['range', 'rng'],
-        case_insensitive=True)
+                      description='Pulls the ranged level for a specific username',
+                      aliases=['range', 'rng'],
+                      case_insensitive=True)
     async def ranged_lookup(self, ctx, *username):
         async with ctx.typing():
             url_safe_name = '+'.join(username)
@@ -154,11 +155,11 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             embed.set_footer(text=f'{next_level_string(user.ranged_xp, "ranged")}')
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
-    
+
     @commands.command(name='prayer',
-        description='Pulls the prayer level for a specific username',
-        aliases=['pray'],
-        case_insensitive=True)
+                      description='Pulls the prayer level for a specific username',
+                      aliases=['pray'],
+                      case_insensitive=True)
     async def prayer_lookup(self, ctx, *username):
         async with ctx.typing():
             url_safe_name = '+'.join(username)
@@ -172,11 +173,11 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             embed.set_footer(text=f'{next_level_string(user.prayer_xp, "prayer")}')
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
-    
+
     @commands.command(name='magic',
-        description='Pulls the magic level for a specific username',
-        aliases=['mage'],
-        case_insensitive=True)
+                      description='Pulls the magic level for a specific username',
+                      aliases=['mage'],
+                      case_insensitive=True)
     async def magic_lookup(self, ctx, *username):
         async with ctx.typing():
             url_safe_name = '+'.join(username)
@@ -190,11 +191,11 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             embed.set_footer(text=f'{next_level_string(user.magic_xp, "magic")}')
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
-    
+
     @commands.command(name='cooking',
-        description='Pulls the cooking level for a specific username',
-        aliases=['cook'],
-        case_insensitive=True)
+                      description='Pulls the cooking level for a specific username',
+                      aliases=['cook'],
+                      case_insensitive=True)
     async def cooking_lookup(self, ctx, *username):
         async with ctx.typing():
             url_safe_name = '+'.join(username)
@@ -208,11 +209,11 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             embed.set_footer(text=f'{next_level_string(user.cooking_xp, "cooking")}')
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
-    
+
     @commands.command(name='woodcutting',
-        description='Pulls the woodcutting level for a specific username',
-        aliases=['wc'],
-        case_insensitive=True)
+                      description='Pulls the woodcutting level for a specific username',
+                      aliases=['wc'],
+                      case_insensitive=True)
     async def woodcutting_lookup(self, ctx, *username):
         async with ctx.typing():
             url_safe_name = '+'.join(username)
@@ -226,11 +227,11 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             embed.set_footer(text=f'{next_level_string(user.woodcutting_xp, "woodcutting")}')
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
-    
+
     @commands.command(name='fletching',
-        description='Pulls the fletching level for a specific username',
-        aliases=['fletch'],
-        case_insensitive=True)
+                      description='Pulls the fletching level for a specific username',
+                      aliases=['fletch'],
+                      case_insensitive=True)
     async def fletching_lookup(self, ctx, *username):
         async with ctx.typing():
             url_safe_name = '+'.join(username)
@@ -244,11 +245,11 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             embed.set_footer(text=f'{next_level_string(user.fletching_xp, "fletching")}')
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
-    
+
     @commands.command(name='fishing',
-        description='Pulls the fishing level for a specific username',
-        aliases=['fish'],
-        case_insensitive=True)
+                      description='Pulls the fishing level for a specific username',
+                      aliases=['fish'],
+                      case_insensitive=True)
     async def fishing_lookup(self, ctx, *username):
         async with ctx.typing():
             url_safe_name = '+'.join(username)
@@ -262,11 +263,11 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             embed.set_footer(text=f'{next_level_string(user.fishing_xp, "fishing")}')
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
-    
+
     @commands.command(name='firemaking',
-        description='Pulls the firemaking level for a specific username',
-        aliases=['fm'],
-        case_insensitive=True)
+                      description='Pulls the firemaking level for a specific username',
+                      aliases=['fm'],
+                      case_insensitive=True)
     async def firemaking_lookup(self, ctx, *username):
         async with ctx.typing():
             url_safe_name = '+'.join(username)
@@ -280,11 +281,11 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             embed.set_footer(text=f'{next_level_string(user.firemaking_xp, "firemaking")}')
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
-    
+
     @commands.command(name='crafting',
-        description='Pulls the crafting level for a specific username',
-        aliases=['craft'],
-        case_insensitive=True)
+                      description='Pulls the crafting level for a specific username',
+                      aliases=['craft'],
+                      case_insensitive=True)
     async def crafting_lookup(self, ctx, *username):
         async with ctx.typing():
             url_safe_name = '+'.join(username)
@@ -298,11 +299,11 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             embed.set_footer(text=f'{next_level_string(user.crafting_xp, "crafting")}')
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
-    
+
     @commands.command(name='smithing',
-        description='Pulls the smithing level for a specific username',
-        aliases=['smith'],
-        case_insensitive=True)
+                      description='Pulls the smithing level for a specific username',
+                      aliases=['smith'],
+                      case_insensitive=True)
     async def smithing_lookup(self, ctx, *username):
         async with ctx.typing():
             url_safe_name = '+'.join(username)
@@ -316,11 +317,11 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             embed.set_footer(text=f'{next_level_string(user.smithing_xp, "smithing")}')
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
-    
+
     @commands.command(name='mining',
-        description='Pulls the mining level for a specific username',
-        aliases=['mine'],
-        case_insensitive=True)
+                      description='Pulls the mining level for a specific username',
+                      aliases=['mine'],
+                      case_insensitive=True)
     async def mining_lookup(self, ctx, *username):
         async with ctx.typing():
             url_safe_name = '+'.join(username)
@@ -334,11 +335,11 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             embed.set_footer(text=f'{next_level_string(user.mining_xp, "mining")}')
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
-    
+
     @commands.command(name='herblore',
-        description='Pulls the herblore level for a specific username',
-        aliases=['herb'],
-        case_insensitive=True)
+                      description='Pulls the herblore level for a specific username',
+                      aliases=['herb'],
+                      case_insensitive=True)
     async def herblore_lookup(self, ctx, *username):
         async with ctx.typing():
             url_safe_name = '+'.join(username)
@@ -352,11 +353,11 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             embed.set_footer(text=f'{next_level_string(user.herblore_xp, "herblore")}')
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
-    
+
     @commands.command(name='agility',
-        description='Pulls the agility level for a specific username',
-        aliases=['agil'],
-        case_insensitive=True)
+                      description='Pulls the agility level for a specific username',
+                      aliases=['agil'],
+                      case_insensitive=True)
     async def agility_lookup(self, ctx, *username):
         async with ctx.typing():
             url_safe_name = '+'.join(username)
@@ -370,11 +371,11 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             embed.set_footer(text=f'{next_level_string(user.agility_xp, "agility")}')
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
-    
+
     @commands.command(name='thieving',
-        description='Pulls the thieving level for a specific username',
-        aliases=['thiev', 'thief'],
-        case_insensitive=True)
+                      description='Pulls the thieving level for a specific username',
+                      aliases=['thiev', 'thief'],
+                      case_insensitive=True)
     async def thieving_lookup(self, ctx, *username):
         async with ctx.typing():
             url_safe_name = '+'.join(username)
@@ -388,11 +389,11 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             embed.set_footer(text=f'{next_level_string(user.thieving_xp, "thieving")}')
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
-    
+
     @commands.command(name='slayer',
-        description='Pulls the slayer level for a specific username',
-        aliases=['slay'],
-        case_insensitive=True)
+                      description='Pulls the slayer level for a specific username',
+                      aliases=['slay'],
+                      case_insensitive=True)
     async def slayer_lookup(self, ctx, *username):
         async with ctx.typing():
             url_safe_name = '+'.join(username)
@@ -406,11 +407,11 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             embed.set_footer(text=f'{next_level_string(user.slayer_xp, "slayer")}')
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
-    
+
     @commands.command(name='farming',
-        description='Pulls the farming level for a specific username',
-        aliases=['farm'],
-        case_insensitive=True)
+                      description='Pulls the farming level for a specific username',
+                      aliases=['farm'],
+                      case_insensitive=True)
     async def farming_lookup(self, ctx, *username):
         async with ctx.typing():
             url_safe_name = '+'.join(username)
@@ -424,11 +425,11 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             embed.set_footer(text=f'{next_level_string(user.farming_xp, "farming")}')
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
-    
+
     @commands.command(name='runecraft',
-        description='Pulls the runecraft level for a specific username',
-        aliases=['rc'],
-        case_insensitive=True)
+                      description='Pulls the runecraft level for a specific username',
+                      aliases=['rc'],
+                      case_insensitive=True)
     async def runecraft_lookup(self, ctx, *username):
         async with ctx.typing():
             url_safe_name = '+'.join(username)
@@ -442,11 +443,11 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             embed.set_footer(text=f'{next_level_string(user.runecraft_xp, "runecraft")}')
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
-    
+
     @commands.command(name='hunter',
-        description='Pulls the hunter level for a specific username',
-        aliases=['hunt'],
-        case_insensitive=True)
+                      description='Pulls the hunter level for a specific username',
+                      aliases=['hunt'],
+                      case_insensitive=True)
     async def hunter_lookup(self, ctx, *username):
         async with ctx.typing():
             url_safe_name = '+'.join(username)
@@ -460,11 +461,11 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             embed.set_footer(text=f'{next_level_string(user.hunter_xp, "hunter")}')
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
-    
+
     @commands.command(name='construction',
-        description='Pulls the construction level for a specific username',
-        aliases=['con'],
-        case_insensitive=True)
+                      description='Pulls the construction level for a specific username',
+                      aliases=['con'],
+                      case_insensitive=True)
     async def construction_lookup(self, ctx, *username):
         async with ctx.typing():
             url_safe_name = '+'.join(username)
@@ -480,10 +481,10 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             return
 
     @commands.command(name='kc',
-        description='Pulls kill counts for a specific username',
-        aliases=['killcount', 'boss'],
-        hidden=False,
-        case_insensitive=True)
+                      description='Pulls kill counts for a specific username',
+                      aliases=['killcount', 'boss'],
+                      hidden=False,
+                      case_insensitive=True)
     async def kc_lookup(self, ctx, *username):
         """ Lookup a user's boss kill counts """
         async with ctx.typing():
@@ -505,10 +506,10 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             return
 
     @commands.command(name="99s",
-        description='Shows all level 99s for a user',
-        aliases=['99', 'max'],
-        hidden=False,
-        case_insensitive=True)
+                      description='Shows all level 99s for a user',
+                      aliases=['99', 'max'],
+                      hidden=False,
+                      case_insensitive=True)
     async def max_lvl_lookup(self, ctx, *username):
         """ Shows user's level 99s """
         async with ctx.typing():
@@ -530,11 +531,11 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             return
 
     @commands.command(name='xp',
-        description='XP tracker using Crystal Math Labs\n'
-                    'This command can be really slow because it needs to update your XP',
-        aliases=['tracker', 'gains'],
-        hidden=False,
-        case_insensitive=True)
+                      description='XP tracker using Crystal Math Labs\n'
+                                  'This command can be really slow because it needs to update your XP',
+                      aliases=['tracker', 'gains'],
+                      hidden=False,
+                      case_insensitive=True)
     async def tracker_command(self, ctx, *username):
         """ Shows weekly activity for a user """
         async with ctx.typing():
@@ -571,6 +572,7 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
                                   f'Oldest data point: {tracker.oldest_data} ago')
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
+
 
 # Cog setup
 def setup(bot):

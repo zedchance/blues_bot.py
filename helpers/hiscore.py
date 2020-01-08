@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 
 main_url = "https://secure.runescape.com/m=hiscore_oldschool/index_lite.ws?player="
 
+
 class Hiscore:
     """ Pulls hiscores from OSRS hiscore page """
 
@@ -241,7 +242,8 @@ class Hiscore:
         # self.kcs.append(("Callisto", self.kc_callisto, self.kc_callisto_rank))
         # self.kcs.append(("Cerberus", self.kc_cerberus, self.kc_cerberus_rank))
         self.kcs.append(("Chambers of Xeric", self.kc_chambers_of_xeric, self.kc_chambers_of_xeric_rank))
-        self.kcs.append(("Chambers of Xeric: Challenge Mode", self.kc_chambers_of_xeric_challenge, self.kc_chambers_of_xeric_challenge_rank))
+        self.kcs.append(("Chambers of Xeric: Challenge Mode", self.kc_chambers_of_xeric_challenge,
+                         self.kc_chambers_of_xeric_challenge_rank))
         self.kcs.append(("Chaos Elemental", self.kc_chaos_elemental, self.kc_chaos_elemental_rank))
         self.kcs.append(("Chaos Fanatic", self.kc_chaos_fanatic, self.kc_chaos_fanatic_rank))
         self.kcs.append(("Commander Zilyana", self.kc_commander_zilyana, self.kc_commander_zilyana_rank))
@@ -268,7 +270,8 @@ class Hiscore:
         self.kcs.append(("The Gauntlet", self.kc_the_gauntlet, self.kc_the_gauntlet_rank))
         self.kcs.append(("The Corrupted Gauntlet", self.kc_the_corrupted_gauntlet, self.kc_the_corrupted_gauntlet_rank))
         self.kcs.append(("Theatre of Blood", self.kc_theatre_of_blood, self.kc_theatre_of_blood_rank))
-        self.kcs.append(("Thermonuclear Smoke Devil", self.kc_thermonuclear_smoke_devil, self.kc_thermonuclear_smoke_devil_rank))
+        self.kcs.append(
+            ("Thermonuclear Smoke Devil", self.kc_thermonuclear_smoke_devil, self.kc_thermonuclear_smoke_devil_rank))
         self.kcs.append(("TzKal-Zuk", self.kc_tzkal_zuk, self.kc_tzkal_zuk_rank))
         self.kcs.append(("TzTok-Jad", self.kc_tztok_jad, self.kc_tztok_jad_rank))
         self.kcs.append(("Venenatis", self.kc_venenatis, self.kc_venenatis_rank))
@@ -284,8 +287,10 @@ class Hiscore:
                 return level
         return None
 
+
 class UserNotFound(TypeError):
     pass
+
 
 class MissingUsername(Exception):
     pass

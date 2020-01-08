@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup, NavigableString
 
 from helpers.urls import news_rss_feed
 
+
 class News:
     """ Pulls the latest news from the OSRS RSS feed """
 
@@ -13,7 +14,7 @@ class News:
         session = requests.session()
         req = session.get(news_rss_feed)
         if req.status_code == 404:
-            print("404 from RSS feed") # TODO
+            print("404 from RSS feed")  # TODO
             return
         feed = BeautifulSoup(req.content, 'html.parser')
 
@@ -32,7 +33,7 @@ class News:
         # Get info from first article
         article_req = session.get(self.articles[0][3])
         if article_req.status_code == 404:
-            print("404 from article page") # TODO
+            print("404 from article page")  # TODO
             return
         response = BeautifulSoup(article_req.content, 'html.parser')
         content = response.find('html')
@@ -41,7 +42,7 @@ class News:
         self.image = img_search[0].attrs.get('src')
         # Article text
         self.latest_article_text = ''
-        sibling = content.next_sibling # Skip over first line (which is the title)
+        sibling = content.next_sibling  # Skip over first line (which is the title)
         for i in sibling.next_siblings:
             if isinstance(i, NavigableString):
                 self.latest_article_text += i.strip()

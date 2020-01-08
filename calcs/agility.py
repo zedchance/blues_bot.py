@@ -1,7 +1,7 @@
 # Agility rooftop course calculator
 
+from calcs.experience import level_to_xp
 from helpers.hiscore import Hiscore
-from calcs.experience import level_to_xp, LEVEL_99
 
 DRAYNOR_LEVEL = 10
 DRAYNOR_LAP = 120
@@ -22,13 +22,14 @@ RELLEKKA_LAP = 780
 ARDOUGNE_LEVEL = 90
 ARDOUGNE_LAP = 793
 
+
 class Agility(Hiscore):
     """ Agility rooftop course calculator """
-    
+
     def __init__(self, username):
         super().__init__(username)
         self.course = self.determine_course()
-    
+
     def determine_course(self):
         """ Determines highest level course user can use and sets lap xp"""
         if self.agility_level < DRAYNOR_LEVEL:
@@ -70,15 +71,15 @@ class Agility(Hiscore):
             self.lap_xp = ARDOUGNE_LAP
             self.next_course = "level 99"
             return "Ardougne"
-    
+
     def xp_needed_to_level_up(self):
         """ Returns the amount of xp needed to level up """
         return level_to_xp(self.agility_level + 1) - self.agility_xp
-    
+
     def laps_to_level_up(self):
         """ Returns number of laps on highest available course to level up """
         return self.xp_needed_to_level_up() // self.lap_xp + 1
-    
+
     def laps_to_next_course(self):
         """ Returns number of laps until user can access next course """
         if self.determine_course() == 'Draynor':
