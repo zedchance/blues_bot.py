@@ -69,10 +69,11 @@ class Links(commands.Cog):
             embed.add_field(name="Change", value=f'**{ge.day30_change}** over the last month\n'
                                                  f'**{ge.day90_change}** over the last 3 months\n'
                                                  f'**{ge.day180_change}** over the last 6 months')
+            other_info = f'High alch: {ge.high_alch} gp \u2022 {ge.buy_limit} buy limit'
             if ge.is_members:
-                embed.set_footer(text="Members item", icon_url=members_icon)
+                embed.set_footer(text=f'{other_info}\nMembers item', icon_url=members_icon)
             else:
-                embed.set_footer(text="Non members item")
+                embed.set_footer(text=f'{other_info}\nNon members item')
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             # Graph
             if discord.Permissions.attach_files:

@@ -5,6 +5,7 @@ import json
 import matplotlib.pyplot as plotter
 import requests
 from matplotlib.ticker import StrMethodFormatter
+from osrsbox import items_api
 
 from helpers.urls import ge_api_item_url, ge_graph_url, ge_query_url
 
@@ -73,6 +74,13 @@ class GrandExchange:
         self.day90_change = data['item']['day90']['change']
         self.day180_trend = data['item']['day180']['trend']
         self.day180_change = data['item']['day180']['change']
+
+        # Details from osrsbox
+        all_db_items = items_api.load()
+        for item in all_db_items:
+            if str(item.id) == item_id:
+                self.buy_limit = f'{item.buy_limit:,}'
+                self.high_alch = f'{item.highalch:,}'
 
     def generate_graph(self):
         """ Generates a graph of daily price data """
