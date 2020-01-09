@@ -43,7 +43,7 @@ class Links(commands.Cog):
     async def ge_command(self, ctx, *search_description):
         """ Responds with information about an item from the Grand Exchange """
         safe_name = ' '.join(search_description)
-        url_safe_name = '+'.join(search_description)
+        url_safe_name = safe_name.replace(' ', '+')
         ge = GrandExchange(safe_name)
         time = datetime.now()
         timezone = pytz.timezone("America/Los_Angeles")
@@ -55,6 +55,15 @@ class Links(commands.Cog):
                                   timestamp=pst_time)
             embed.add_field(name="Results", value=ge.get_possible_matches_str())
             await ctx.send(embed=embed)
+
+            def check(m):
+                return m.content in [str(i) for i in range(1, len(ge.matches) + 1)] and m.channel == ctx.channel
+            choice = await ctx.bot.wait_for('message', check=check)
+            if choice:
+                name = f'{ge.matches[int(choice.content) - 1]["name"].lower()}'
+                await ctx.send(f'!b price {name}')
+                async with ctx.typing():
+                    await ctx.invoke(self.ge_command, name)
         else:
             embed = discord.Embed(title=ge.name, description=ge.description, url=f'{ge_url}{url_safe_name}',
                                   timestamp=pst_time)
@@ -75,16 +84,11 @@ class Links(commands.Cog):
             else:
                 embed.set_footer(text=f'{other_info}\nNon members item')
             # Graph
-            if discord.Permissions.attach_files:
-                ge.generate_graph()
-                file = discord.File('assets/graph.png', filename='graph.png')
-                embed.set_image(url='attachment://graph.png')
-                await ctx.send(f'{ctx.message.author.mention}', embed=embed, file=file)
-                file.close()
-            else:
-                await ctx.send(f'{ctx.message.author.mention}', embed=embed)
-                msg = discord.Embed(title="Missing permissions", description="Bot needs 'Attach files' permissions")
-                await ctx.send(embed=msg)
+            ge.generate_graph()
+            file = discord.File('assets/graph.png', filename='graph.png')
+            embed.set_image(url='attachment://graph.png')
+            await ctx.send(f'{ctx.message.author.mention}', embed=embed, file=file)
+            file.close()
             return
 
     @commands.command(name='rsbuddy',

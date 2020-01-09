@@ -116,8 +116,11 @@ class GrandExchange:
     def get_possible_matches_str(self):
         """ Returns a string of the top possible matches """
         ret = f''
+        count = 1
         for i in self.matches:
-            ret += f"{i['name']} - *{i['current']['price']} gp*\n"
+            ret += f"`{count}` {i['name']} - *{i['current']['price']} gp*\n"
+            count += 1
+        ret += f'\nReply with number for more information.'
         return ret
 
 class MissingQuery(Exception):
