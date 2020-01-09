@@ -57,8 +57,11 @@ class Links(commands.Cog):
             embed.add_field(name="Results", value=ge.get_possible_matches_str())
             await ctx.send(embed=embed)
 
-            def check(m):
-                return m.content in [str(i) for i in range(1, len(ge.matches) + 1)] and m.channel == ctx.channel
+            def check(msg):
+                return msg.content in [str(i) for i in range(1, len(ge.matches) + 1)]\
+                       and msg.channel == ctx.channel\
+                       and msg.author == ctx.message.author
+
             choice = await ctx.bot.wait_for('message', check=check)
             if choice:
                 name = f'{ge.matches[int(choice.content) - 1]["name"].lower()}'
