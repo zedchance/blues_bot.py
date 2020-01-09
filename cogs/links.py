@@ -74,14 +74,15 @@ class Links(commands.Cog):
                 embed.set_footer(text=f'{other_info}\nMembers item', icon_url=members_icon)
             else:
                 embed.set_footer(text=f'{other_info}\nNon members item')
-            await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             # Graph
             if discord.Permissions.attach_files:
                 ge.generate_graph()
-                file = discord.File('assets/graph.png')
-                await ctx.send(file=file)
+                file = discord.File('assets/graph.png', filename='graph.png')
+                embed.set_image(url='attachment://graph.png')
+                await ctx.send(f'{ctx.message.author.mention}', embed=embed, file=file)
                 file.close()
             else:
+                await ctx.send(f'{ctx.message.author.mention}', embed=embed)
                 msg = discord.Embed(title="Missing permissions", description="Bot needs 'Attach files' permissions")
                 await ctx.send(embed=msg)
             return
