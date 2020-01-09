@@ -42,7 +42,7 @@ class Links(commands.Cog):
                       case_insensitive=True)
     async def ge_command(self, ctx, *search_description):
         """ Responds with information about an item from the Grand Exchange """
-        safe_name = ' '.join(search_description)
+        safe_name = ' '.join(search_description).lower()
         url_safe_name = safe_name.replace(' ', '+')
         ge = GrandExchange(safe_name)
         time = datetime.now()
