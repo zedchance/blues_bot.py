@@ -51,7 +51,7 @@ class News:
                 if i.name == 'strong':
                     self.latest_article_text += f'**{i.text}**\n'
         if len(self.latest_article_text) > 1024:
-            self.latest_article_text = self.latest_article_text[:950]
+            self.latest_article_text = self.latest_article_text[:800]
             self.latest_article_text += f'... *[Read more]({self.articles[0][3]})*'
         # else:
         #     self.latest_article_text += f'*[Read more]({self.articles[0][3]})*'
