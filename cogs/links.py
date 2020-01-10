@@ -62,8 +62,11 @@ class Links(commands.Cog):
                        and msg.channel == ctx.channel\
                        and msg.author == ctx.message.author
 
-            choice = await ctx.bot.wait_for('message', check=check)
-            if choice:
+            try:
+                choice = await ctx.bot.wait_for('message', check=check, timeout=10)
+            except asyncio.TimeoutError:
+                print(f'Timeout on choice from {ctx.message.author}.')
+            else:
                 name = f'{ge.matches[int(choice.content) - 1]["name"].lower()}'
                 await ctx.send(f'!b price {name}')
                 async with ctx.typing():
