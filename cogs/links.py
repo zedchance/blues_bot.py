@@ -130,6 +130,8 @@ class Links(commands.Cog):
     async def monster_command(self, ctx, *monster):
         """ Looks up a monster """
         monster = " ".join(monster)
+        if len(list(monster)) < 3:
+            return await ctx.send("Sorry, invalid input. Minimum of 3 characters required.")
         loaded_monster = load_monster_from_api(monster.lower())
         if loaded_monster is not False:
             if len(loaded_monster) == 1:
