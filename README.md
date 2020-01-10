@@ -102,3 +102,4 @@ Library | Description
 [matplotlib](https://matplotlib.org) | Python 2D plotting library
 [Crystal Math Labs](https://crystalmathlabs.com) | OSRS XP tracking site
 [OSRSBox](https://www.osrsbox.com/) | OSRS item and monster api.
+[Asyncio](https://docs.python.org/3/library/asyncio.html) | Asyncio module
