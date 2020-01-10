@@ -12,7 +12,12 @@ def load_monster_from_api(monster):
         loaded_monster = [x for x in monsters if monster.lower() in x.name.lower()]
     if len(loaded_monster) == 0:
         return False
-    return loaded_monster[0]
+    returned_monsters = []
+    for x in loaded_monster:
+        if x.name not in [x.name.lower() for x in returned_monsters]:
+            if x.name not in [x.name for x in returned_monsters]:
+                returned_monsters.append(x)
+    return returned_monsters
 
 
 def parse_monster_drops(drops):

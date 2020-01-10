@@ -1,3 +1,4 @@
+import asyncio
 from datetime import datetime
 
 import discord
@@ -129,25 +130,54 @@ class Links(commands.Cog):
     async def monster_command(self, ctx, *monster):
         """ Looks up a monster """
         monster = " ".join(monster)
+        if len(list(monster)) < 3:
+            return await ctx.send("Sorry, invalid input. Minimum of 3 characters required.")
         loaded_monster = load_monster_from_api(monster.lower())
         if loaded_monster is not False:
-            stats = f"`Combat level:` {loaded_monster.combat_level} \n"
-            stats += f"`Hitpoints:` {loaded_monster.hitpoints} \n"
-            stats += f"`Max hit:` {loaded_monster.max_hit} \n"
-            stats += f"`Aggressive:` {'Yes' if loaded_monster.aggressive else 'No'} \n"
-            stats += f"`Attack speed:` {loaded_monster.attack_speed} ticks \n"
-            stats += f"`Weakness:` {'None' if len(loaded_monster.weakness) == 0 else ', '.join([x.capitalize() for x in loaded_monster.weakness])} \n "
-            stats += f"`Attack style:` {', '.join([x.capitalize() for x in loaded_monster.attack_type])} \n"
-            embed = discord.Embed(title=loaded_monster.name, url=loaded_monster.wiki_url)
-            embed.add_field(name="Members only", value="Yes" if loaded_monster.members else "No", inline=True)
-            embed.add_field(name="Examine", value=loaded_monster.examine, inline=True)
-            embed.add_field(name="Detailed", value=stats, inline=False)
-            embed.set_footer(text=f"Released: {loaded_monster.release_date}")
-            loaded_monster_drops = parse_monster_drops(loaded_monster.drops)
-            if len(loaded_monster_drops) > 0:
-                drops = [f"`{drop['name']}:` {drop['rarity_string']}" for drop in loaded_monster_drops[:5]]
-                embed.add_field(name="Rarest drops", value="\n".join(drops))
-            return await ctx.send(embed=embed)
+            if len(loaded_monster) == 1:
+                loaded_monster = loaded_monster[0]
+                stats = f"`Combat level:` {loaded_monster.combat_level} \n"
+                stats += f"`Hitpoints:` {loaded_monster.hitpoints} \n"
+                stats += f"`Max hit:` {loaded_monster.max_hit} \n"
+                stats += f"`Aggressive:` {'Yes' if loaded_monster.aggressive else 'No'} \n"
+                stats += f"`Attack speed:` {loaded_monster.attack_speed} ticks \n"
+                stats += f"`Weakness:` {'None' if len(loaded_monster.weakness) == 0 else ', '.join([x.capitalize() for x in loaded_monster.weakness])} \n "
+                stats += f"`Attack style:` {', '.join([x.capitalize() for x in loaded_monster.attack_type])} \n"
+                embed = discord.Embed(title=loaded_monster.name, url=loaded_monster.wiki_url)
+                embed.add_field(name="Members only", value="Yes" if loaded_monster.members else "No", inline=True)
+                embed.add_field(name="Examine", value=loaded_monster.examine, inline=True)
+                embed.add_field(name="Detailed", value=stats, inline=False)
+                embed.set_footer(text=f"Released: {loaded_monster.release_date}")
+                loaded_monster_drops = parse_monster_drops(loaded_monster.drops)
+                if len(loaded_monster_drops) > 0:
+                    drops = [f"`{drop['name']}:` {drop['rarity_string']}" for drop in loaded_monster_drops[:5]]
+                    embed.add_field(name="Rarest drops", value="\n".join(drops))
+                return await ctx.send(embed=embed)
+            else:
+                results = ""
+                for index, x in enumerate(loaded_monster):
+                    results += f"`{index + 1}` {x.name} \n"
+                time = datetime.now()
+                timezone = pytz.timezone("America/Los_Angeles")
+                pst_time = timezone.localize(time)
+                embed = discord.Embed(title="Monsters",
+                                      description=f'There are multiple results for `{monster}`',
+                                      timestamp=pst_time)
+                embed.add_field(name="Results", value=results + f"\nReply with a number for more information.")
+                await ctx.send(embed=embed)
+
+                def check(m):
+                    return m.content in [str(i) for i in range(1, len(loaded_monster) + 1)] \
+                           and m.channel == ctx.channel and ctx.author == m.author
+                try:
+                    choice = await ctx.bot.wait_for('message', timeout=10.0, check=check)
+                except asyncio.TimeoutError:
+                    return await ctx.send("Request timed out.")
+                if choice:
+                    name = f'{loaded_monster[int(choice.content) - 1].name.lower()}'
+                    await ctx.send(f'!b monster {name}')
+                    async with ctx.typing():
+                        return await ctx.invoke(self.monster_command, name)
         else:
             return await ctx.send("Sorry, we could not find that monster.")
 
