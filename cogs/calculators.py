@@ -32,8 +32,9 @@ class Calculators(commands.Cog):
             embed.set_thumbnail(url=get_icon_url("slayer"))
             embed.add_field(name="Average XP per task", value=f'{user.avg_xp_per_task():,}', inline=True)
             embed.add_field(name="Tasks needed to level up",
-                            value=f'{user.tasks_to_level_up()} ({user.xp_needed_to_level_up():,} xp)', inline=True)
-            if (user.slayer_level < 99):
+                            value=f'{user.tasks_to_level_up() + 1:,.0f} ({user.xp_needed_to_level_up():,} xp)',
+                            inline=True)
+            if user.slayer_level < 99:
                 embed.add_field(name="Tasks to level 99", value=f'{user.tasks_to_level_99()}', inline=True)
                 embed.add_field(name="Estimated total tasks", value=f'{user.estimated_total_tasks()}', inline=True)
             embed.set_footer(text="This calculator is more accurate at higher slayer levels")
