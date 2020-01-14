@@ -519,15 +519,16 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             user = Hiscore(url_safe_name)
             embed = discord.Embed(title="99s", description=f'{safe_name}\n*{user.overall_level}* total level')
             count = 0
-            msg = f''
+            msg = []
             for (name, level, xp, rank) in user.levels:
                 if int(level) == 99:
-                    msg += f'**{name}** {int(xp) / 1000000:.2f}M xp\n'
+                    msg.append((name, f'{int(xp) / 1000000:.1f}M xp\n'))
                     count += 1
+            tab = tabulate(msg, tablefmt='plain')
             if count == 0:
                 embed.add_field(name="**0 / 23**", value="User doesn't have any level 99s")
             else:
-                embed.add_field(name=f"**{count} / 23**", value=msg)
+                embed.add_field(name=f"**{count} / 23**", value=f'```{tab}```')
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
 
