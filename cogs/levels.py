@@ -558,10 +558,13 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
                                                             f'{overall_rank} overall rank')
             gainset = []
             for (skill, xp_gained, rank, lvls, ehp) in tracker.top_gains[1:6]:
-                gainset.append((lvls, skill, f'{xp_gained:,}', rank))
+                gainset.append((skill,
+                                f'{hiscore.level_lookup(skill)} ({lvls})' if int(lvls) > 0 else f'{hiscore.level_lookup(skill)}',
+                                f'{xp_gained:,}',
+                                rank))
             gains_msg = tabulate(gainset,
                                  tablefmt='plain',
-                                 headers=['Lvls', 'Skill', 'XP', 'Rank'],
+                                 headers=['Skill', 'Lvl', 'XP', 'Rank'],
                                  colalign=('left', 'left', 'right', 'right'))
             embed.add_field(name=f'**Top gains**',
                             value=f'```{gains_msg}```',
