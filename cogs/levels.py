@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+from tabulate import tabulate
 
 from calcs.combat import Combat
 from calcs.experience import next_level_string
@@ -550,22 +551,28 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             embed.add_field(name=f'{safe_name}',
                             value=f'**{int(hiscore.overall_xp):,}** XP\n'
                                   f'**{int(hiscore.overall_level):,}** Total\n'
-                                  f'**{int(hiscore.overall_rank):,}** Rank',
-                            inline=False)
+                                  f'**{int(hiscore.overall_rank):,}** Rank')
             (overall_name, overall_xp, overall_rank, overall_levels, overall_ehp) = tracker.top_gains[0]
             embed.add_field(name='**Overall gains**', value=f'+{overall_xp:,} XP\n'
                                                             f'{overall_levels} levels\n'
                                                             f'{overall_rank} overall rank')
-            for (name, xp, rank, levels, ehp) in tracker.top_gains[1:6]:
-                if xp > 0:
-                    embed.add_field(name=f'**{hiscore.level_lookup(name)}** {name}', value=f'+{xp:,} xp\n'
-                                                                                           f'{levels} levels\n'
-                                                                                           f'{rank} rank')
-            kills_msg = f''
+            gainset = []
+            for (skill, xp_gained, rank, lvls, ehp) in tracker.top_gains[1:6]:
+                gainset.append((lvls, skill, f'{xp_gained:,}', rank))
+            gains_msg = tabulate(gainset,
+                                 tablefmt="plain",
+                                 headers=['Lvls', 'Skill', 'XP', 'Rank'],
+                                 numalign='left')
+            embed.add_field(name=f'**Top gains**',
+                            value=f'```{gains_msg}```',
+                            inline=False)
+            killset = []
             for (name, kills, rank) in tracker.top_kills[:5]:
                 if kills > 0:
-                    kills_msg += f'{kills:,}\t{name}\n'
-            if kills_msg != '':
+                    killset.append((kills, name))
+            if len(killset) > 0:
+                kills_msg = tabulate(killset,
+                                     tablefmt='plain')
                 embed.add_field(name='Recent kills', value=f'```{kills_msg}```', inline=False)
             embed.set_footer(text=f'Checked: {tracker.last_checked} ago\n'
                                   f'Changed: {tracker.last_changed} ago\n'
