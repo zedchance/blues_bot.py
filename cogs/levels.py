@@ -560,9 +560,9 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             for (skill, xp_gained, rank, lvls, ehp) in tracker.top_gains[1:6]:
                 gainset.append((lvls, skill, f'{xp_gained:,}', rank))
             gains_msg = tabulate(gainset,
-                                 tablefmt="plain",
+                                 tablefmt='plain',
                                  headers=['Lvls', 'Skill', 'XP', 'Rank'],
-                                 numalign='left')
+                                 colalign=('left', 'left', 'right', 'right'))
             embed.add_field(name=f'**Top gains**',
                             value=f'```{gains_msg}```',
                             inline=False)
