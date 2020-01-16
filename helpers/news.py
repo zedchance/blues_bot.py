@@ -45,13 +45,15 @@ class News:
         sibling = content.next_sibling  # Skip over first line (which is the title)
         for i in sibling.next_siblings:
             if isinstance(i, NavigableString):
-                self.latest_article_text += i.strip()
-                self.latest_article_text += '\n'
+                if i != '\n':
+                    self.latest_article_text += i.strip()
+                    self.latest_article_text += '\n\n'
             else:
                 if i.name == 'strong':
                     self.latest_article_text += f'**{i.text}**\n'
         if len(self.latest_article_text) > 1024:
-            self.latest_article_text = self.latest_article_text[:800]
+            cut_length = 800 - len(self.articles[0][3]) + 20
+            self.latest_article_text = self.latest_article_text[:cut_length]
             self.latest_article_text += f'... *[Read more]({self.articles[0][3]})*'
         # else:
         #     self.latest_article_text += f'*[Read more]({self.articles[0][3]})*'
