@@ -80,7 +80,7 @@ The bot can return useful URLs for an easy way to share/lookup a link.
 <img src="screenshots/links_light.png" width="550">
 
 For example `!b price trident` returns  
-<img src="screenshots/ge_light_graph.png" width="550">
+<img src="screenshots/ge_light_graph.png" width="500">
 
 Or `!b wiki rune plate` returns
 ```
@@ -100,6 +100,7 @@ Library | Description
 [BeautifulSoup](https://www.crummy.com/software/BeautifulSoup/) | Web scraping tool
 [embed_help](https://github.com/zedchance/embed_help) | Better looking help messages
 [matplotlib](https://matplotlib.org) | Python 2D plotting library
-[Crystal Math Labs](https://crystalmathlabs.com) | OSRS XP tracking site
-[OSRSBox](https://www.osrsbox.com/) | OSRS item and monster api.
-[Asyncio](https://docs.python.org/3/library/asyncio.html) | Asyncio module
+[OSRSBox](https://www.osrsbox.com/) | OSRS item and monster API
+[asyncio](https://docs.python.org/3/library/asyncio.html) | Asynchronous I/O
+
+> XP tracking is done using [Crystal Math Labs](https://crystalmathlabs.com)
