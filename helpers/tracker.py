@@ -1,15 +1,20 @@
 # Crystal Math Labs xp tracker
 
 import requests
+import matplotlib.pyplot as plt
+import matplotlib.patheffects as path_effects
 from bs4 import BeautifulSoup
+from tabulate import tabulate
 
 from helpers.urls import cml_update_url, cml_sig, cml_url, cml_boss_url
+from helpers.hiscore import Hiscore
 
 
-class Tracker:
+class Tracker(Hiscore):
     """ Crystal Math Labs xp tracking class """
 
     def __init__(self, username):
+        super().__init__(username)
         self.username = username
         session = requests.session()
         # Update results if able
@@ -75,6 +80,28 @@ class Tracker:
 
     def get_sig(self):
         return f'{cml_sig}{self.username}'
+
+    def generate_image(self):
+        """ Generates gains image """
+        # Text to print
+        gainset = []
+        for (skill, xp_gained, rank, lvls, ehp) in self.top_gains[1:6]:
+            gainset.append((skill,
+                            f'{self.level_lookup(skill)} ({lvls})' if int(
+                                lvls) > 0 else f'{self.level_lookup(skill)}',
+                            f'{xp_gained:,}',
+                            rank))
+        gains_msg = tabulate(gainset,
+                             tablefmt='plain',
+                             headers=['Skill', 'Lvl', 'XP', 'Rank'],
+                             colalign=('left', 'left', 'right', 'right'))
+        # Generate image
+        fig = plt.figure(figsize=(8.25, 3))
+        text = fig.text(0.5, 0.5, gains_msg, ha='center', va='center', size=24, fontname='Menlo',
+                        color='white', bbox=dict(facecolor='black', alpha=0.5, boxstyle='round', pad=5))
+        text.set_path_effects([path_effects.Normal()])
+        plt.savefig('assets/tracker.png', transparent=True)
+        plt.close()
 
 
 class UserNotFound(TypeError):

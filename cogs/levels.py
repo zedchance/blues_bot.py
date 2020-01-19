@@ -544,43 +544,32 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             safe_name = ' '.join(username)
             if safe_name != '':
                 await ctx.send(f'Tracking **{safe_name}**...')
-            hiscore = Hiscore(url_safe_name)
             tracker = Tracker(url_safe_name)
             embed = discord.Embed(title='Weekly activity', url=f'{cml_url}{url_safe_name}')
             embed.set_thumbnail(url=cml_logo)
             embed.add_field(name=f'{safe_name}',
-                            value=f'**{int(hiscore.overall_xp):,}** XP\n'
-                                  f'**{int(hiscore.overall_level):,}** Total\n'
-                                  f'**{int(hiscore.overall_rank):,}** Rank')
+                            value=f'**{int(tracker.overall_xp):,}** XP\n'
+                                  f'**{int(tracker.overall_level):,}** Total\n'
+                                  f'**{int(tracker.overall_rank):,}** Rank')
             (overall_name, overall_xp, overall_rank, overall_levels, overall_ehp) = tracker.top_gains[0]
-            embed.add_field(name='**Overall gains**', value=f'+{overall_xp:,} XP\n'
-                                                            f'{overall_levels} levels\n'
-                                                            f'{overall_rank} overall rank')
-            gainset = []
-            for (skill, xp_gained, rank, lvls, ehp) in tracker.top_gains[1:6]:
-                gainset.append((skill,
-                                f'{hiscore.level_lookup(skill)} ({lvls})' if int(lvls) > 0 else f'{hiscore.level_lookup(skill)}',
-                                f'{xp_gained:,}',
-                                rank))
-            gains_msg = tabulate(gainset,
-                                 tablefmt='plain',
-                                 headers=['Skill', 'Lvl', 'XP', 'Rank'],
-                                 colalign=('left', 'left', 'right', 'right'))
-            embed.add_field(name=f'**Top gains**',
-                            value=f'```{gains_msg}```',
-                            inline=False)
+            embed.add_field(name='**Overall gains**',
+                            value=f'+{overall_xp:,} XP\n'
+                                  f'{overall_levels} levels\n'
+                                  f'{overall_rank} overall rank')
             killset = []
             for (name, kills, rank) in tracker.top_kills[:5]:
                 if kills > 0:
                     killset.append((kills, name))
             if len(killset) > 0:
-                kills_msg = tabulate(killset,
-                                     tablefmt='plain')
+                kills_msg = tabulate(killset, tablefmt='plain')
                 embed.add_field(name='Recent kills', value=f'```{kills_msg}```', inline=False)
             embed.set_footer(text=f'Checked: {tracker.last_checked} ago\n'
                                   f'Changed: {tracker.last_changed} ago\n'
                                   f'Oldest data point: {tracker.oldest_data} ago')
-            await ctx.send(f'{ctx.message.author.mention}', embed=embed)
+            tracker.generate_image()
+            file = discord.File('assets/tracker.png', filename='tracker.png')
+            embed.set_image(url='attachment://tracker.png')
+            await ctx.send(f'{ctx.message.author.mention}', embed=embed, file=file)
             return
 
 
