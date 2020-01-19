@@ -2,7 +2,7 @@
 
 import json
 
-import matplotlib.pyplot as plotter
+import matplotlib.pyplot as plt
 import requests
 from matplotlib.ticker import StrMethodFormatter
 from osrsbox import items_api
@@ -90,16 +90,16 @@ class GrandExchange:
             prices.append(self.graph_data['daily'][data])
         for data in self.graph_data['average']:
             average.append(self.graph_data['average'][data])
-        plotter.rcParams['ytick.color'] = 'lightslategrey'
-        plotter.rcParams['figure.figsize'] = 8, 3
-        plotter.box(on=None)
-        plotter.xticks([])
-        plotter.title('Past 180 days', loc='right', color='lightslategrey')
-        plotter.plot(average, color="red")
-        plotter.plot(prices, color="lightslategrey")
-        plotter.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:,.0f} gp'))
-        plotter.savefig('assets/graph.png', transparent=True)
-        plotter.close()
+        plt.rcParams['ytick.color'] = 'lightslategrey'
+        plt.rcParams['figure.figsize'] = 8, 3
+        plt.box(on=None)
+        plt.xticks([])
+        plt.title('Past 180 days', loc='right', color='lightslategrey')
+        plt.plot(average, color="red")
+        plt.plot(prices, color="lightslategrey")
+        plt.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:,.0f} gp'))
+        plt.savefig('assets/graph.png', transparent=True)
+        plt.close()
 
     def get_matches(self):
         """ Searches for the ID number of the query """
@@ -122,6 +122,7 @@ class GrandExchange:
             count += 1
         ret += f'\nReply with number for more information.'
         return ret
+
 
 class MissingQuery(Exception):
     pass
