@@ -1,5 +1,7 @@
 import asyncio
+import requests
 from datetime import datetime
+from bs4 import BeautifulSoup
 
 import discord
 import pytz
@@ -34,8 +36,24 @@ class Links(commands.Cog):
     async def wiki_command(self, ctx, *search_description):
         """ Links to wiki page for a search """
         url_safe = '+'.join(search_description)
-        await ctx.send(f'{ctx.message.author.mention}\n{wiki_url}{url_safe}')
-        return
+        if url_safe == "":
+            url = "https://oldschool.runescape.wiki/"
+        else:
+            url = wiki_url + url_safe
+        soup = BeautifulSoup(requests.get(url).content, 'html.parser')
+        description = soup.find(property="og:description")["content"]
+        title = soup.find(property="og:title")["content"]
+        image = soup.find(property="og:image")["content"]
+        time = datetime.now()
+        timezone = pytz.timezone("America/Los_Angeles")
+        pst_time = timezone.localize(time)
+        await ctx.send(ctx.message.author.mention)
+        embed = discord.Embed(title=title,
+                              description=description,
+                              url=url,
+                              timestamp=pst_time)
+        embed.set_image(url=image)
+        return await ctx.send(embed=embed)
 
     @commands.command(name='price',
                       description='Use to lookup items on the Grand Exchange',
