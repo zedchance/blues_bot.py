@@ -547,12 +547,12 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             tracker = Tracker(url_safe_name)
             embed = discord.Embed(title='Weekly activity', url=f'{cml_url}{url_safe_name}')
             embed.set_thumbnail(url=cml_logo)
-            embed.add_field(name=f'{safe_name}',
+            embed.add_field(name=f'**{safe_name}**',
                             value=f'**{int(tracker.overall_xp):,}** XP\n'
                                   f'**{int(tracker.overall_level):,}** Total\n'
                                   f'**{int(tracker.overall_rank):,}** Rank')
             (overall_name, overall_xp, overall_rank, overall_levels, overall_ehp) = tracker.top_gains[0]
-            embed.add_field(name='**Overall gains**',
+            embed.add_field(name='Overall gains',
                             value=f'+{overall_xp:,} XP\n'
                                   f'{overall_levels} levels\n'
                                   f'{overall_rank} overall rank')

@@ -87,8 +87,8 @@ class Tracker(Hiscore):
         gainset = []
         for (skill, xp_gained, rank, lvls, ehp) in self.top_gains[1:6]:
             gainset.append((skill,
-                            f'{self.level_lookup(skill)} ({lvls})' if int(
-                                lvls) > 0 else f'{self.level_lookup(skill)}',
+                            f'{self.level_lookup(skill)} ({lvls})' if int(lvls) > 0
+                            else f'{self.level_lookup(skill)}',
                             f'{xp_gained:,}',
                             rank))
         gains_msg = tabulate(gainset,
