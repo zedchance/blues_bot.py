@@ -1,5 +1,7 @@
 import asyncio
+import requests
 from datetime import datetime
+from bs4 import BeautifulSoup
 
 import discord
 import pytz
@@ -34,8 +36,38 @@ class Links(commands.Cog):
     async def wiki_command(self, ctx, *search_description):
         """ Links to wiki page for a search """
         url_safe = '+'.join(search_description)
-        await ctx.send(f'{ctx.message.author.mention}\n{wiki_url}{url_safe}')
-        return
+        if url_safe == "":
+            url = "https://oldschool.runescape.wiki/"
+        else:
+            url = wiki_url + url_safe
+        time = datetime.now()
+        timezone = pytz.timezone("America/Los_Angeles")
+        pst_time = timezone.localize(time)
+        soup = BeautifulSoup(requests.get(url).content, 'html.parser')
+        embed = discord.Embed(timestamp=pst_time)
+        try:
+            description = soup.find(property="og:description")["content"]
+            embed.description = description
+        except TypeError:
+            embed = discord.Embed(title="Oops......",
+                                  description="Something went wrong with your request, please make sure to check the"
+                                              " spelling or try again later.",
+                                  timestamp=pst_time)
+            await ctx.send(ctx.message.author.mention)
+            return await ctx.send(embed=embed)
+        try:
+            title = soup.find(property="og:title")["content"]
+            embed.title = title
+        except TypeError:
+            pass
+        try:
+            image = soup.find(property="og:image")["content"]
+            embed.set_image(url=image)
+        except TypeError:
+            pass
+        embed.url = url
+        await ctx.send(ctx.message.author.mention)
+        return await ctx.send(embed=embed)
 
     @commands.command(name='price',
                       description='Use to lookup items on the Grand Exchange',
