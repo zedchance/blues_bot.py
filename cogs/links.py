@@ -65,6 +65,7 @@ class Links(commands.Cog):
             embed.set_image(url=image)
         except TypeError:
             pass
+        embed.url = url
         await ctx.send(ctx.message.author.mention)
         return await ctx.send(embed=embed)
 
