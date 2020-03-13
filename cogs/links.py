@@ -40,19 +40,32 @@ class Links(commands.Cog):
             url = "https://oldschool.runescape.wiki/"
         else:
             url = wiki_url + url_safe
-        soup = BeautifulSoup(requests.get(url).content, 'html.parser')
-        description = soup.find(property="og:description")["content"]
-        title = soup.find(property="og:title")["content"]
-        image = soup.find(property="og:image")["content"]
         time = datetime.now()
         timezone = pytz.timezone("America/Los_Angeles")
         pst_time = timezone.localize(time)
+        soup = BeautifulSoup(requests.get(url).content, 'html.parser')
+        embed = discord.Embed(timestamp=pst_time)
+        try:
+            description = soup.find(property="og:description")["content"]
+            embed.description = description
+        except TypeError:
+            embed = discord.Embed(title="Oops......",
+                                  description="Something went wrong with your request, please make sure to check the"
+                                              " spelling or try again later.",
+                                  timestamp=pst_time)
+            await ctx.send(ctx.message.author.mention)
+            return await ctx.send(embed=embed)
+        try:
+            title = soup.find(property="og:title")["content"]
+            embed.title = title
+        except TypeError:
+            pass
+        try:
+            image = soup.find(property="og:image")["content"]
+            embed.set_image(url=image)
+        except TypeError:
+            pass
         await ctx.send(ctx.message.author.mention)
-        embed = discord.Embed(title=title,
-                              description=description,
-                              url=url,
-                              timestamp=pst_time)
-        embed.set_image(url=image)
         return await ctx.send(embed=embed)
 
     @commands.command(name='price',
