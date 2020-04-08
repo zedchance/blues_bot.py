@@ -18,4 +18,4 @@ owner_id =
 
 where `discord_key` is your own API key and `owner_id` is your own ID as an int.
 
-Next make sure you have all the [dependencies](README.md#Dependencies) installed, and run the `main.py` file to start the bot.
+Next make sure you have all the [dependencies]([README.md#Dependencies](https://github.com/zedchance/blues_bot.py/wiki/Dependencies)) installed, and run the `main.py` file to start the bot.
