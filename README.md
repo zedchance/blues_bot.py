@@ -1,4 +1,4 @@
-<img src="screenshots/!blue_logo.png" align=left>
+<img src="https://raw.githubusercontent.com/wiki/zedchance/blues_bot.py/screenshots/b.png" align=left>
 
 # !blue
 
