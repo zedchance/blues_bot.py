@@ -1,3 +1,4 @@
+import logging
 import asyncio
 import requests
 from datetime import datetime
@@ -97,7 +98,7 @@ class Links(commands.Cog):
             try:
                 choice = await ctx.bot.wait_for('message', check=check, timeout=10)
             except asyncio.TimeoutError:
-                print(f'Timeout on choice from {ctx.message.author}.')
+                logging.info(f'Timeout on choice from {ctx.message.author}.')
             else:
                 name = f'{ge.matches[int(choice.content) - 1]["name"].lower()}'
                 await ctx.send(f'!b price {name}')
