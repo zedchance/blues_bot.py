@@ -1,4 +1,5 @@
 import logging
+import datetime
 import discord
 from discord.ext import commands
 
@@ -8,7 +9,9 @@ from helpers.hiscore import UserNotFound, MissingUsername
 from helpers.tracker import NoDataPoints
 from helpers.version import get_version
 
-logging.basicConfig(filename='bot.log', level=logging.INFO)
+logging.basicConfig(filename='bot.log',
+                    format='%(asctime)s:%(levelname)s:%(message)s',
+                    level=logging.INFO)
 
 
 def get_prefix(client, message):
