@@ -1,3 +1,4 @@
+import logging
 import discord
 from discord.ext import commands
 
@@ -7,11 +8,13 @@ from helpers.hiscore import UserNotFound, MissingUsername
 from helpers.tracker import NoDataPoints
 from helpers.version import get_version
 
+logging.basicConfig(filename='bot.log', level=logging.INFO)
+
 
 def get_prefix(client, message):
     prefixes = ['!blue ', '!b ']
     if message.content.startswith("!b ") or message.content.startswith("!blue "):
-        print(f'{message.channel} - {message.author}: {message.content}')
+        logging.info(f'{message.channel} - {message.author}: {message.content}')
     return commands.when_mentioned_or(*prefixes)(client, message)
 
 
@@ -26,11 +29,12 @@ cogs = ['cogs.links', 'cogs.levels', 'cogs.calculators', 'cogs.scores', 'cogs.em
 
 @bot.event
 async def on_ready():
-    print(f"Logged on as {bot.user.name}!")
+    logging.info(f'Logged on as {bot.user.name}!')
     for cog in cogs:
-        print("Loading", cog)
+        logging.info(f'Loading {cog}')
         bot.load_extension(cog)
-    print("Cogs loaded")
+    logging.info("Cogs loaded")
+    print(f'Up and running as {bot.user.name}')
     status = discord.Activity(name='for !b help', type=3)
     await bot.change_presence(activity=status)
     return
@@ -51,7 +55,7 @@ async def on_message(message):
 @bot.event
 async def on_command_error(ctx, error):
     """ Simply replies with error message, shows error message if I make an error """
-    print(error)
+    logging.error(error)
     msg = f'{wrong_message}'
     error = getattr(error, 'original', error)
     # Exceptions
@@ -93,7 +97,7 @@ async def reload(ctx):
         return
     for cog in cogs:
         bot.unload_extension(cog)
-        print("Reloading", cog)
+        logging.info("Reloading", cog)
         bot.load_extension(cog)
     await ctx.send("Cogs reloaded")
 
