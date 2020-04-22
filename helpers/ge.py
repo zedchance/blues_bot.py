@@ -4,22 +4,21 @@ import json
 
 import matplotlib.pyplot as plotter
 import requests
-from matplotlib.ticker import StrMethodFormatter
 from osrsbox import items_api
 
 from helpers.urls import ge_api_item_url, ge_graph_url, ge_query_url
 
 
 def nice_price(price):
-    """ Returns the price in nice numbers with k/m/b on the end as a string"""
+    """ Returns the price in nice numbers with k/m/b on the end as a string """
     if price < 1000:
         return f'{price:,.0f} gp'
     elif price < 1000000:
-        return f'{price / 1000:,.2f} k gp'
+        return f'{price / 1000:,.1f} K gp'
     elif price < 1000000000:
-        return f'{price / 1000000:,.1f} m gp'
+        return f'{price / 1000000:,.1f} M gp'
     else:
-        return f'{price / 1000000000:,.1f} b gp'
+        return f'{price / 1000000000:,.1f} B gp'
 
 
 class GrandExchange:
@@ -89,10 +88,14 @@ class GrandExchange:
 
         # Details from osrsbox
         all_db_items = items_api.load()
+        self.buy_limit = 'N/A'
+        self.high_alch = 'N/A'
         for item in all_db_items:
             if str(item.id) == item_id:
-                self.buy_limit = f'{item.buy_limit:,}'
-                self.high_alch = f'{item.highalch:,}'
+                if item.buy_limit:
+                    self.buy_limit = f'{item.buy_limit:,}'
+                if item.highalch:
+                    self.high_alch = f'{item.highalch:,}'
 
     def generate_graph(self):
         """ Generates a graph of daily price data """
@@ -105,7 +108,7 @@ class GrandExchange:
         plotter.rcParams['ytick.color'] = 'lightslategrey'
         plotter.rcParams['figure.figsize'] = 8, 3
         plotter.box(on=None)
-        # Axis labels
+        # Axis labels # TODO maybe show a horizontal dotted line where the average is (another color?)
         high = max(prices)
         mid = sum(prices)/len(prices)
         low = min(prices)
@@ -114,7 +117,6 @@ class GrandExchange:
         plotter.title('Past 180 days', loc='right', color='lightslategrey')
         plotter.plot(average, color="red")
         plotter.plot(prices, color="lightslategrey")
-        # plotter.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:,.0f} gp'))
         plotter.savefig('assets/graph.png', transparent=True)
         plotter.close()
 
