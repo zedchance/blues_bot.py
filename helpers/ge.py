@@ -105,11 +105,16 @@ class GrandExchange:
         plotter.rcParams['ytick.color'] = 'lightslategrey'
         plotter.rcParams['figure.figsize'] = 8, 3
         plotter.box(on=None)
+        # Axis labels
+        high = max(prices)
+        mid = sum(prices)/len(prices)
+        low = min(prices)
+        plotter.yticks([high, mid, low], [nice_price(high), nice_price(mid), nice_price(low)])
         plotter.xticks([])
         plotter.title('Past 180 days', loc='right', color='lightslategrey')
         plotter.plot(average, color="red")
         plotter.plot(prices, color="lightslategrey")
-        plotter.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:,.0f} gp'))
+        # plotter.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:,.0f} gp'))
         plotter.savefig('assets/graph.png', transparent=True)
         plotter.close()
 
