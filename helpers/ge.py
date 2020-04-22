@@ -99,6 +99,7 @@ class GrandExchange:
 
     def generate_graph(self):
         """ Generates a graph of daily price data """
+        # Gather data
         prices = []
         average = []
         for data in self.graph_data['daily']:
@@ -108,12 +109,15 @@ class GrandExchange:
         plotter.rcParams['ytick.color'] = 'lightslategrey'
         plotter.rcParams['figure.figsize'] = 8, 3
         plotter.box(on=None)
-        # Axis labels # TODO maybe show a horizontal dotted line where the average is (another color?)
+        # Axis labels
         high = max(prices)
         mid = sum(prices)/len(prices)
         low = min(prices)
         plotter.yticks([high, mid, low], [nice_price(high), nice_price(mid), nice_price(low)])
         plotter.xticks([])
+        # Average line
+        plotter.axhline(y=mid, dashes=[1, 3])
+        # Title, plot, and save
         plotter.title('Past 180 days', loc='right', color='lightslategrey')
         plotter.plot(average, color="red")
         plotter.plot(prices, color="lightslategrey")
