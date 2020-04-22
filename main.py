@@ -97,7 +97,7 @@ async def reload(ctx):
         return
     for cog in cogs:
         bot.unload_extension(cog)
-        logging.info("Reloading", cog)
+        logging.info(f'Reloading {cog}')
         bot.load_extension(cog)
     await ctx.send("Cogs reloaded")
 
