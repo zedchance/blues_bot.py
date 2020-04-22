@@ -9,6 +9,7 @@ from calcs.wines import Wines
 from calcs.wintertodt import Wintertodt
 from calcs.zeah import Zeah
 from helpers.urls import get_icon_url
+from helpers.ge import GrandExchange, nice_price
 
 
 class Calculators(commands.Cog):
@@ -53,7 +54,7 @@ class Calculators(commands.Cog):
             embed = discord.Embed(title="Wine cooking calculator",
                                   description=f'**{user.cooking_level}** cooking ({user.cooking_xp:,} xp) | {safe_username}')
             embed.set_thumbnail(url=get_icon_url("cooking"))
-            if (user.cooking_level < 99):
+            if user.cooking_level < 99:
                 embed.add_field(name="Wines to reach level 99", value=f'{user.wines_to_level_99():,}', inline=True)
                 embed.add_field(name="Inventories", value=f'{user.invs_to_level_99():,}', inline=True)
             else:
@@ -74,37 +75,50 @@ class Calculators(commands.Cog):
             embed = discord.Embed(title="Zeah runecrafting calculator",
                                   description=f'**{user.runecraft_level}** Runecraft ({user.runecraft_xp:,} xp) | {safe_username}')
             embed.set_thumbnail(url=get_icon_url("runecraft"))
-            embed.set_footer(text=f'{next_level_string(user.runecraft_xp, "runecraft")}')
-            if (user.runecraft_level < 77):
+            footer = f'{next_level_string(user.runecraft_xp, "runecraft")}'
+            if user.runecraft_level < 77:
                 embed.add_field(name="Level too low",
                                 value="You need a runecraft level of at least 77 to make blood runes", inline=True)
-            elif (user.runecraft_level < 90):
+            elif user.runecraft_level < 90:
+                bloods = GrandExchange("Blood rune")
                 embed.add_field(name="Bloods to level up",
                                 value=f'{user.bloods_to_level_up() + 1:,.0f}\n'
+                                      f'~{nice_price(user.bloods_to_level_up() * bloods.current_price)}\n'
                                       f'({user.blood_trips_to_level_up() + 1:,.0f} trips)',
                                 inline=True)
                 embed.add_field(name="Bloods to level 99",
                                 value=f'{user.bloods_to_level_99() + 1:,.0f}\n'
+                                      f'~{nice_price(user.bloods_to_level_99() * bloods.current_price)}\n'
                                       f'({user.blood_trips_to_level_99() + 1:,.0f} trips)',
                                 inline=True)
+                footer += f'\nBlood rune price: {bloods.current_price} gp'
             else:
+                bloods = GrandExchange("Blood rune")
+                souls = GrandExchange("Soul rune")
                 embed.add_field(name="Bloods to level up",
                                 value=f'{user.bloods_to_level_up() + 1:,.0f}\n'
+                                      f'~{nice_price(user.bloods_to_level_up() * bloods.current_price)}\n'
                                       f'({user.blood_trips_to_level_up() + 1:,.0f} trips)',
                                 inline=True)
                 embed.add_field(name="Souls to level up",
                                 value=f'{user.souls_to_level_up() + 1:,.0f}\n'
+                                      f'~{nice_price(user.souls_to_level_up() * souls.current_price)}\n'
                                       f'({user.soul_trips_to_level_up() + 1:,.0f} trips)',
                                 inline=True)
-                if (user.runecraft_level < 99):
+                footer += f'\nBlood rune price: {bloods.current_price} gp\n' \
+                          f'Soul rune price: {souls.current_price} gp'
+                if user.runecraft_level < 99:
                     embed.add_field(name="Bloods to level 99",
                                     value=f'{user.bloods_to_level_99() + 1:,.0f}\n'
+                                          f'~{nice_price(user.bloods_to_level_99() * bloods.current_price)}\n'
                                           f'({user.blood_trips_to_level_99() + 1:,.0f} trips)',
                                     inline=True)
                     embed.add_field(name="Souls to level 99",
                                     value=f'{user.souls_to_level_99() + 1:,.0f}\n'
+                                          f'~{nice_price(user.souls_to_level_99() * souls.current_price)}\n'
                                           f'({user.soul_trips_to_level_99() + 1:,.0f} trips)',
                                     inline=True)
+            embed.set_footer(text=footer)
             await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             return
 
@@ -120,7 +134,7 @@ class Calculators(commands.Cog):
             embed = discord.Embed(title="Rooftop agility calculator",
                                   description=f'**{user.agility_level}** Agility ({user.agility_xp:,} xp) | {safe_username}')
             embed.set_thumbnail(url=get_icon_url("agility"))
-            if (user.course == None):
+            if user.course == None:
                 embed.add_field(name="Level too low",
                                 value="You need at least 10 agility to use the Draynor rooftop course", inline=False)
             else:
@@ -172,7 +186,7 @@ class Calculators(commands.Cog):
             embed = discord.Embed(title="High alchemy calculator", description=f'{safe_name}')
             embed.set_thumbnail(url=f'{alch.icon}')
             if alch.magic_level < 55:
-                embed.add_field(name="Level too low", value=f'You need at least **55** Magic to use High Alchemy.\n' \
+                embed.add_field(name="Level too low", value=f'You need at least **55** Magic to use High Alchemy.\n'
                                                             f'You are currently level **{alch.magic_level}**.')
             else:
                 embed.add_field(name="Magic level", value=f'**{alch.magic_level}** ({alch.magic_xp:,} xp)',

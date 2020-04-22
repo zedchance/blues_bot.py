@@ -10,6 +10,18 @@ from osrsbox import items_api
 from helpers.urls import ge_api_item_url, ge_graph_url, ge_query_url
 
 
+def nice_price(price):
+    """ Returns the price in nice numbers with k/m/b on the end as a string"""
+    if price < 1000:
+        return f'{price:,.0f} gp'
+    elif price < 1000000:
+        return f'{price / 1000:,.2f} k gp'
+    elif price < 1000000000:
+        return f'{price / 1000000:,.1f} m gp'
+    else:
+        return f'{price / 1000000000:,.1f} b gp'
+
+
 class GrandExchange:
     """ Pulls API data from the GE website """
 
@@ -122,6 +134,7 @@ class GrandExchange:
             count += 1
         ret += f'\nReply with number for more information.'
         return ret
+
 
 class MissingQuery(Exception):
     pass
