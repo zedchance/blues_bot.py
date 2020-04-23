@@ -18,7 +18,7 @@ def nice_price(price):
     elif price < 1000000000:
         return f'{price / 1000000:,.1f} M gp'
     else:
-        return f'{price / 1000000000:,.1f} B gp'
+        return f'{price / 1000000000:,.2f} B gp'
 
 
 class GrandExchange:
