@@ -118,8 +118,8 @@ class GrandExchange:
         # Responses
         response = await req
         graph_response = await graph_req
-        # if response == 404:
-        #     raise NoResults(f'No results for  found')
+        if response.status_code == 404:
+            raise NoResults(f'No results for {self.query} found')
         data = response.json()
         self.graph_data = graph_response.json()
 
