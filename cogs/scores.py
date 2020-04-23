@@ -26,13 +26,13 @@ class Scores(commands.Cog):
             await user.fetch()
         embed = discord.Embed(title="Bounty Hunter", description=f'{safe_name}')
         embed.set_thumbnail(url=bounty_icon)
-        if user.bounty_hunter_hunter_score == '-1':
+        if user.bounty_hunter_hunter_score == -1:
             embed.add_field(name="Hunter", value="You have never played as Hunter", inline=False)
         else:
             embed.add_field(name="Hunter",
                             value=f'**{int(user.bounty_hunter_hunter_score):,}** score (Rank {int(user.bounty_hunter_hunter_rank):,})',
                             inline=False)
-        if user.bounty_hunter_rogue_rank == '-1':
+        if user.bounty_hunter_rogue_rank == -1:
             embed.add_field(name="Rogue", value="You have never played as Rogue", inline=False)
         else:
             embed.add_field(name="Rogue",
@@ -54,7 +54,7 @@ class Scores(commands.Cog):
             await user.fetch()
         embed = discord.Embed(title="Last Man Standing", description=f'{safe_name}')
         embed.set_thumbnail(url=lms_icon)
-        if user.lms_score == '-1':
+        if user.lms_score == -1:
             embed.add_field(name="Score", value="You have never played LMS")
         else:
             embed.add_field(name="Score", value=f'**{int(user.lms_score):,}** score (Rank {int(user.lms_rank):,})',
@@ -75,33 +75,33 @@ class Scores(commands.Cog):
             await user.fetch()
         embed = discord.Embed(title="Clue Scrolls", description=f'{safe_name}')
         embed.set_thumbnail(url=clue_icon)
-        if user.all_clues_rank == '-1':
+        if user.all_clues_rank == -1:
             embed.add_field(name="Nothing found", value="You haven't solved any clue scrolls", inline=True)
         else:
             embed.add_field(name="Total clues",
                             value=f'**{int(user.all_clues_score):,}** (Rank {int(user.all_clues_rank):,})',
                             inline=True)
-        if user.beginner_clues_rank != '-1':
+        if user.beginner_clues_rank != -1:
             embed.add_field(name="Beginner clues",
                             value=f'**{int(user.beginner_clues_score):,}** (Rank {int(user.beginner_clues_rank):,})',
                             inline=True)
-        if user.easy_clues_rank != '-1':
+        if user.easy_clues_rank != -1:
             embed.add_field(name="Easy clues",
                             value=f'**{int(user.easy_clues_score):,}** (Rank {int(user.easy_clues_rank):,})',
                             inline=True)
-        if user.medium_clues_rank != '-1':
+        if user.medium_clues_rank != -1:
             embed.add_field(name="Medium clues",
                             value=f'**{int(user.medium_clues_score):,}** (Rank {int(user.medium_clues_rank):,})',
                             inline=True)
-        if user.hard_clues_rank != '-1':
+        if user.hard_clues_rank != -1:
             embed.add_field(name="Hard clues",
                             value=f'**{int(user.hard_clues_score):,}** (Rank {int(user.hard_clues_rank):,})',
                             inline=True)
-        if user.elite_clues_rank != '-1':
+        if user.elite_clues_rank != -1:
             embed.add_field(name="Elite clues",
                             value=f'**{int(user.elite_clues_score):,}** (Rank {int(user.elite_clues_rank):,})',
                             inline=True)
-        if user.master_clues_rank != '-1':
+        if user.master_clues_rank != -1:
             embed.add_field(name="Master clues",
                             value=f'**{int(user.master_clues_score):,}** (Rank {int(user.master_clues_rank):,})',
                             inline=True)
