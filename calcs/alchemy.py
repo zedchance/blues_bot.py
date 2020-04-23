@@ -12,8 +12,14 @@ class Alchemy(Hiscore, GrandExchange):
     """ High alch calculator """
 
     def __init__(self, username):
-        Hiscore.__init__(self, username)
+        self.username = username
+
+    async def fetch(self):
+        """ Fetch the results """
+        Hiscore.__init__(self, self.username)
         GrandExchange.__init__(self, "Nature rune")
+        await Hiscore.fetch(self)
+        await GrandExchange.fetch(self)
 
     def alchs_to_level_up(self):
         """ Returns number of alchs needed to level up """

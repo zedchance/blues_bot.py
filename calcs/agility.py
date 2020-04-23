@@ -28,7 +28,6 @@ class Agility(Hiscore):
 
     def __init__(self, username):
         super().__init__(username)
-        self.course = self.determine_course()
 
     def determine_course(self):
         """ Determines highest level course user can use and sets lap xp"""

@@ -1,5 +1,7 @@
 # Used to pull hiscores from OSRS hiscore page
 
+import asyncio
+import logging
 import requests
 from bs4 import BeautifulSoup
 
@@ -9,15 +11,22 @@ main_url = "https://secure.runescape.com/m=hiscore_oldschool/index_lite.ws?playe
 class Hiscore:
     """ Pulls hiscores from OSRS hiscore page """
 
-    def __init__(self, username):
-        # Pull hiscores
+    def __init__(self, username):  # TODO find out where the NoneType object is being called on a bad response
+        self.username = username
         if username == '':
             raise MissingUsername(f'You need to enter a username after the command')
-        session = requests.session()
-        req = session.get(main_url + username)
-        if req.status_code == 404:
-            raise UserNotFound(f'No hiscore data for {username}.')
-        doc = BeautifulSoup(req.content, 'html.parser')
+
+    async def fetch(self):
+        """ Fetch the results """
+        # Event loop
+        loop = asyncio.get_event_loop()
+        req = loop.run_in_executor(None, requests.get, main_url + self.username)
+        response = await req
+        if response.status_code == 404:
+            raise UserNotFound(f'No hiscore data for {self.username}.')
+        elif response.status_code != 200:
+            logging.error(f'No response from hiscore page for {self.username} at this time')
+        doc = BeautifulSoup(response.content, 'html.parser')
         first = [i.split() for i in doc]
         self.scores = [i.split(',') for i in first[0]]
 

@@ -44,7 +44,7 @@ class Links(commands.Cog):
         time = datetime.now()
         timezone = pytz.timezone("America/Los_Angeles")
         pst_time = timezone.localize(time)
-        soup = BeautifulSoup(requests.get(url).content, 'html.parser')
+        soup = BeautifulSoup(requests.get(url).content, 'html.parser')  # TODO async this
         embed = discord.Embed(timestamp=pst_time)
         try:
             description = soup.find(property="og:description")["content"]
@@ -149,20 +149,21 @@ class Links(commands.Cog):
                       case_insensitive=True)
     async def news_command(self, ctx):
         """ Latest OSRS news """
+        news = News()
         async with ctx.typing():
-            news = News()
-            embed = discord.Embed(title=news.title)
-            embed.set_thumbnail(url=news.image)
-            embed.add_field(name=f'Latest post - {news.articles[0][2]}',
-                            value=f'[**{news.articles[0][0]}**]({news.articles[0][3]})\n'
-                                  f'{news.latest_article_text}',
-                            inline=False)
-            for i in range(1, 4):
-                embed.add_field(name=news.articles[i][2], value=f'**[{news.articles[i][0]}]({news.articles[i][3]})**\n'
-                                                                f'{news.articles[i][1]}')
-            embed.set_footer(text=f'Latest post: {news.articles[0][4]}')
-            await ctx.send(f'{ctx.message.author.mention}', embed=embed)
-            return
+            await news.fetch()
+        embed = discord.Embed(title=news.title)
+        embed.set_thumbnail(url=news.image)
+        embed.add_field(name=f'Latest post - {news.articles[0][2]}',
+                        value=f'[**{news.articles[0][0]}**]({news.articles[0][3]})\n'
+                              f'{news.latest_article_text}',
+                        inline=False)
+        for i in range(1, 4):
+            embed.add_field(name=news.articles[i][2], value=f'**[{news.articles[i][0]}]({news.articles[i][3]})**\n'
+                                                            f'{news.articles[i][1]}')
+        embed.set_footer(text=f'Latest post: {news.articles[0][4]}')
+        await ctx.send(f'{ctx.message.author.mention}', embed=embed)
+        return
 
     @commands.command(name='monster',
                       description='Lookup osrs monsters.',

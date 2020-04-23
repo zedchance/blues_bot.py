@@ -1,5 +1,6 @@
 # Crystal Math Labs xp tracker
 
+import asyncio
 import requests
 from bs4 import BeautifulSoup
 
@@ -11,14 +12,20 @@ class Tracker:
 
     def __init__(self, username):
         self.username = username
-        session = requests.session()
+
+    async def fetch(self):
+        """ Fetch CML results """
+        # Event loop
+        loop = asyncio.get_event_loop()
         # Update results if able
-        update = session.get(cml_update_url + username)
+        update = loop.run_in_executor(None, requests.get, cml_update_url + self.username)
+        update_response = await update
         # Get username's page
-        req = session.get(cml_url + username)
-        if req.status_code == 404:
-            raise UserNotFound(f'No data for {username}.')
-        doc = BeautifulSoup(req.content, 'html.parser')
+        req = loop.run_in_executor(None, requests.get, cml_url + self.username)
+        response = await req
+        if response.status_code == 404:
+            raise UserNotFound(f'No data for {self.username}.')
+        doc = BeautifulSoup(response.content, 'html.parser')
 
         # Put results in an array of tuples
         # (Skill name, XP gained, Rank change, Levels gained, EHP)
@@ -57,8 +64,9 @@ class Tracker:
         self.last_changed = details_search[8].text
 
         # Get latest boss kills
-        req = session.get(cml_boss_url + username)
-        doc = BeautifulSoup(req.content, 'html.parser')
+        boss_req = loop.run_in_executor(None, requests.get, cml_boss_url + self.username)
+        boss_res = await boss_req
+        doc = BeautifulSoup(boss_res.content, 'html.parser')
         boss_response = doc.find_all('tr')
         self.boss_kills = []
         for i in boss_response[1:-1]:

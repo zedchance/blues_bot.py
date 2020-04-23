@@ -1,5 +1,6 @@
 # Pulls latest news from OSRS site
 
+import asyncio
 import requests
 from bs4 import BeautifulSoup, NavigableString
 
@@ -11,12 +12,18 @@ class News:
 
     def __init__(self):
         self.title = 'Old School RuneScape Recent News'
-        session = requests.session()
-        req = session.get(news_rss_feed)
-        if req.status_code == 404:
+
+    async def fetch(self):
+        """ Fetches the news """
+        # Event loop
+        loop = asyncio.get_event_loop()
+        # Make request
+        req = loop.run_in_executor(None, requests.get, news_rss_feed)
+        response = await req
+        if response.status_code == 404:
             print("404 from RSS feed")  # TODO
             return
-        feed = BeautifulSoup(req.content, 'html.parser')
+        feed = BeautifulSoup(response.content, 'html.parser')
 
         # Build tuple array of latest articles
         # (Title, Description, Category, Link, Publication date)
@@ -31,11 +38,12 @@ class News:
             self.articles.append((title, description, category, link, pubdate))
 
         # Get info from first article
-        article_req = session.get(self.articles[0][3])
-        if article_req.status_code == 404:
+        article_req = loop.run_in_executor(None, requests.get, self.articles[0][3])
+        article_response = await article_req
+        if article_response.status_code == 404:
             print("404 from article page")  # TODO
             return
-        response = BeautifulSoup(article_req.content, 'html.parser')
+        response = BeautifulSoup(article_response.content, 'html.parser')
         content = response.find('html')
         # Article image
         img_search = content.find_all('img')
