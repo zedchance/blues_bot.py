@@ -79,6 +79,8 @@ class Links(commands.Cog):
         safe_name = ' '.join(search_description).lower()
         url_safe_name = safe_name.replace(' ', '+')
         ge = GrandExchange(safe_name)
+        async with ctx.typing():
+            await ge.fetch()
         time = datetime.now()
         timezone = pytz.timezone("America/Los_Angeles")
         pst_time = timezone.localize(time)
