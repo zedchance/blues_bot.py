@@ -16,7 +16,7 @@ logging.basicConfig(filename='bot.log',
 def get_prefix(client, message):
     prefixes = ['!blue ', '!b ']
     if message.content.startswith("!b ") or message.content.startswith("!blue "):
-        logging.info(f'{message.channel} - {message.author}: {message.content}')
+        logging.info(f'[{message.guild}/{message.channel}] {message.author}: {message.content}')
     return commands.when_mentioned_or(*prefixes)(client, message)
 
 
