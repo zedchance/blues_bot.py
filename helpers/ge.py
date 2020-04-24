@@ -28,7 +28,7 @@ class GrandExchange:
         # Check if query was entered
         self.query = query
         if query == '':
-            raise MissingQuery("You must enter a search term")
+            raise MissingQuery("You must enter a search term after the command")
 
         # This boolean is flipped if there is a lot of results from query
         self.multiple_results = False
