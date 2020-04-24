@@ -132,4 +132,17 @@ async def bug_command(ctx):
     return
 
 
+@bot.command(name='vote',
+             description='Upvote/invite the bot on top.gg',
+             aliases=['invite'],
+             hidden=True,
+             case_insensitive=True)
+async def vote_command(ctx):
+    """ Links to the bot's top.gg page """
+    embed = discord.Embed(title="**!blue**", description="Vote for the bot or invite to your own channel!")
+    embed.add_field(name="Link", value=f'https://top.gg/bot/532782540897910784')
+    await ctx.send(f'{ctx.message.author.mention}', embed=embed)
+    return
+
+
 bot.run(discord_key, bot=True, reconnect=True)
