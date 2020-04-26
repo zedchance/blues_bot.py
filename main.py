@@ -1,6 +1,6 @@
 import logging
 import discord
-from discord.ext import commands
+from discord.ext import commands, tasks
 
 from helpers.api_key import discord_key, owner_id
 from helpers.descriptions import bot_description, wrong_message
@@ -27,7 +27,8 @@ bot = commands.Bot(command_prefix=get_prefix,
                    case_insensitive=True)
 
 bot.remove_command('help')
-cogs = ['cogs.links', 'cogs.levels', 'cogs.calculators', 'cogs.scores', 'cogs.embed_help.help']
+cogs = ['cogs.links', 'cogs.levels', 'cogs.calculators', 'cogs.scores', 'cogs.embed_help.help',
+        'cogs.refresh']
 
 
 @bot.event
@@ -38,8 +39,6 @@ async def on_ready():
         bot.load_extension(cog)
     logging.info("Cogs loaded")
     print(f'Up and running as {bot.user.name}')
-    status = discord.Activity(name='for !b help', type=3)
-    await bot.change_presence(activity=status)
     return
 
 
