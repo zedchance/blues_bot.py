@@ -16,7 +16,7 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
 
     @commands.command(name='lvl',
                       description='Use to list all available level commands',
-                      aliases=['levels', 'lvls'],
+                      aliases=['levels', 'level', 'lvls'],
                       hidden=False,
                       case_insensitive=True)
     async def levels_command(self, ctx):
