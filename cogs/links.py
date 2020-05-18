@@ -183,7 +183,7 @@ class Links(commands.Cog):
                 stats += f"`Max hit:` {loaded_monster.max_hit} \n"
                 stats += f"`Aggressive:` {'Yes' if loaded_monster.aggressive else 'No'} \n"
                 stats += f"`Attack speed:` {loaded_monster.attack_speed} ticks \n"
-                stats += f"`Weakness:` {'None' if len(loaded_monster.weakness) == 0 else ', '.join([x.capitalize() for x in loaded_monster.weakness])} \n "
+                # stats += f"`Weakness:` {'None' if len(loaded_monster.weakness) == 0 else ', '.join([x.capitalize() for x in loaded_monster.weakness])} \n "
                 stats += f"`Attack style:` {', '.join([x.capitalize() for x in loaded_monster.attack_type])} \n"
                 embed = discord.Embed(title=loaded_monster.name, url=loaded_monster.wiki_url)
                 embed.add_field(name="Members only", value="Yes" if loaded_monster.members else "No", inline=True)
