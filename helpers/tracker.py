@@ -1,6 +1,7 @@
 # Crystal Math Labs xp tracker
 
 import asyncio
+import logging
 import requests
 from bs4 import BeautifulSoup
 
@@ -19,13 +20,20 @@ class Tracker:
         loop = asyncio.get_event_loop()
         # Update results if able
         update = loop.run_in_executor(None, requests.get, cml_update_url + self.username)
+        # Await update page
         update_response = await update
         # Get username's page
         req = loop.run_in_executor(None, requests.get, cml_url + self.username)
+        # Boss kill request
+        boss_req = loop.run_in_executor(None, requests.get, cml_boss_url + self.username)
+        # Await requests
         response = await req
+        boss_res = await boss_req
         if response.status_code == 404:
             raise UserNotFound(f'No data for {self.username}.')
+        # Parse responses
         doc = BeautifulSoup(response.content, 'html.parser')
+        boss_doc = BeautifulSoup(boss_res.content, 'html.parser')
 
         # Put results in an array of tuples
         # (Skill name, XP gained, Rank change, Levels gained, EHP)
@@ -51,7 +59,7 @@ class Tracker:
         for (name, xp, rank, levels, ehp) in self.top_gains:
             if name == 'Overall':
                 if xp == 0:
-                    raise NoDataPoints(f'Either this is the first time {username} has been tracked this week, '
+                    raise NoDataPoints(f'Either this is the first time {self.username} has been tracked this week, '
                                        f'or no XP has been gained. Gain some more XP and try again.\n\n'
                                        '(This command is more useful if you use it often.)')
 
@@ -63,11 +71,8 @@ class Tracker:
         self.last_checked = details_search[6].text
         self.last_changed = details_search[8].text
 
-        # Get latest boss kills
-        boss_req = loop.run_in_executor(None, requests.get, cml_boss_url + self.username)
-        boss_res = await boss_req
-        doc = BeautifulSoup(boss_res.content, 'html.parser')
-        boss_response = doc.find_all('tr')
+        # Boss kill counts
+        boss_response = boss_doc.find_all('tr')
         self.boss_kills = []
         for i in boss_response[1:-1]:
             name = i.a.text
