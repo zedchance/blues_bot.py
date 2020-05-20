@@ -63,16 +63,27 @@ async def on_command_error(ctx, error):
     # Exceptions
     if isinstance(error, discord.ext.commands.errors.CommandNotFound):
         pass
-    elif isinstance(error, UserNotFound) or isinstance(error, MissingUsername) or isinstance(error, NoDataPoints) \
-            or isinstance(error, MissingQuery) or isinstance(error, NoResults):
-        msg += f'{error}'
+    elif isinstance(error, UserNotFound) or isinstance(error, NoDataPoints) or isinstance(error, NoResults):
+        msg += f'{error}\n'
+    elif isinstance(error, MissingUsername) or isinstance(error, MissingQuery):
+        msg += f'{error}\n' \
+               f'Type `!b help {ctx.command}` to see the usage for the command.\n'
+    elif isinstance(error, commands.MissingRequiredArgument):
+        msg += f'Not all of the command\'s arguments were met.\n' \
+               f'You are missing the `{error.param}` argument.\n' \
+               f'Type `!b help {ctx.command}` to see the usage for the command.\n'
     # All other errors
     else:
-        msg += f'To see all commands type `!b help`\nUse `!b bug` if you continue to have issues\nOwner has been ' \
-               f'notified of error. '
+        msg += f'To see all commands type `!b help`\n' \
+               f'Owner has been notified of error. '
     # Reply with error message
     if msg != '':
-        await ctx.send(f'```{msg}```')
+        embed = discord.Embed(title=f'{bot.user.name}')
+        embed.add_field(name="Something went wrong", value=msg)
+        embed.add_field(name="If you continue to have problems",
+                        value=f'Type `!b bug` to be linked to the issues page',
+                        inline=False)
+        await ctx.send(embed=embed)
     # Log the error in the errors channel
     error_channel_id = 703313597690020081
     error_channel = bot.get_channel(error_channel_id)
@@ -80,6 +91,7 @@ async def on_command_error(ctx, error):
     embed.add_field(name="Location", value=f'{ctx.guild}/{ctx.channel.mention} - {ctx.author}')
     embed.add_field(name="User input", value=f'`{ctx.message.content}`', inline=False)
     embed.add_field(name="Error message", value=f'```{error}```', inline=False)
+    embed.add_field(name="Cause (if any)", value=f'{error.__cause__}', inline=False)
     await error_channel.send(embed=embed)
     return
 
