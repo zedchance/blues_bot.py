@@ -596,9 +596,16 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
                                                         f'{overall_rank} overall rank')
         for (name, xp, rank, levels, ehp) in tracker.top_gains[1:6]:
             if xp > 0:
-                embed.add_field(name=f'**{hiscore.level_lookup(name)}** {name}', value=f'+{xp:,} xp\n'
-                                                                                       f'{levels} levels\n'
-                                                                                       f'{rank} rank')
+                high_level = hiscore.level_lookup(name)
+                low_level = high_level - int(levels)
+                if high_level == low_level:
+                    title = f'**{high_level}** {name}'
+                else:
+                    title = f'**{low_level}** to **{high_level}** {name}'
+                embed.add_field(name=title,
+                                value=f'+{xp:,} xp\n'
+                                      f'{levels} levels\n'
+                                      f'{rank} rank')
         kills_msg = f''
         for (name, kills, rank) in tracker.top_kills[:5]:
             if kills > 0:
