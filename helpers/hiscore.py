@@ -24,8 +24,9 @@ class Hiscore:
         response = await req
         if response.status_code == 404:
             raise UserNotFound(f'No hiscore data for {self.username}.')
-        elif response.status_code != 200:
+        elif response.url == 'https://www.runescape.com/unavailable':
             logging.error(f'No response from hiscore page for {self.username} at this time')
+            raise HiscoreUnavailable(f'The hiscore page for `{self.username}` is unavailable at this time.')
         doc = BeautifulSoup(response.content, 'html.parser')
         first = [i.split() for i in doc]
         self.scores = [i.split(',') for i in first[0]]
@@ -304,6 +305,10 @@ class UserNotFound(TypeError):
 
 
 class MissingUsername(Exception):
+    pass
+
+
+class HiscoreUnavailable(Exception):
     pass
 
 # Test code

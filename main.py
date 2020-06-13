@@ -5,7 +5,7 @@ from discord.ext import commands, tasks
 from helpers.api_key import discord_key, owner_id
 from helpers.descriptions import bot_description, wrong_message
 from helpers.ge import MissingQuery, NoResults
-from helpers.hiscore import UserNotFound, MissingUsername
+from helpers.hiscore import UserNotFound, MissingUsername, HiscoreUnavailable
 from helpers.tracker import NoDataPoints
 from helpers.version import get_version
 
@@ -63,7 +63,8 @@ async def on_command_error(ctx, error):
     # Exceptions
     if isinstance(error, discord.ext.commands.errors.CommandNotFound):
         pass
-    elif isinstance(error, UserNotFound) or isinstance(error, NoDataPoints) or isinstance(error, NoResults):
+    elif isinstance(error, UserNotFound) or isinstance(error, NoDataPoints) or isinstance(error, NoResults)\
+            or isinstance(error, HiscoreUnavailable):
         msg += f'{error}\n'
     elif isinstance(error, MissingUsername) or isinstance(error, MissingQuery):
         msg += f'{error}\n' \
