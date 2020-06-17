@@ -5,7 +5,16 @@ import logging
 import requests
 from bs4 import BeautifulSoup
 
-from helpers.urls import cml_update_url, cml_sig, cml_url, cml_boss_url
+cml_url = 'http://crystalmathlabs.com/tracker/track.php?player='
+cml_update_url = 'http://crystalmathlabs.com/tracker/update.php?player='
+cml_boss_url = 'https://crystalmathlabs.com/tracker/bosstrack.php?player='
+cml_stats_url = 'https://crystalmathlabs.com/tracker/view_stats.php?player='
+cml_sig = 'http://crystalmathlabs.com/tracker/sig.php?name='
+cml_logo = 'https://crystalmathlabs.com/tracker/images/logo.png'
+
+
+def cml_track(username, duration):
+    return f'https://crystalmathlabs.com/tracker/api.php?type=track&player={username}&time={duration}'
 
 
 class Tracker:
@@ -13,6 +22,8 @@ class Tracker:
 
     def __init__(self, username):
         self.username = username
+        self.logo = cml_logo
+        self.url = cml_url + username
 
     async def fetch(self):
         """ Fetch CML results """
@@ -23,17 +34,21 @@ class Tracker:
         # Await update page
         update_response = await update
         # Get username's page
-        req = loop.run_in_executor(None, requests.get, cml_url + self.username)
+        req = loop.run_in_executor(None, requests.get, self.url)
         # Boss kill request
         boss_req = loop.run_in_executor(None, requests.get, cml_boss_url + self.username)
+        # Stats request
+        stats_req = loop.run_in_executor(None, requests.get, cml_stats_url + self.username)
         # Await requests
         response = await req
         boss_res = await boss_req
+        stats_res = await stats_req
         if response.status_code == 404:
             raise UserNotFound(f'No data for {self.username}.')
         # Parse responses
         doc = BeautifulSoup(response.content, 'html.parser')
         boss_doc = BeautifulSoup(boss_res.content, 'html.parser')
+        stats_doc = BeautifulSoup(stats_res.content, 'html.parser')
 
         # Put results in an array of tuples
         # (Skill name, XP gained, Rank change, Levels gained, EHP)
@@ -85,6 +100,42 @@ class Tracker:
 
         # Sort boss kills array
         self.top_kills = sorted(self.boss_kills, key=lambda tup: tup[1], reverse=True)
+
+        # Get stats
+        stats_response = stats_doc.find_all('tr')
+        self.stats = []
+        for i in stats_response[1:-1]:
+            # Parse
+            search = i.find_all('td')
+            name = search[0].text
+            xp = search[1].text.replace(',', '')
+            rank = search[2].text.replace(',', '')
+            lvl = search[3].text.replace(',', '')
+            # Store results
+            self.stats.append((name, xp, rank, lvl))
+
+    def get_lvl(self, name):
+        """ Returns the lvl for a stat """
+        for (skill, xp, rank, lvl) in self.stats:
+            if name.strip() == skill.strip():
+                return lvl
+
+    def get_non_virtual_lvl(self, name):
+        """ Returns the non-virtal lvl for a stat """
+        overall = 0
+        for (skill, xp, rank, lvl) in self.stats[1:]:
+            if int(lvl) > 99:
+                overall += 99
+            else:
+                overall += int(lvl)
+            if name.strip() == skill.strip():
+                if int(lvl) > 99:
+                    return 99
+                else:
+                    return lvl
+        if name.strip() == 'Overall':
+            return overall
+
 
     def get_sig(self):
         return f'{cml_sig}{self.username}'

@@ -21,8 +21,6 @@ rsbuddy_url = 'https://rsbuddy.com/exchange?search='
 
 # Crystal math labs xp tracker
 cml_url = 'http://crystalmathlabs.com/tracker/track.php?player='
-cml_update_url = 'http://crystalmathlabs.com/tracker/update.php?player='
-cml_boss_url = 'https://crystalmathlabs.com/tracker/bosstrack.php?player='
 cml_sig = 'http://crystalmathlabs.com/tracker/sig.php?name='
 cml_logo = 'https://crystalmathlabs.com/tracker/images/logo.png'
 

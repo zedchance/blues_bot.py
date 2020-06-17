@@ -5,7 +5,7 @@ from calcs.combat import Combat
 from calcs.experience import next_level_string
 from helpers.hiscore import Hiscore
 from helpers.tracker import Tracker
-from helpers.urls import get_icon_url, cml_logo, cml_url
+from helpers.urls import get_icon_url
 
 
 class Levels(commands.Cog, command_attrs=dict(hidden=True)):
@@ -578,34 +578,40 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
         safe_name = ' '.join(username)
         if safe_name != '':
             await ctx.send(f'Tracking **{safe_name}**...')
-        hiscore = Hiscore(url_safe_name)
         tracker = Tracker(url_safe_name)
         async with ctx.typing():
-            await hiscore.fetch()
             await tracker.fetch()
-        embed = discord.Embed(title='Weekly activity', url=f'{cml_url}{url_safe_name}')
-        embed.set_thumbnail(url=cml_logo)
+        embed = discord.Embed(title='Weekly activity', url=tracker.url)
+        embed.set_thumbnail(url=tracker.logo)
+        # Overall stats
+        (overall_name, overall_xp, overall_rank, overall_lvl) = tracker.stats[0]
         embed.add_field(name=f'{safe_name}',
-                        value=f'**{int(hiscore.overall_xp):,}** XP\n'
-                              f'**{int(hiscore.overall_level):,}** Total\n'
-                              f'**{int(hiscore.overall_rank):,}** Rank',
+                        value=f'**{int(overall_xp):,}** XP\n'
+                              f'**{int(tracker.get_non_virtual_lvl("Overall")):,}** Total\n'
+                              f'**{int(overall_rank):,}** Rank',
                         inline=False)
+        # Overall gains
         (overall_name, overall_xp, overall_rank, overall_levels, overall_ehp) = tracker.top_gains[0]
         embed.add_field(name='**Overall gains**', value=f'+{overall_xp:,} XP\n'
                                                         f'{overall_levels} levels\n'
                                                         f'{overall_rank} overall rank')
+        # Top 5 gains
         for (name, xp, rank, levels, ehp) in tracker.top_gains[1:6]:
             if xp > 0:
-                high_level = hiscore.level_lookup(name)
+                high_level = int(tracker.get_non_virtual_lvl(name))
                 low_level = high_level - int(levels)
                 if high_level == low_level:
-                    title = f'**{high_level}** {name}'
+                    if high_level == 99:
+                        title = f'**{high_level} ({tracker.get_lvl(name)})** {name}'
+                    else:
+                        title = f'**{high_level}** {name}'
                 else:
                     title = f'**{low_level}** to **{high_level}** {name}'
                 embed.add_field(name=title,
                                 value=f'+{xp:,} xp\n'
                                       f'{levels} levels\n'
                                       f'{rank} rank')
+        # Boss kills
         kills_msg = f''
         for (name, kills, rank) in tracker.top_kills[:5]:
             if kills > 0:
