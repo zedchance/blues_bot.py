@@ -11,7 +11,7 @@ from helpers.version import get_version
 
 logging.basicConfig(filename='bot.log',
                     format='%(asctime)s:%(levelname)s:%(message)s',
-                    level=logging.INFO)
+                    level=logging.DEBUG)
 
 
 def get_prefix(client, message):
@@ -154,4 +154,4 @@ async def vote_command(ctx):
     return
 
 
-bot.run(discord_key, bot=True, reconnect=True)
+bot.run(discord_key, bot=True)

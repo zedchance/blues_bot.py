@@ -55,7 +55,7 @@ class Tracker:
         elif update_response.content == b'-4':
             self.status = f'XP not updated, site busy'
             self.response_busy = True
-            logging.info(f'Busy response from CML (-4) when attempting to update k{self.username}.')
+            logging.info(f'Busy response from CML (-4) when attempting to update {self.username}.')
         else:
             self.status = f'Unknown response when attempting to update XP'
         # Get username's page
