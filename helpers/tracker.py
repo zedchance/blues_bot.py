@@ -5,8 +5,9 @@ import logging
 import requests
 from bs4 import BeautifulSoup
 
-cml_url = 'http://crystalmathlabs.com/tracker/track.php?player='
-cml_update_url = 'http://crystalmathlabs.com/tracker/update.php?player='
+cml_url = 'https://crystalmathlabs.com/tracker/track.php?player='
+cml_update_url = 'https://crystalmathlabs.com/tracker/api.php?type=update&player='
+cml_site_update_url = 'https://crystalmathlabs.com/tracker/update.php?player='
 cml_boss_url = 'https://crystalmathlabs.com/tracker/bosstrack.php?player='
 cml_stats_url = 'https://crystalmathlabs.com/tracker/view_stats.php?player='
 cml_sig = 'http://crystalmathlabs.com/tracker/sig.php?name='
@@ -24,6 +25,10 @@ class Tracker:
         self.username = username
         self.logo = cml_logo
         self.url = cml_url + username
+        self.update_url = cml_site_update_url + self.username
+        self.no_gains = False
+        self.player_not_found = False
+        self.invalid_player_name = False
 
     async def fetch(self):
         """ Fetch CML results """
@@ -33,6 +38,26 @@ class Tracker:
         update = loop.run_in_executor(None, requests.get, cml_update_url + self.username)
         # Await update page
         update_response = await update
+        # Parse response
+        self.response_busy = False
+        if update_response.content == b'1':
+            self.status = f'Successfully updated XP'
+        elif update_response.content == b'2':
+            self.status = f'Player not found on hiscores'
+            self.player_not_found = True
+        elif update_response.content == b'4':
+            self.status = f'An unknown error occurred'
+        elif update_response.content == b'5':
+            self.status = f'XP updated within the last 30 seconds'
+        elif update_response.content == b'6':
+            self.status = f'Invalid name'
+            self.invalid_player_name = True
+        elif update_response.content == b'-4':
+            self.status = f'XP not updated, site busy'
+            self.response_busy = True
+            logging.info(f'Busy response from CML (-4) when attempting to update k{self.username}.')
+        else:
+            self.status = f'Unknown response when attempting to update XP'
         # Get username's page
         req = loop.run_in_executor(None, requests.get, self.url)
         # Boss kill request
@@ -74,9 +99,7 @@ class Tracker:
         for (name, xp, rank, levels, ehp) in self.top_gains:
             if name == 'Overall':
                 if xp == 0:
-                    raise NoDataPoints(f'Either this is the first time {self.username} has been tracked this week, '
-                                       f'or no XP has been gained. Gain some more XP and try again.\n\n'
-                                       '(This command is more useful if you use it often.)')
+                    self.no_gains = True
 
         # Extract last changed time
         details_response = doc.find_all('div', {"id": "track_details"})
