@@ -20,16 +20,6 @@ class Links(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name='hiscore',
-                      description='Returns a URL to a player\'s hiscore page',
-                      aliases=['hiscores', '-h'],
-                      case_insensitive=True)
-    async def ping_command(self, ctx, *username):
-        """ Links to hiscore page for a user """
-        url_safe = '+'.join(username)
-        await ctx.send(f'{ctx.message.author.mention}\n{hiscore_url}{url_safe}')
-        return
-
     @commands.command(name='wiki',
                       description='Returns a URL to a wiki page',
                       aliases=['-w'],

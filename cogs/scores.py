@@ -79,31 +79,8 @@ class Scores(commands.Cog):
             embed.add_field(name="Nothing found", value="You haven't solved any clue scrolls", inline=True)
         else:
             embed.add_field(name="Total clues",
-                            value=f'**{int(user.all_clues_score):,}** (Rank {int(user.all_clues_rank):,})',
-                            inline=True)
-        if user.beginner_clues_rank != -1:
-            embed.add_field(name="Beginner clues",
-                            value=f'**{int(user.beginner_clues_score):,}** (Rank {int(user.beginner_clues_rank):,})',
-                            inline=True)
-        if user.easy_clues_rank != -1:
-            embed.add_field(name="Easy clues",
-                            value=f'**{int(user.easy_clues_score):,}** (Rank {int(user.easy_clues_rank):,})',
-                            inline=True)
-        if user.medium_clues_rank != -1:
-            embed.add_field(name="Medium clues",
-                            value=f'**{int(user.medium_clues_score):,}** (Rank {int(user.medium_clues_rank):,})',
-                            inline=True)
-        if user.hard_clues_rank != -1:
-            embed.add_field(name="Hard clues",
-                            value=f'**{int(user.hard_clues_score):,}** (Rank {int(user.hard_clues_rank):,})',
-                            inline=True)
-        if user.elite_clues_rank != -1:
-            embed.add_field(name="Elite clues",
-                            value=f'**{int(user.elite_clues_score):,}** (Rank {int(user.elite_clues_rank):,})',
-                            inline=True)
-        if user.master_clues_rank != -1:
-            embed.add_field(name="Master clues",
-                            value=f'**{int(user.master_clues_score):,}** (Rank {int(user.master_clues_rank):,})',
+                            value=f'**{int(user.all_clues_score):,}** (Rank {int(user.all_clues_rank):,})\n'
+                                  f'```{user.generate_clue_table()}```',
                             inline=True)
         await ctx.send(f'{ctx.message.author.mention}', embed=embed)
         return

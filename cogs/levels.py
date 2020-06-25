@@ -5,7 +5,7 @@ from calcs.combat import Combat
 from calcs.experience import next_level_string
 from helpers.hiscore import Hiscore
 from helpers.tracker import Tracker
-from helpers.urls import get_icon_url
+from helpers.urls import get_icon_url, hiscore_url
 
 
 class Levels(commands.Cog, command_attrs=dict(hidden=True)):
@@ -14,13 +14,34 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
     def __init__(self, bot):
         self.bot = bot
 
+    @commands.command(name='stats',
+                      description='Show all stats for a user',
+                      aliases=['stat', 'hiscore', 'hiscores'],
+                      hidden=False,
+                      case_insensitive=True)
+    async def stats_command(self, ctx, *username):
+        """ Shows all stats for a user """
+        url_safe_name = '+'.join(username)
+        safe_name = ' '.join(username)
+        user = Hiscore(url_safe_name)
+        async with ctx.typing():
+            await user.fetch()
+        embed = discord.Embed(title=safe_name,
+                              description=f'**{user.overall_xp:,}** XP\n'
+                                          f'**{user.overall_level:,}** Total\n'
+                                          f'**{user.overall_rank:,}** Rank',
+                              url=f'{hiscore_url}{url_safe_name}')
+        embed.add_field(name='Details', value=f'```{user.generate_hiscore_table()}```')
+        await ctx.send(f'{ctx.message.author.mention}', embed=embed)
+        return
+
     @commands.command(name='lvl',
                       description='Use to list all available level commands',
                       aliases=['levels', 'level', 'lvls'],
                       hidden=False,
                       case_insensitive=True)
     async def levels_command(self, ctx):
-        """ Simply reply with a list of available level commands """
+        """ Shows a list of available level commands """
         bot = ctx.bot
         embed = discord.Embed(title="Levels", description="Here is a list of available level lookup commands")
         temp = ""
@@ -529,14 +550,10 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
         field_count = 0
         await ctx.send(f'{ctx.message.author.mention}')
         embed = discord.Embed(title="Boss kill counts", description=f'{safe_name}')
-        for (name, kc, rank) in user.kcs:
-            if int(kc) > -1:
-                embed.add_field(name=name, value=f'**{int(kc):,}** (Rank {int(rank):,})')
-                field_count += 1
-            if field_count == 25:
-                await ctx.send(embed=embed)
-                embed = discord.Embed()
-                field_count = 0
+        if user.generate_kc_table():
+            embed.add_field(name='Details', value=f'```{user.generate_kc_table()}```')
+        else:
+            embed.add_field(name='Nothing found', value='No kill counts on the hiscore page.')
         await ctx.send(embed=embed)
         return
 
@@ -552,17 +569,12 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
         user = Hiscore(url_safe_name)
         async with ctx.typing():
             await user.fetch()
-        embed = discord.Embed(title="99s", description=f'{safe_name}\n*{user.overall_level}* total level')
-        count = 0
-        msg = f''
-        for (name, level, xp, rank) in user.levels:
-            if int(level) == 99:
-                msg += f'**{name}** {int(xp) / 1000000:.2f}M xp\n'
-                count += 1
-        if count == 0:
-            embed.add_field(name="**0 / 23**", value="User doesn't have any level 99s")
+        embed = discord.Embed(title="99s", description=f'{safe_name}\n{user.overall_level} total')
+        count, table = user.generate_99_table()
+        if table:
+            embed.add_field(name=f'**{count} / 23**', value=f'```{table}```')
         else:
-            embed.add_field(name=f"**{count} / 23**", value=msg)
+            embed.add_field(name=f'**0 / 23**', value='User doesn\'t have any 99s')
         await ctx.send(f'{ctx.message.author.mention}', embed=embed)
         return
 

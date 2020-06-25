@@ -4,6 +4,7 @@ import asyncio
 import logging
 import requests
 from bs4 import BeautifulSoup
+from tabulate import tabulate
 
 main_url = "https://secure.runescape.com/m=hiscore_oldschool/index_lite.ws?player="
 
@@ -298,6 +299,54 @@ class Hiscore:
             if name == skill:
                 return level
         return None
+
+    def generate_clue_table(self):
+        """ Returns a formatted table of clue scroll scores """
+        if self.all_clues_rank == -1:
+            return None
+        results = []
+        if self.beginner_clues_rank != -1:
+           results.append((self.beginner_clues_score, 'Beginner'))
+        if self.easy_clues_rank != -1:
+            results.append((self.easy_clues_score, 'Easy'))
+        if self.medium_clues_rank != -1:
+            results.append((self.medium_clues_score, 'Medium'))
+        if self.hard_clues_rank != -1:
+            results.append((self.hard_clues_score, 'Hard'))
+        if self.elite_clues_rank != -1:
+            results.append((self.elite_clues_score, 'Elite'))
+        if self.master_clues_rank != -1:
+            results.append((self.master_clues_score, 'Master'))
+        return tabulate(results, tablefmt='plain')
+
+    def generate_kc_table(self):
+        """ Returns a formatted table of kill counts """
+        results = []
+        for (name, kc, rank) in self.kcs:
+            if int(kc) > -1:
+                results.append((kc, name))
+        if len(results) == 0:
+            return None
+        return tabulate(results, tablefmt='plain')
+
+    def generate_99_table(self):
+        """ Returns the number of 99s and a formatted table of level 99s """
+        results = []
+        count = 0
+        for (name, level, xp, rank) in self.levels:
+            if int(level) == 99:
+                results.append((name, f'{int(xp) / 1000000:.1f}M xp'))
+                count += 1
+        if count == 0:
+            return count, None
+        return count, tabulate(results, tablefmt='plain')
+
+    def generate_hiscore_table(self):
+        """ Returns a formatted table of all hiscore info """
+        results = []
+        for (name, level, xp, rank) in self.levels:
+            results.append((level, name))
+        return tabulate(results, tablefmt='plain')
 
 
 class UserNotFound(TypeError):
