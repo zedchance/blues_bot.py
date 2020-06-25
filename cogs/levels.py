@@ -68,16 +68,11 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
         async with ctx.typing():
             await user.fetch()
         levels = f'{safe_name}\n' \
-                 f'**{user.calculate_combat():.2f}**\n' \
+                 f'**{user.calculate_combat():.1f}**\n' \
                  f'{user.discipline}'
-        details = f'Attack: **{user.attack_level}**\n' \
-                  f'Defence: **{user.defence_level}**\n' \
-                  f'Strength: **{user.strength_level}**\n' \
-                  f'Prayer: **{user.prayer_level}**\n' \
-                  f'Mage: **{user.magic_level}**\n' \
-                  f'Range: **{user.ranged_level}**'
+        details = user.generate_combat_table()
         embed = discord.Embed(title="Combat", description=levels)
-        embed.add_field(name="Details", value=details, inline=False)
+        embed.add_field(name="Details", value=f'```{details}```', inline=False)
         await ctx.send(f'{ctx.message.author.mention}', embed=embed)
         return
 

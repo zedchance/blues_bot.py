@@ -348,6 +348,18 @@ class Hiscore:
             results.append((level, name))
         return tabulate(results, tablefmt='plain')
 
+    def generate_combat_table(self):
+        """ Returns a formatted table of all combat info """
+        results = []
+        results.append((self.attack_level, 'Attack'))
+        results.append((self.defence_level, 'Defence'))
+        results.append((self.strength_level, 'Strength'))
+        results.append((self.prayer_level, 'Prayer'))
+        results.append((self.magic_level, 'Magic'))
+        results.append((self.ranged_level, 'Ranged'))
+        return tabulate(results, tablefmt='plain')
+
+
 
 class UserNotFound(TypeError):
     pass
