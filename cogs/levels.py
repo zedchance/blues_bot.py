@@ -575,8 +575,7 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
 
     @commands.command(name='xp',
                       description='XP tracker using Crystal Math Labs\n'
-                                  'The command tries to update your XP, but if the site is too busy its worth '
-                                  'attempting to update the XP yourself on the site then trying the command again.',
+                                  'This command can be really slow because it needs to update your XP',
                       aliases=['tracker', 'gains'],
                       hidden=False,
                       case_insensitive=True)
@@ -591,11 +590,6 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
             await tracker.fetch()
         embed = discord.Embed(title='Weekly activity', url=tracker.url)
         embed.set_thumbnail(url=tracker.logo)
-        # Check to see if name was valid
-        if tracker.player_not_found:
-            embed.add_field(name='Player not found on hiscores',
-                            value=f'Ensure that the username `{safe_name}` is correct.')
-            return await ctx.send(f'{ctx.message.author.mention}', embed=embed)
         # Overall stats
         (overall_name, overall_xp, overall_rank, overall_lvl) = tracker.stats[0]
         embed.add_field(name=f'{safe_name}',
@@ -603,57 +597,39 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
                               f'**{int(tracker.get_non_virtual_lvl("Overall")):,}** Total\n'
                               f'**{int(overall_rank):,}** Rank',
                         inline=False)
-
-        # Set footer
-        embed.set_footer(text=f'{tracker.status}\n'
-                              f'Checked: {tracker.last_checked} ago\n'
+        # Overall gains
+        (overall_name, overall_xp, overall_rank, overall_levels, overall_ehp) = tracker.top_gains[0]
+        embed.add_field(name='**Overall gains**', value=f'+{overall_xp:,} XP\n'
+                                                        f'{overall_levels} levels\n'
+                                                        f'{overall_rank} overall rank')
+        # Top 5 gains
+        for (name, xp, rank, levels, ehp) in tracker.top_gains[1:6]:
+            if xp > 0:
+                high_level = int(tracker.get_non_virtual_lvl(name))
+                low_level = high_level - int(levels)
+                if high_level == low_level:
+                    if high_level == 99:
+                        title = f'**{high_level} ({tracker.get_lvl(name)})** {name}'
+                    else:
+                        title = f'**{high_level}** {name}'
+                else:
+                    title = f'**{low_level}** to **{high_level}** {name}'
+                embed.add_field(name=title,
+                                value=f'+{xp:,} xp\n'
+                                      f'{levels} levels\n'
+                                      f'{rank} rank')
+        # Boss kills
+        kills_msg = f''
+        for (name, kills, rank) in tracker.top_kills[:5]:
+            if kills > 0:
+                kills_msg += f'{kills:,}\t{name}\n'
+        if kills_msg != '':
+            embed.add_field(name='Recent kills', value=f'```{kills_msg}```', inline=False)
+        embed.set_footer(text=f'Checked: {tracker.last_checked} ago\n'
                               f'Changed: {tracker.last_changed} ago\n'
                               f'Oldest data point: {tracker.oldest_data} ago')
-        # Check to see if there are no gains
-        if tracker.no_gains:
-            embed.add_field(name='**No gains tracked this week**',
-                            value=f'This may be the first time `{safe_name}` has been tracked this week. '
-                                  f'Gain some more XP and try again later. '
-                                  f'This command is more useful if you use it often.',
-                            inline=False)
-        else:
-            # Overall gains
-            (overall_name, overall_xp, overall_rank, overall_levels, overall_ehp) = tracker.top_gains[0]
-            embed.add_field(name='**Overall gains**', value=f'+{overall_xp:,} XP\n'
-                                                            f'{overall_levels} levels\n'
-                                                            f'{overall_rank} overall rank')
-            # Top 5 gains
-            for (name, xp, rank, levels, ehp) in tracker.top_gains[1:6]:
-                if xp > 0:
-                    high_level = int(tracker.get_non_virtual_lvl(name))
-                    low_level = high_level - int(levels)
-                    if high_level == low_level:
-                        if high_level == 99:
-                            title = f'**{high_level} ({tracker.get_lvl(name)})** {name}'
-                        else:
-                            title = f'**{high_level}** {name}'
-                    else:
-                        title = f'**{low_level}** to **{high_level}** {name}'
-                    embed.add_field(name=title,
-                                    value=f'+{xp:,} xp\n'
-                                          f'{levels} levels\n'
-                                          f'{rank} rank')
-            # Boss kills
-            kills_msg = f''
-            for (name, kills, rank) in tracker.top_kills[:5]:
-                if kills > 0:
-                    kills_msg += f'{kills:,}\t{name}\n'
-            if kills_msg != '':
-                embed.add_field(name='Recent kills', value=f'```{kills_msg}```', inline=False)
-        # Check to see if API was busy
-        if tracker.response_busy:
-            embed.add_field(name='** **',
-                            value=f'Attempted to update {safe_name}\'s XP, however the site is busy. '
-                                  f'Showing most recent gains. '
-                                  f'If you know there are new gains then attempting to '
-                                  f'[update]({tracker.update_url}) {safe_name}\'s XP manually may help.',
-                            inline=False)
-        return await ctx.send(f'{ctx.message.author.mention}', embed=embed)
+        await ctx.send(f'{ctx.message.author.mention}', embed=embed)
+        return
 
 
 # Cog setup
