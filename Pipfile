@@ -13,6 +13,7 @@ matplotlib = "*"
 osrsbox = "*"
 asyncio = "*"
 pytz = "*"
+tabulate = "*"
 
 [requires]
 python_version = "3.7"
