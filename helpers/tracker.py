@@ -4,6 +4,7 @@ import asyncio
 import logging
 import requests
 from bs4 import BeautifulSoup
+from tabulate import tabulate
 
 cml_url = 'https://crystalmathlabs.com/tracker/track.php?player='
 cml_update_url = 'https://crystalmathlabs.com/tracker/update.php?player='
@@ -57,6 +58,8 @@ class Tracker:
         for i in response[1:-1]:
             # Parse
             name = i.a.text
+            if name.strip() == 'EHP':
+                break
             search = i.find_all('td')
             no_commas = search[1].text.replace(',', '')
             no_plus = no_commas.replace('+', '')
@@ -108,6 +111,8 @@ class Tracker:
             # Parse
             search = i.find_all('td')
             name = search[0].text
+            if name.strip() == 'EHP':
+                break
             xp = search[1].text.replace(',', '')
             rank = search[2].text.replace(',', '')
             lvl = search[3].text.replace(',', '')
@@ -136,6 +141,31 @@ class Tracker:
         if name.strip() == 'Overall':
             return overall
 
+    def generate_table(self):
+        """ Returns a formatted table of top 5 gains """
+        results = []
+        results.append(('Skill', 'Lvl', 'XP'))
+        for (name, xp, rank, levels, ehp) in self.top_gains[1:6]:
+            if xp > 0:
+                high_level = int(self.get_non_virtual_lvl(name))
+                low_level = high_level - int(levels)
+                if high_level == low_level:
+                    results.append((name, high_level, f'+{xp:,}'))
+                else:
+                    results.append((name, f'{high_level} ({levels})', f'+{xp:,}'))
+        if len(results) == 0:
+            return None
+        return tabulate(results, tablefmt='plain')
+
+    def generate_recent_kills_table(self):
+        """ Returns a formatted table of recent boss kills """
+        results = []
+        for (name, kills, rank) in self.top_kills[:5]:
+            if kills > 0:
+                results.append((kills, name))
+        if len(results) == 0:
+            return None
+        return tabulate(results, tablefmt='plain')
 
     def get_sig(self):
         return f'{cml_sig}{self.username}'

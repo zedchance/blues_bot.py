@@ -595,36 +595,17 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
         embed.add_field(name=f'{safe_name}',
                         value=f'**{int(overall_xp):,}** XP\n'
                               f'**{int(tracker.get_non_virtual_lvl("Overall")):,}** Total\n'
-                              f'**{int(overall_rank):,}** Rank',
-                        inline=False)
+                              f'**{int(overall_rank):,}** Rank')
         # Overall gains
         (overall_name, overall_xp, overall_rank, overall_levels, overall_ehp) = tracker.top_gains[0]
-        embed.add_field(name='**Overall gains**', value=f'+{overall_xp:,} XP\n'
-                                                        f'{overall_levels} levels\n'
-                                                        f'{overall_rank} overall rank')
+        embed.add_field(name='Overall gains', value=f'+{overall_xp:,} XP\n'
+                                                    f'{overall_levels} levels\n'
+                                                    f'{overall_rank} overall rank')
         # Top 5 gains
-        for (name, xp, rank, levels, ehp) in tracker.top_gains[1:6]:
-            if xp > 0:
-                high_level = int(tracker.get_non_virtual_lvl(name))
-                low_level = high_level - int(levels)
-                if high_level == low_level:
-                    if high_level == 99:
-                        title = f'**{high_level} ({tracker.get_lvl(name)})** {name}'
-                    else:
-                        title = f'**{high_level}** {name}'
-                else:
-                    title = f'**{low_level}** to **{high_level}** {name}'
-                embed.add_field(name=title,
-                                value=f'+{xp:,} xp\n'
-                                      f'{levels} levels\n'
-                                      f'{rank} rank')
+        embed.add_field(name='Top 5 gains', value=f'```{tracker.generate_table()}```', inline=False)
         # Boss kills
-        kills_msg = f''
-        for (name, kills, rank) in tracker.top_kills[:5]:
-            if kills > 0:
-                kills_msg += f'{kills:,}\t{name}\n'
-        if kills_msg != '':
-            embed.add_field(name='Recent kills', value=f'```{kills_msg}```', inline=False)
+        if tracker.generate_recent_kills_table():
+            embed.add_field(name='Recent kills', value=f'```{tracker.generate_recent_kills_table()}```', inline=False)
         embed.set_footer(text=f'Checked: {tracker.last_checked} ago\n'
                               f'Changed: {tracker.last_changed} ago\n'
                               f'Oldest data point: {tracker.oldest_data} ago')
