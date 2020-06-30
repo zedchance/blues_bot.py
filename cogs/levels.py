@@ -575,20 +575,33 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
 
     @commands.command(name='xp',
                       description='XP tracker using Crystal Math Labs\n'
-                                  'This command can be really slow because it needs to update your XP',
-                      aliases=['tracker', 'gains'],
+                                  'This command can be really slow because it needs to update your XP\n'
+                                  'Use `mxp` alias to see monthly activity.\n'
+                                  'Use `yxp` alias to see yearly activity.',
+                      aliases=['mxp', 'yxp'],
                       hidden=False,
                       case_insensitive=True)
     async def tracker_command(self, ctx, *username):
         """ Shows weekly activity for a user """
         url_safe_name = '+'.join(username)
         safe_name = ' '.join(username)
-        if safe_name != '':
-            await ctx.send(f'Tracking **{safe_name}**...')
         tracker = Tracker(url_safe_name)
+        await ctx.send(f'Tracking **{safe_name}**...')
+        # Determine duration to show, defaulting to weekly (7d)
+        time = '7d'
+        skills = 5
+        title = 'Weekly activity'
+        if ctx.invoked_with == 'mxp':
+            time = '30d'
+            title = 'Monthly activity'
+            skills = 10
+        elif ctx.invoked_with == 'yxp':
+            time = '365d'
+            title = 'Yearly activity'
+            skills = 15
         async with ctx.typing():
-            await tracker.fetch()
-        embed = discord.Embed(title='Weekly activity', url=tracker.url)
+            await tracker.fetch(time=time)
+        embed = discord.Embed(title=title, url=tracker.url)
         embed.set_thumbnail(url=tracker.logo)
         # Overall stats
         (overall_name, overall_xp, overall_rank, overall_lvl) = tracker.stats[0]
@@ -602,10 +615,10 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
                                                     f'{overall_levels} levels\n'
                                                     f'{overall_rank} overall rank')
         # Top 5 gains
-        embed.add_field(name='Top 5 gains', value=f'```{tracker.generate_table()}```', inline=False)
+        embed.add_field(name=f'Top {skills} gains', value=f'```{tracker.generate_table(skills=skills)}```', inline=False)
         # Boss kills
         if tracker.generate_recent_kills_table():
-            embed.add_field(name='Recent kills', value=f'```{tracker.generate_recent_kills_table()}```', inline=False)
+            embed.add_field(name='Boss kills', value=f'```{tracker.generate_recent_kills_table()}```', inline=False)
         embed.set_footer(text=f'Checked: {tracker.last_checked} ago\n'
                               f'Changed: {tracker.last_changed} ago\n'
                               f'Oldest data point: {tracker.oldest_data} ago')

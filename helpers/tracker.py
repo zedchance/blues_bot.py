@@ -24,9 +24,11 @@ class Tracker:
     def __init__(self, username):
         self.username = username
         self.logo = cml_logo
-        self.url = cml_url + username
+        if username == '':
+            raise NoUsername('You must type a username after the command.\n'
+                             'Type `!b help xp` for more information.')
 
-    async def fetch(self):
+    async def fetch(self, time='7d'):
         """ Fetch CML results """
         # Event loop
         loop = asyncio.get_event_loop()
@@ -35,11 +37,12 @@ class Tracker:
         # Await update page
         update_response = await update
         # Get username's page
+        self.url = cml_url + self.username + f'&time={time}'
         req = loop.run_in_executor(None, requests.get, self.url)
         # Boss kill request
-        boss_req = loop.run_in_executor(None, requests.get, cml_boss_url + self.username)
+        boss_req = loop.run_in_executor(None, requests.get, cml_boss_url + self.username + f'&time={time}')
         # Stats request
-        stats_req = loop.run_in_executor(None, requests.get, cml_stats_url + self.username)
+        stats_req = loop.run_in_executor(None, requests.get, cml_stats_url + self.username + f'&time={time}')
         # Await requests
         response = await req
         boss_res = await boss_req
@@ -141,11 +144,11 @@ class Tracker:
         if name.strip() == 'Overall':
             return overall
 
-    def generate_table(self):
+    def generate_table(self, skills=5):
         """ Returns a formatted table of top 5 gains """
         results = []
         results.append(('Skill', 'Lvl', 'XP'))
-        for (name, xp, rank, levels, ehp) in self.top_gains[1:6]:
+        for (name, xp, rank, levels, ehp) in self.top_gains[1:skills + 1]:
             if xp > 0:
                 high_level = int(self.get_non_virtual_lvl(name))
                 low_level = high_level - int(levels)
@@ -160,7 +163,7 @@ class Tracker:
     def generate_recent_kills_table(self):
         """ Returns a formatted table of recent boss kills """
         results = []
-        for (name, kills, rank) in self.top_kills[:5]:
+        for (name, kills, rank) in self.top_kills:
             if kills > 0:
                 results.append((kills, name))
         if len(results) == 0:
@@ -176,4 +179,8 @@ class UserNotFound(TypeError):
 
 
 class NoDataPoints(Exception):
+    pass
+
+
+class NoUsername(Exception):
     pass
