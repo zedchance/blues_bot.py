@@ -150,12 +150,12 @@ class Tracker:
         results.append(('Skill', 'Lvl', 'XP'))
         for (name, xp, rank, levels, ehp) in self.top_gains[1:skills + 1]:
             if xp > 0:
-                high_level = int(self.get_non_virtual_lvl(name))
+                high_level = int(self.get_lvl(name))
                 low_level = high_level - int(levels)
                 if high_level == low_level:
                     results.append((name, high_level, f'+{xp:,}'))
                 else:
-                    results.append((name, f'{high_level} ({levels})', f'+{xp:,}'))
+                    results.append((name, f'{low_level} to {high_level}', f'+{xp:,}'))
         if len(results) == 0:
             return None
         return tabulate(results, tablefmt='plain')
