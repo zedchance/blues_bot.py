@@ -57,7 +57,7 @@ async def on_message(message):
 @bot.event
 async def on_command_error(ctx, error):
     """ Simply replies with error message, shows error message if I make an error """
-    logging.error(error)
+    logging.error(f'{type(error).__name__}: {error}')
     error = getattr(error, 'original', error)
     msg = ''
     # Exceptions
@@ -91,7 +91,7 @@ async def on_command_error(ctx, error):
     embed = discord.Embed(title=f'{bot.user.name}')
     embed.add_field(name="Location", value=f'{ctx.guild}/{ctx.channel.mention} - {ctx.author}')
     embed.add_field(name="User input", value=f'`{ctx.message.content}`', inline=False)
-    embed.add_field(name="Error message", value=f'```{error}```', inline=False)
+    embed.add_field(name="Error message", value=f'```{type(error).__name__}: {error}```', inline=False)
     embed.add_field(name="Cause (if any)", value=f'{error.__cause__}', inline=False)
     await error_channel.send(embed=embed)
     return
