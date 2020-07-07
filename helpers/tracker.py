@@ -28,14 +28,15 @@ class Tracker:
             raise NoUsername('You must type a username after the command.\n'
                              'Type `!b help xp` for more information.')
 
-    async def fetch(self, time='7d'):
+    async def fetch(self, time='7d', update=True):
         """ Fetch CML results """
         # Event loop
         loop = asyncio.get_event_loop()
         # Update results if able
-        update = loop.run_in_executor(None, requests.get, cml_update_url + self.username)
+        update_req = loop.run_in_executor(None, requests.get, cml_update_url + self.username)
         # Await update page
-        update_response = await update
+        if update:
+            update_response = await update_req
         # Get username's page
         self.url = cml_url + self.username + f'&time={time}'
         req = loop.run_in_executor(None, requests.get, self.url)

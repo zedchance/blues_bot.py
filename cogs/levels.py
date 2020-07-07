@@ -577,7 +577,8 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
                       description='XP tracker using Crystal Math Labs\n'
                                   'This command can be really slow because it needs to update your XP\n'
                                   'Use `mxp` alias to see monthly activity.\n'
-                                  'Use `yxp` alias to see yearly activity.',
+                                  'Use `yxp` alias to see yearly activity.\n'
+                                  'XP is only updated when checking weekly activity.',
                       aliases=['mxp', 'yxp'],
                       hidden=False,
                       case_insensitive=True)
@@ -586,21 +587,25 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
         url_safe_name = '+'.join(username)
         safe_name = ' '.join(username)
         tracker = Tracker(url_safe_name)
-        await ctx.send(f'Tracking **{safe_name}**...')
         # Determine duration to show, defaulting to weekly (7d)
         time = '7d'
         skills = 5
         title = 'Weekly activity'
+        update = True
+        if ctx.invoked_with == 'xp':
+            await ctx.send(f'Updating XP for **{safe_name}**...')
         if ctx.invoked_with == 'mxp':
             time = '30d'
             title = 'Monthly activity'
             skills = 10
+            update = False
         elif ctx.invoked_with == 'yxp':
             time = '365d'
             title = 'Yearly activity'
             skills = 15
+            update = False
         async with ctx.typing():
-            await tracker.fetch(time=time)
+            await tracker.fetch(time=time, update=update)
         embed = discord.Embed(title=title, url=tracker.url)
         embed.set_thumbnail(url=tracker.logo)
         # Overall stats
