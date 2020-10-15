@@ -1,8 +1,10 @@
 import logging
 import discord
+import pytz
 from discord.ext import commands, tasks
+from datetime import datetime
 
-from helpers.api_key import discord_key, owner_id
+from helpers.api_key import discord_key, owner_id, error_channel_id
 from helpers.descriptions import bot_description, wrong_message
 from helpers.ge import MissingQuery, NoResults
 from helpers.hiscore import UserNotFound, MissingUsername, HiscoreUnavailable
@@ -86,9 +88,11 @@ async def on_command_error(ctx, error):
                         inline=False)
         await ctx.send(embed=embed)
     # Log the error in the errors channel
-    error_channel_id = 703313597690020081
     error_channel = bot.get_channel(error_channel_id)
-    embed = discord.Embed(title=f'{bot.user.name}')
+    time = datetime.now()
+    timezone = pytz.timezone("America/Los_Angeles")
+    pst_time = timezone.localize(time)
+    embed = discord.Embed(title=f'{bot.user.name}', timestamp=pst_time)
     embed.add_field(name="Location", value=f'{ctx.guild}/{ctx.channel.mention} - {ctx.author}')
     embed.add_field(name="User input", value=f'`{ctx.message.content}`', inline=False)
     embed.add_field(name="Error message", value=f'```{type(error).__name__}: {error}```', inline=False)
