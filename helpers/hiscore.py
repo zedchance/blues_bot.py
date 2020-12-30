@@ -5,6 +5,7 @@ import logging
 import requests
 from bs4 import BeautifulSoup
 from tabulate import tabulate
+from calcs.experience import level_to_xp, xp_to_level, next_level_string
 
 main_url = "https://secure.runescape.com/m=hiscore_oldschool/index_lite.ws?player="
 
@@ -359,6 +360,19 @@ class Hiscore:
         results.append((self.ranged_level, 'Ranged'))
         return tabulate(results, tablefmt='plain')
 
+    def closest_level_up(self):
+        """ Returns a string of the skill closest to level up """
+        ret = ""
+        compare = 200000000
+        ret_name = ""
+        ret_xp = 0
+        for (name, lvl, xp, rank) in self.levels:
+            xp_needed = level_to_xp(xp_to_level(xp) + 1) - xp
+            if xp_needed < compare:
+                compare = xp_needed
+                ret_name = name
+                ret_xp = xp
+        return next_level_string(ret_xp, ret_name)
 
 
 class UserNotFound(TypeError):

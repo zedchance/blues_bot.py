@@ -32,6 +32,7 @@ class Levels(commands.Cog, command_attrs=dict(hidden=True)):
                                           f'**{user.overall_rank:,}** Rank',
                               url=f'{hiscore_url}{url_safe_name}')
         embed.add_field(name='Details', value=f'```{user.generate_hiscore_table()}```')
+        embed.set_footer(text=f'Closest level up: {user.closest_level_up()}')
         await ctx.send(f'{ctx.message.author.mention}', embed=embed)
         return
 
