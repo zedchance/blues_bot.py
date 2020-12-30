@@ -26,6 +26,8 @@ def xp_to_level(xp):
     level = 1
     if xp >= 200000000:
         return 120
+    elif xp == -1:
+        return level
     while xp >= level_to_xp(level):
         level += 1
     return level - 1
@@ -39,7 +41,7 @@ def next_level_string(xp, skill):
     if xp == 200000000:
         return "Maxed!"
     if xp > LEVEL_99:
-        skill = f'{skill} (virutal level)'
+        skill = f'{skill} (virtual level)'
     else:
         skill = f'{skill}'
     return f'{next_xp:,.0f} xp to {next_level} {skill}'
