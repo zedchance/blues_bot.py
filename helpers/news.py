@@ -36,39 +36,3 @@ class News:
             link = i.guid.text
             pubdate = i.pubdate.text
             self.articles.append((title, description, category, link, pubdate))
-
-        # Get info from first article
-        article_req = loop.run_in_executor(None, requests.get, self.articles[0][3])
-        article_response = await article_req
-        if article_response.status_code == 404:
-            print("404 from article page")  # TODO
-            return
-        response = BeautifulSoup(article_response.content, 'html.parser')
-        content = response.find('html')
-        # Article image
-        img_search = content.find_all('img')
-        self.image = img_search[0].attrs.get('src')
-        # Article text
-        self.latest_article_text = ''
-        sibling = content.next_sibling  # Skip over first line (which is the title)
-        for i in sibling.next_siblings:
-            if isinstance(i, NavigableString):
-                if i != '\n':
-                    self.latest_article_text += i.strip()
-                    self.latest_article_text += '\n\n'
-            else:
-                if i.name == 'strong':
-                    self.latest_article_text += f'**{i.text}**\n'
-        if len(self.latest_article_text) > 1024:
-            cut_length = 800 - len(self.articles[0][3]) + 20
-            self.latest_article_text = self.latest_article_text[:cut_length]
-            self.latest_article_text += f'... *[Read more]({self.articles[0][3]})*'
-        # else:
-        #     self.latest_article_text += f'*[Read more]({self.articles[0][3]})*'
-
-        # Test code
-        # text = ''
-        # for i in content.next_siblings:
-        #     if isinstance(i, NavigableString):
-        #         text += i
-        # print(text.strip())

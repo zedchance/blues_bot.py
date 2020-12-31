@@ -143,12 +143,7 @@ class Links(commands.Cog):
         async with ctx.typing():
             await news.fetch()
         embed = discord.Embed(title=news.title)
-        embed.set_thumbnail(url=news.image)
-        embed.add_field(name=f'Latest post - {news.articles[0][2]}',
-                        value=f'[**{news.articles[0][0]}**]({news.articles[0][3]})\n'
-                              f'{news.latest_article_text}',
-                        inline=False)
-        for i in range(1, 4):
+        for i in range(0, 6):
             embed.add_field(name=news.articles[i][2], value=f'**[{news.articles[i][0]}]({news.articles[i][3]})**\n'
                                                             f'{news.articles[i][1]}')
         embed.set_footer(text=f'Latest post: {news.articles[0][4]}')
