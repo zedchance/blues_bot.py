@@ -33,9 +33,6 @@ class Hiscore:
         first = [i.split() for i in doc]
         self.scores = [i.split(',') for i in first[0]]
 
-        with open('scores.csv', 'w') as f:
-            f.write(response.content.decode('utf-8'))
-
         # Assign levels
         self.overall_rank = int(self.scores[0][0])
         self.overall_level = int(self.scores[0][1])
