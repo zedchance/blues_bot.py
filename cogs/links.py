@@ -163,22 +163,24 @@ class Links(commands.Cog):
         if loaded_monster is not False:
             if len(loaded_monster) == 1:
                 loaded_monster = loaded_monster[0]
-                stats = f"`Combat level:` {loaded_monster.combat_level} \n"
-                stats += f"`Hitpoints:` {loaded_monster.hitpoints} \n"
-                stats += f"`Max hit:` {loaded_monster.max_hit} \n"
-                stats += f"`Aggressive:` {'Yes' if loaded_monster.aggressive else 'No'} \n"
-                stats += f"`Attack speed:` {loaded_monster.attack_speed} ticks \n"
-                # stats += f"`Weakness:` {'None' if len(loaded_monster.weakness) == 0 else ', '.join([x.capitalize() for x in loaded_monster.weakness])} \n "
-                stats += f"`Attack style:` {', '.join([x.capitalize() for x in loaded_monster.attack_type])} \n"
+                stats = f"Combat level: **{loaded_monster.combat_level}** \n"
+                stats += f"Hitpoints: **{loaded_monster.hitpoints}** \n"
+                stats += f"Max hit: **{loaded_monster.max_hit}** \n"
+                stats += f"Aggressive: **{'Yes' if loaded_monster.aggressive else 'No'}** \n"
+                stats += f"Attack speed: **{loaded_monster.attack_speed}** ticks \n"
+                stats += f"Attack style: **{', '.join([x.capitalize() for x in loaded_monster.attack_type])}** \n"
                 embed = discord.Embed(title=loaded_monster.name, url=loaded_monster.wiki_url)
-                embed.add_field(name="Members only", value="Yes" if loaded_monster.members else "No", inline=True)
-                embed.add_field(name="Examine", value=loaded_monster.examine, inline=True)
-                embed.add_field(name="Detailed", value=stats, inline=False)
-                embed.set_footer(text=f"Released: {loaded_monster.release_date}")
+                embed.add_field(name="Examine", value=loaded_monster.examine)
+                embed.add_field(name="Details", value=stats, inline=False)
+                released = f"Released: {loaded_monster.release_date}"
+                if loaded_monster.members:
+                    embed.set_footer(text=f'Members\n{released}', icon_url=members_icon)
+                else:
+                    embed.set_footer(text=f'Non members\n{released}')
                 loaded_monster_drops = parse_monster_drops(loaded_monster.drops)
                 if len(loaded_monster_drops) > 0:
-                    drops = [f"`{drop['name']}:` {drop['rarity_string']}" for drop in loaded_monster_drops[:5]]
-                    embed.add_field(name="Rarest drops", value="\n".join(drops))
+                    drops = [f"{drop['name']}: **{drop['rarity_string']}**" for drop in loaded_monster_drops[:5]]
+                    embed.add_field(name="Rarest drops", value="\n".join(drops), inline=False)
                 return await ctx.send(embed=embed)
             else:
                 results = ""
