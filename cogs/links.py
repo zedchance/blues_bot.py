@@ -31,19 +31,15 @@ class Links(commands.Cog):
             url = "https://oldschool.runescape.wiki/"
         else:
             url = wiki_url + url_safe
-        time = datetime.now()
-        timezone = pytz.timezone("America/Los_Angeles")
-        pst_time = timezone.localize(time)
         soup = BeautifulSoup(requests.get(url).content, 'html.parser')  # TODO async this
-        embed = discord.Embed(timestamp=pst_time)
+        embed = discord.Embed()
         try:
             description = soup.find(property="og:description")["content"]
             embed.description = description
         except TypeError:
             embed = discord.Embed(title="Oops......",
                                   description="Something went wrong with your request, please make sure to check the"
-                                              " spelling or try again later.",
-                                  timestamp=pst_time)
+                                              " spelling or try again later.")
             await ctx.send(ctx.message.author.mention)
             return await ctx.send(embed=embed)
         try:
