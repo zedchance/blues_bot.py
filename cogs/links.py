@@ -165,9 +165,8 @@ class Links(commands.Cog):
                 stats += f"Aggressive: **{'Yes' if loaded_monster.aggressive else 'No'}** \n"
                 stats += f"Attack speed: **{loaded_monster.attack_speed}** ticks \n"
                 stats += f"Attack style: **{', '.join([x.capitalize() for x in loaded_monster.attack_type])}** \n"
-                embed = discord.Embed(title=loaded_monster.name, url=loaded_monster.wiki_url)
-                embed.add_field(name="Examine", value=loaded_monster.examine)
-                embed.add_field(name="Details", value=stats, inline=False)
+                embed = discord.Embed(title=loaded_monster.name, description=loaded_monster.examine, url=loaded_monster.wiki_url)
+                embed.add_field(name="Details", value=stats)
                 released = f"Released: {loaded_monster.release_date}"
                 if loaded_monster.members:
                     embed.set_footer(text=f'Members\n{released}', icon_url=members_icon)
@@ -176,8 +175,8 @@ class Links(commands.Cog):
                 loaded_monster_drops = parse_monster_drops(loaded_monster.drops)
                 if len(loaded_monster_drops) > 0:
                     drops = [f"{drop['name']}: **{drop['rarity_string']}**" for drop in loaded_monster_drops[:5]]
-                    embed.add_field(name="Rarest drops", value="\n".join(drops), inline=False)
-                return await ctx.send(embed=embed)
+                    embed.add_field(name="Rarest drops", value="\n".join(drops))
+                return await ctx.send(f'{ctx.message.author.mention}', embed=embed)
             else:
                 results = ""
                 for index, x in enumerate(loaded_monster):
@@ -189,7 +188,7 @@ class Links(commands.Cog):
                                       description=f'There are multiple results for `{monster}`',
                                       timestamp=pst_time)
                 embed.add_field(name="Results", value=results + f"\nReply with a number for more information.")
-                await ctx.send(embed=embed)
+                await ctx.send(f'{ctx.message.author.mention}', embed=embed)
 
                 def check(m):
                     return m.content in [str(i) for i in range(1, len(loaded_monster) + 1)] \
