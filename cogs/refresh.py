@@ -16,7 +16,7 @@ class Refresh(commands.Cog):
     async def refresh_presence(self):
         """ Refreshes the presence of the bot """
         logging.info("Refreshing bot's presence")
-        status = discord.Activity(name='for !b help', type=3)
+        status = discord.Activity(name=f'for !b in {str(len(self.bot.guilds))} servers', type=3)
         return await self.bot.change_presence(activity=status)
 
 
