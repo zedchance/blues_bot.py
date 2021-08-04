@@ -314,6 +314,12 @@ class Hiscore:
                 return level
         return None
 
+    def xp_lookup(self, skill):
+        for (name, level, xp, rank) in self.levels:
+            if name == skill:
+                return xp
+        return None
+
     def generate_clue_table(self):
         """ Returns a formatted table of clue scroll scores """
         if self.all_clues_rank == -1:
@@ -387,6 +393,14 @@ class Hiscore:
                 ret_xp = xp
         return next_level_string(ret_xp, ret_name)
 
+    def xp_needed_to_level_up(self, skill):
+        """ Returns xp needed to level up """
+        xp = self.xp_lookup(skill)
+        if xp == 200000000:
+            return 0
+        virtual_level = xp_to_level(xp)
+        return level_to_xp(virtual_level + 1) - xp
+
 
 class UserNotFound(TypeError):
     pass
@@ -398,13 +412,3 @@ class MissingUsername(Exception):
 
 class HiscoreUnavailable(Exception):
     pass
-
-# Test code
-# bluetrane = Hiscore("bluetrane")
-# print("Overall rank:", bluetrane.overall_rank)
-# print("Overall level:", bluetrane.overall_level)
-# print("Overall xp:", bluetrane.overall_xp)
-# print("Slayer level:", bluetrane.slayer_level)
-# print("Runecraft level:", bluetrane.runecraft_level)
-# print("Medium clue scrolls", bluetrane.medium_clues_score)
-# print("LMS rank:", bluetrane.lms_rank)
