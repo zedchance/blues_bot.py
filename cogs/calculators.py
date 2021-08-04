@@ -4,6 +4,7 @@ from discord.ext import commands
 from calcs.agility import Agility
 from calcs.alchemy import Alchemy
 from calcs.experience import next_level_string
+from calcs.pickpocket import Pickpocket
 from calcs.tasks import Tasks
 from calcs.wines import Wines
 from calcs.wintertodt import Wintertodt
@@ -216,6 +217,24 @@ class Calculators(commands.Cog):
                                   f'Time calculated with 1200 alchs/hr')
         await ctx.send(f'{ctx.message.author.mention}', embed=embed)
         return
+
+    @commands.command(name='pp',
+                      description='Pickpocket calculator',
+                      aliases=['pickpocket'],
+                      case_insensitive=True)
+    async def pickpocket_command(self, ctx, *username):
+        """ Pickpocket calculator """
+        url_safe_name = '+'.join(username)
+        safe_name = ' '.join(username)
+        pp = Pickpocket(url_safe_name)
+        async with ctx.typing():
+            await pp.fetch()
+        embed = discord.Embed(title="Pickpocket calculator",
+                              description=f'**{pp.thieving_level}** Thieving ({pp.thieving_xp:,} xp)'
+                                          f' | {safe_name}')
+        embed.add_field(name='Amount to go', value=f'```{pp.generate_table()}```')
+        embed.set_footer(text=f'{next_level_string(int(pp.thieving_xp), "thieving")}')
+        await ctx.send(f'{ctx.message.author.mention}', embed=embed)
 
 
 # Cog setup
